@@ -205,6 +205,8 @@ def public_text(text: str) -> str:
         "Voor Invest in Bali": "Voor kopers en investeerders",
         "Invest in Bali betekent dit": "Voor kopers en investeerders betekent dit",
         "De knowledge base moet drie doelen dienen.": "Een goede kennisbasis heeft drie doelen.",
+        "Een goede kennisbasis heeft drie doelen. Ten eerste moet zij voorkomen dat Invest in Bali verkeerde aannames gebruikt bij projectselectie. Ten tweede moet zij voorkomen dat verkoopinformatie te stellig wordt. Ten derde moet zij het gesprek met lokale adviseurs structureren": "Een goede beoordeling heeft drie doelen. Ze voorkomt verkeerde aannames bij projectselectie, houdt verkoopinformatie nuchter en maakt het gesprek met lokale adviseurs concreter",
+        "Een goede kennisbasis moet daarom niet alleen zeggen": "Een goede beoordeling zegt daarom niet alleen",
         "knowledge base": "kennisbasis",
         "Knowledge base": "Kennisbasis",
         "de wiki moet niet vervangen": "publieke informatie vervangt niet",
@@ -219,25 +221,39 @@ def public_text(text: str) -> str:
         "intern verkeerde aannames": "verkeerde aannames",
         "intern": "in de beoordeling",
         "Intern": "In de beoordeling",
-        "database": "kennisbasis",
-        "Database": "Kennisbasis",
         "Invest in Bali moet": "Een project moet",
+        "moet Invest in Bali een legal help protocol hebben": "is een vast protocol voor juridische hulp verstandig",
+        "moet Invest in Bali": "hoort de beoordeling",
         "Invest in Bali beoordeelt": "Een zorgvuldige beoordeling bekijkt",
         "het bedrijf per project": "je per project",
         "Het bedrijf per project": "Je per project",
+        "kenniskennisbasis": "kennisbasis",
+        "Kenniskennisbasis": "Kennisbasis",
     }
     for old, new in replacements.items():
         text = text.replace(old, new)
+    text = re.sub(
+        r"Een goede kennisbasis heeft drie doelen\. Ten eerste moet zij voorkomen dat Invest in Bali verkeerde aannames gebruikt bij projectselectie\. Ten tweede moet zij voorkomen dat verkoopinformatie te stellig wordt\. Ten derde moet zij het gesprek met lokale adviseurs structureren",
+        "Een goede beoordeling heeft drie doelen. Ze voorkomt verkeerde aannames bij projectselectie, houdt verkoopinformatie nuchter en maakt het gesprek met lokale adviseurs concreter",
+        text,
+    )
+    text = re.sub(r"\bmoet altijd\b", "hoort", text)
+    text = re.sub(r"\bmoeten altijd\b", "horen", text)
+    text = re.sub(r"\bmoet je altijd\b", "wil je", text)
     return text
 
 
-def paragraphs_from(text: str, max_paragraphs: int = 3) -> str:
+def paragraphs_from(text: str, max_paragraphs: int = 3, skip_first: bool = False) -> str:
     parts = []
+    seen = 0
     for block in re.split(r"\n\s*\n", text.strip()):
         block = block.strip()
         if not block or block.startswith("#") or block.startswith("- "):
             continue
         if block.startswith(("Status:", "Laatste", "Eigenaar:", "Risico:")):
+            continue
+        seen += 1
+        if skip_first and seen == 1:
             continue
         parts.append(f"<p>{md_inline(block)}</p>")
         if len(parts) >= max_paragraphs:
@@ -252,11 +268,11 @@ def page_head(article: dict) -> str:
     faq = [
         {
             "question": f"Waarom is {article['keyword']} belangrijk?",
-            "answer": f"{article['keyword']} bepaalt welke controles nodig zijn voordat een koper of investeerder een object op Bali serieus beoordeelt.",
+            "answer": "Omdat dit onderwerp invloed kan hebben op vergunningen, kosten, verhuurbaarheid, doorverkoop en juridische zekerheid. Zie het als een controlevraag voordat je te veel waarde hecht aan foto's of rendementsvoorbeelden.",
         },
         {
             "question": "Is dit juridisch of financieel advies?",
-            "answer": "Nee. De informatie is praktische oriëntatie. Laat documenten, vergunningen, fiscale positie en juridische structuur altijd lokaal controleren.",
+            "answer": "Nee. Deze pagina helpt je betere vragen stellen. Laat documenten, vergunningen, fiscale positie en juridische structuur altijd lokaal beoordelen.",
         },
     ]
     schema = {
@@ -350,6 +366,12 @@ def article_page(article: dict) -> str:
     relevance = section(report, "Relevantie voor Invest in Bali")
     checklist = bullets(section(report, "Due diligence checklist") or report, 8)
     red_flags = bullets(section(report, "Rode vlaggen"), 8)
+    if not red_flags:
+        red_flags = [
+            "De locatie, rechten of bestemming zijn nog niet schriftelijk onderbouwd.",
+            "Budget, planning of kostenposten zijn te globaal om op te sturen.",
+            "Belangrijke aannames komen uit verkoopmateriaal, maar niet uit documenten.",
+        ]
     source_items = sources(report)
     checklist_html = "\n".join(f"<li>{md_inline(item)}</li>" for item in checklist)
     red_flags_html = "\n".join(f"<li>{md_inline(item)}</li>" for item in red_flags)
@@ -357,6 +379,43 @@ def article_page(article: dict) -> str:
         f'<li><a href="{esc(url)}">{md_inline(label)}</a></li>' for label, url in source_items
     )
     intro = first_paragraph(summary) or article["description"]
+    article_seed = sum(ord(char) for char in article["slug"])
+    why_headings = [
+        "Waarom dit ertoe doet",
+        "Waar het in de praktijk om draait",
+        "Waarom dit onderwerp niet los staat van je aankoop",
+    ]
+    check_headings = [
+        "Check dit vóór je verder gaat",
+        "Vragen die je eerst beantwoord wilt hebben",
+        "Wat je naast elkaar legt",
+    ]
+    red_flag_headings = [
+        "Signalen om serieus te nemen",
+        "Waar je niet te snel overheen wilt stappen",
+        "Rode vlaggen",
+    ]
+    approach_headings = [
+        "Zo maak je het praktisch",
+        "Een nuchtere manier van beoordelen",
+        "Van interesse naar controle",
+    ]
+    source_headings = [
+        "Bronnen en lokale controle",
+        "Waar je informatie tegenaan houdt",
+        "Bronnen voor verdere verificatie",
+    ]
+    cta_headings = [
+        "Leg dit naast een concreet object",
+        "Niet zeker wat dit voor jouw situatie betekent?",
+        "Wil je een woning inhoudelijk beoordelen?",
+    ]
+    why_heading = why_headings[article_seed % len(why_headings)]
+    check_heading = check_headings[article_seed % len(check_headings)]
+    red_flag_heading = red_flag_headings[article_seed % len(red_flag_headings)]
+    approach_heading = approach_headings[article_seed % len(approach_headings)]
+    source_heading = source_headings[article_seed % len(source_headings)]
+    cta_heading = cta_headings[article_seed % len(cta_headings)]
     return f"""<!DOCTYPE html>
 <html lang="nl">
   {page_head(article)}
@@ -367,37 +426,37 @@ def article_page(article: dict) -> str:
         <p class="eyebrow">KENNISCENTRUM</p>
         <h1>{esc(article['h1'])}</h1>
         <p>{md_inline(intro)}</p>
-        <p class="form-note">Laatst gecontroleerd: 11 mei 2026. Praktische oriëntatie, geen juridisch, fiscaal of financieel advies.</p>
+        <p class="form-note">Laatst nagelopen: 11 mei 2026. Gebruik dit als startpunt voor betere vragen; laat documenten en afspraken lokaal juridisch en fiscaal controleren.</p>
       </section>
       <section class="content-shell longform">
         <article class="content-card">
-          <h2>Waarom dit belangrijk is</h2>
-          {paragraphs_from(summary, 3)}
+          <h2>{why_heading}</h2>
+          {paragraphs_from(summary, 3, skip_first=True)}
         </article>
         <article class="content-card">
-          <h2>Wat je moet controleren</h2>
+          <h2>{check_heading}</h2>
           {paragraphs_from(relevance, 2)}
           <ul class="plain-list">{checklist_html}</ul>
         </article>
         <article class="content-card">
-          <h2>Rode vlaggen</h2>
-          <p>Gebruik deze punten als eerste filter. Een rode vlag betekent niet automatisch dat een object onmogelijk is, maar wel dat documentcontrole en lokale review nodig zijn.</p>
+          <h2>{red_flag_heading}</h2>
+          <p>Zie deze punten als reden om rustiger te kijken. Ze maken een object niet automatisch onbruikbaar, maar ze horen wel vóór een beslissing op tafel te liggen.</p>
           <ul class="plain-list">{red_flags_html}</ul>
         </article>
         <article class="content-card">
-          <h2>Praktische aanpak</h2>
-          <p>Begin met het doel van de aankoop: eigen gebruik, waardegroei, short-stay verhuur of projectontwikkeling. Koppel daarna elke aanname aan documenten, vergunningen, lokale regels en een realistisch kostenmodel.</p>
-          <p>Bij Bali vastgoed is vooral belangrijk dat verkoopinformatie, juridische structuur en exploitatiepotentie niet los van elkaar worden beoordeeld. Een aantrekkelijke locatie is pas interessant wanneer rechten, gebruik, kosten en exit ook verdedigbaar zijn.</p>
+          <h2>{approach_heading}</h2>
+          <p>Leg de verkoopinformatie naast drie dingen: documenten, feitelijk gebruik en je eigen doel. Klopt één van die drie niet, dan is het object nog niet klaar voor een serieuze beslissing.</p>
+          <p>Bij vastgoed op Bali zit de waarde vaak in de combinatie van locatie, rechten, gebruiksmogelijkheden en kosten. Een mooie woning wordt pas interessant wanneer die onderdelen samen verdedigbaar zijn.</p>
         </article>
         <article class="content-card">
-          <h2>Bronnen en verdere controle</h2>
-          <p>Gebruik primaire bronnen waar mogelijk. Commerciële marktinformatie kan nuttig zijn als context, maar mag geen vervanging zijn voor documentcontrole of lokale juridische beoordeling.</p>
+          <h2>{source_heading}</h2>
+          <p>Gebruik officiële bronnen en lokale specialisten waar het om documenten, vergunningen of belasting gaat. Marktinformatie is nuttig voor context, maar vervangt geen controle van het concrete object.</p>
           <ul class="source-list">{source_html}</ul>
         </article>
         <div class="cta-panel">
           <div>
-            <h2>Wil je dit toepassen op een concreet object?</h2>
-            <p>Plan een gesprek of vraag meer informatie op. Dan beoordelen we locatie, structuur, kosten, verhuurpotentie en risico's aan de hand van jouw situatie.</p>
+            <h2>{cta_heading}</h2>
+            <p>Plan een gesprek of vraag meer informatie op. Dan kijken we niet alleen naar foto's en prijs, maar ook naar locatie, structuur, kosten, verhuurpotentie en risico's.</p>
           </div>
           <div class="cta-actions">
             <a class="button button-gold" href="/contact/">Plan een call</a>
