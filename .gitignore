@@ -1,0 +1,12 @@
+.vercel
+node_modules
+package-lock.json
+dist/*.xlsx
+docs/
+*.md
+*.docx
+*.pdf
+!assets/downloads/gratis-gids-investeren-in-bali-2026.pdf
+website image from chatgpt.png
+Imagegen 2.png
+Sketchup design/

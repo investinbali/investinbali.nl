@@ -1,0 +1,360 @@
+[
+  {
+    "slug": "canggu-ocean-villas",
+    "title": "Canggu Ocean Villas",
+    "location": "Canggu, Bali",
+    "status": "te-koop",
+    "type": "villa",
+    "shortDescription": "Villa's op een sterke kustlocatie voor kopers die eigen gebruik, waardegroei en latere verkoop willen beoordelen.",
+    "thumbnail": "/assets/hero/bali-villa-hero.webp",
+    "images": ["/assets/hero/bali-villa-hero.webp", "/assets/kenniscentrum/villa-in-aanbouw-strand.webp"],
+    "priceLabel": "Prijs op aanvraag",
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "landSize": "Op aanvraag",
+    "buildingSize": "Op aanvraag",
+    "legalStructure": "Leasehold of passende juridische opzet",
+    "leaseRemaining": "Afhankelijk van object en contractdocumenten",
+    "extensionOptions": "Te controleren in leasecontract en notariële documentatie",
+    "grossYieldLabel": "Niet primair rendementsgedreven",
+    "netYieldLabel": "Niet vooraf vastgesteld",
+    "investmentGoal": "Aankoop / eigen gebruik / waardegroei",
+    "suitableFor": "Kopers die locatie, gebruikswaarde en exit-mogelijkheden belangrijk vinden",
+    "highlights": [
+      "Sterke vraag naar premium woningen in en rond Canggu.",
+      "Geschikt voor kopers die niet alleen naar verhuuromzet kijken.",
+      "Interessant wanneer juridische structuur, bouwkwaliteit en locatiecontrole positief uitvallen."
+    ],
+    "risks": [
+      "Juridische structuur en leasevoorwaarden moeten volledig worden getoetst.",
+      "Zoning, vergunningen en feitelijk gebruik moeten op perceelniveau kloppen.",
+      "Waardeontwikkeling en doorverkoopbaarheid zijn afhankelijk van markt en locatiekwaliteit."
+    ],
+    "costNotes": ["Notaris en juridische controle", "Onderhoud en lokale lasten", "Eventuele beheerkosten bij verhuur"],
+    "scenario": {
+      "averageDailyRate": "Niet primair rendementsgedreven",
+      "occupancy": "Niet van toepassing als eigen gebruik leidend is",
+      "grossRevenue": "Alleen relevant bij verhuurstrategie",
+      "costPercentage": "Afhankelijk van beheer, onderhoud en platformkosten",
+      "netResult": "Te bepalen na document- en marktanalyse"
+    }
+  },
+  {
+    "slug": "seminyak-sunset-residence",
+    "title": "Seminyak Sunset Residence",
+    "location": "Seminyak, Bali",
+    "status": "investering",
+    "type": "villa",
+    "shortDescription": "Moderne villa met short-stay potentie in een volwassen toeristische markt waar bezetting en kosten kritisch moeten worden doorgerekend.",
+    "thumbnail": "/assets/gids-2026/cover-villa.webp",
+    "images": ["/assets/gids-2026/cover-villa.webp", "/assets/kenniscentrum/tablet-barcharts-dashboard.webp"],
+    "priceLabel": "Prijs op aanvraag",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "landSize": "Op aanvraag",
+    "buildingSize": "Op aanvraag",
+    "legalStructure": "Leasehold met exploitatie-afspraken",
+    "leaseRemaining": "Te controleren per contract",
+    "extensionOptions": "Alleen meenemen wanneer verlenging juridisch vastligt",
+    "grossYieldLabel": "10-14% bruto indicatief",
+    "netYieldLabel": "Afhankelijk van bezetting, beheer en OTA-kosten",
+    "investmentGoal": "Short-stay verhuur / Airbnb-potentie",
+    "suitableFor": "Investeerders die rendementsscenario's kritisch willen toetsen",
+    "highlights": [
+      "Seminyak heeft een bestaande toeristische vraag en herkenbare marktpositie.",
+      "Short-stay potentie kan interessant zijn bij sterke presentatie en professioneel beheer.",
+      "Bruto scenario's moeten altijd worden vertaald naar netto resultaat na alle kosten."
+    ],
+    "risks": [
+      "Bezettingsgraad en dagprijs kunnen per seizoen en concurrentiepositie sterk verschillen.",
+      "Beheer, OTA/platformkosten, onderhoud en reserveringen drukken op netto rendement.",
+      "Exploitatie-afspraken, vergunningen en fiscale verwerking moeten vooraf helder zijn."
+    ],
+    "costNotes": ["Beheerfee", "OTA- en betalingskosten", "Schoonmaak, onderhoud en vervangingsreserves", "Lokale lasten en verzekeringen"],
+    "scenario": {
+      "averageDailyRate": "EUR 180-240 indicatief",
+      "occupancy": "60-70% indicatief",
+      "grossRevenue": "Afhankelijk van seizoen, positionering en beheer",
+      "costPercentage": "35-50% indicatief",
+      "netResult": "Alleen indicatief na projectspecifieke doorrekening"
+    }
+  },
+  {
+    "slug": "uluwatu-cliffside-home",
+    "title": "Uluwatu Cliffside Home",
+    "location": "Uluwatu, Bali",
+    "status": "investering",
+    "type": "huis",
+    "shortDescription": "Design house met premium positionering waar uitzicht, schaarste en exit-potentie belangrijker zijn dan alleen bruto omzet.",
+    "thumbnail": "/assets/kenniscentrum/meeting-overdracht.webp",
+    "images": ["/assets/kenniscentrum/meeting-overdracht.webp", "/assets/gids-2026/cover-villa.webp"],
+    "priceLabel": "Prijs op aanvraag",
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "landSize": "Op aanvraag",
+    "buildingSize": "Op aanvraag",
+    "legalStructure": "Leasehold of passende juridische opzet",
+    "leaseRemaining": "Te controleren in onderliggende documentatie",
+    "extensionOptions": "Afhankelijk van contract, eigenaar en notariële vastlegging",
+    "grossYieldLabel": "9-13% bruto indicatief",
+    "netYieldLabel": "Afhankelijk van kosten, bezetting en onderhoud",
+    "investmentGoal": "Schaarste / uitzicht / premium positionering",
+    "suitableFor": "Investeerders die locatiekwaliteit en lange termijn positionering willen meewegen",
+    "highlights": [
+      "Uluwatu blijft interessant door schaarste, uitzichtlocaties en premium vraag.",
+      "Geschikt voor beoordeling op waardegroei, verhuurpotentie en latere verkoop.",
+      "Sterk wanneer zoning, toegang, bouwkwaliteit en juridische structuur kloppen."
+    ],
+    "risks": [
+      "Cliffside of premium locaties vragen extra controle op toegang, constructie en vergunningen.",
+      "Short-stay opbrengst hangt af van positionering, beheer en concurrentie.",
+      "Exit-potentie is afhankelijk van resterende lease, documentkwaliteit en marktliquiditeit."
+    ],
+    "costNotes": ["Constructieve inspectie", "Onderhoud van premium afwerking", "Beheer en marketing", "Juridische due diligence"],
+    "scenario": {
+      "averageDailyRate": "EUR 220-320 indicatief",
+      "occupancy": "55-68% indicatief",
+      "grossRevenue": "Afhankelijk van uitzicht, afwerking en management",
+      "costPercentage": "35-50% indicatief",
+      "netResult": "Te bepalen met realistische kosten- en bezettingsaannames"
+    }
+  },
+  {
+    "slug": "berawa-family-villa",
+    "title": "Berawa Family Villa",
+    "location": "Berawa, Bali",
+    "status": "binnenkort",
+    "type": "villa",
+    "shortDescription": "Binnenkort beschikbaar: villa-profiel voor kopers die Berawa willen beoordelen op ligging, gebruik en verhuurpotentie.",
+    "thumbnail": "/assets/hero/bali-villa-hero.webp",
+    "images": ["/assets/hero/bali-villa-hero.webp"],
+    "priceLabel": "Prijs op aanvraag",
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "landSize": "Op aanvraag",
+    "buildingSize": "Op aanvraag",
+    "legalStructure": "Leasehold of passende juridische opzet",
+    "leaseRemaining": "Te controleren",
+    "extensionOptions": "Te controleren",
+    "grossYieldLabel": "Bruto indicatief op aanvraag",
+    "netYieldLabel": "Afhankelijk van kosten en beheer",
+    "investmentGoal": "Aankoop / short-stay potentie",
+    "suitableFor": "Kopers die een rustige shortlist willen opbouwen",
+    "highlights": [
+      "Berawa blijft relevant door ligging tussen Canggu, strand en voorzieningen.",
+      "Interessant wanneer prijs, documentatie en verhuurvoorwaarden kloppen.",
+      "Wordt alleen serieus beoordeeld na documentcontrole."
+    ],
+    "risks": [
+      "Beschikbaarheid en prijs kunnen wijzigen.",
+      "Juridische structuur, zoning en vergunningen moeten nog worden getoetst.",
+      "Rendement is niet gegarandeerd."
+    ],
+    "costNotes": ["Juridische controle", "Onderhoud", "Beheer indien verhuurstrategie relevant is"],
+    "scenario": {
+      "averageDailyRate": "Op aanvraag",
+      "occupancy": "Op aanvraag",
+      "grossRevenue": "Op aanvraag",
+      "costPercentage": "Afhankelijk van beheer en exploitatie",
+      "netResult": "Te bepalen na analyse"
+    }
+  },
+  {
+    "slug": "pererenan-ricefield-home",
+    "title": "Pererenan Ricefield Home",
+    "location": "Pererenan, Bali",
+    "status": "binnenkort",
+    "type": "huis",
+    "shortDescription": "Binnenkort beschikbaar: woningprofiel met focus op locatiekwaliteit, rust, waardegroei en doorverkoopbaarheid.",
+    "thumbnail": "/assets/kenniscentrum/villa-in-aanbouw-strand.webp",
+    "images": ["/assets/kenniscentrum/villa-in-aanbouw-strand.webp"],
+    "priceLabel": "Prijs op aanvraag",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "landSize": "Op aanvraag",
+    "buildingSize": "Op aanvraag",
+    "legalStructure": "Leasehold of passende juridische opzet",
+    "leaseRemaining": "Te controleren",
+    "extensionOptions": "Te controleren",
+    "grossYieldLabel": "Bruto indicatief op aanvraag",
+    "netYieldLabel": "Afhankelijk van kosten en beheer",
+    "investmentGoal": "Waardegroei / eigen gebruik / latere verkoop",
+    "suitableFor": "Kopers die locatie en lange termijn potentie belangrijk vinden",
+    "highlights": [
+      "Pererenan is interessant voor kopers die minder drukte zoeken dan centraal Canggu.",
+      "Waarde hangt sterk af van ligging, toegang en omgevingsontwikkeling.",
+      "Past bij een kritische beoordeling van prijs versus locatiekwaliteit."
+    ],
+    "risks": [
+      "Omgeving, toegang en toekomstige ontwikkeling moeten goed worden bekeken.",
+      "Leasevoorwaarden en verlengopties zijn bepalend voor exit.",
+      "Niet ieder ricefield-view object behoudt hetzelfde uitzicht."
+    ],
+    "costNotes": ["Juridische controle", "Onderhoud", "Lokale lasten"],
+    "scenario": {
+      "averageDailyRate": "Op aanvraag",
+      "occupancy": "Op aanvraag",
+      "grossRevenue": "Op aanvraag",
+      "costPercentage": "Afhankelijk van strategie",
+      "netResult": "Te bepalen na analyse"
+    }
+  },
+  {
+    "slug": "seseh-boutique-villas",
+    "title": "Seseh Boutique Villas",
+    "location": "Seseh, Bali",
+    "status": "binnenkort",
+    "type": "project",
+    "shortDescription": "Binnenkort beschikbaar: kleinschalig villaproject voor investeerders die rustige groeilocaties willen beoordelen.",
+    "thumbnail": "/assets/gids-2026/cover-villa.webp",
+    "images": ["/assets/gids-2026/cover-villa.webp"],
+    "priceLabel": "Prijs op aanvraag",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "landSize": "Op aanvraag",
+    "buildingSize": "Op aanvraag",
+    "legalStructure": "Leasehold met projectspecifieke afspraken",
+    "leaseRemaining": "Te controleren",
+    "extensionOptions": "Te controleren",
+    "grossYieldLabel": "Bruto indicatief op aanvraag",
+    "netYieldLabel": "Afhankelijk van bezetting, beheer en kosten",
+    "investmentGoal": "Short-stay potentie / waardegroei",
+    "suitableFor": "Investeerders die een opkomende locatie willen toetsen",
+    "highlights": [
+      "Seseh kan interessant zijn door rustiger positionering en groeiende vraag.",
+      "Kleinschalige projecten vragen om extra controle op planning en uitvoering.",
+      "Relevant wanneer prijs, beheer en juridische structuur helder zijn."
+    ],
+    "risks": [
+      "Projectplanning, bouwkwaliteit en opleverafspraken moeten worden getoetst.",
+      "Bruto opbrengst kan afwijken door bezetting en marketingkracht.",
+      "Doorverkoopbaarheid hangt af van resterende lease en marktliquiditeit."
+    ],
+    "costNotes": ["Bouw- en oplevercontrole", "Beheer", "OTA-kosten", "Onderhoud"],
+    "scenario": {
+      "averageDailyRate": "Op aanvraag",
+      "occupancy": "Op aanvraag",
+      "grossRevenue": "Op aanvraag",
+      "costPercentage": "Afhankelijk van beheer",
+      "netResult": "Te bepalen na analyse"
+    }
+  },
+  {
+    "slug": "sanur-leasehold-home",
+    "title": "Sanur Leasehold Home",
+    "location": "Sanur, Bali",
+    "status": "binnenkort",
+    "type": "huis",
+    "shortDescription": "Binnenkort beschikbaar: woningprofiel voor kopers die een stabielere woon- en verhuurmarkt willen vergelijken.",
+    "thumbnail": "/assets/kenniscentrum/meeting-overdracht.webp",
+    "images": ["/assets/kenniscentrum/meeting-overdracht.webp"],
+    "priceLabel": "Prijs op aanvraag",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "landSize": "Op aanvraag",
+    "buildingSize": "Op aanvraag",
+    "legalStructure": "Leasehold of passende juridische opzet",
+    "leaseRemaining": "Te controleren",
+    "extensionOptions": "Te controleren",
+    "grossYieldLabel": "Bruto indicatief op aanvraag",
+    "netYieldLabel": "Afhankelijk van kosten en beheer",
+    "investmentGoal": "Eigen gebruik / long-stay of short-stay beoordeling",
+    "suitableFor": "Kopers die rust, bereikbaarheid en documentkwaliteit belangrijk vinden",
+    "highlights": [
+      "Sanur heeft een ander vraagprofiel dan Canggu of Seminyak.",
+      "Kan relevant zijn voor kopers die stabiliteit boven hype verkiezen.",
+      "Structuur en vergunningen blijven bepalend."
+    ],
+    "risks": [
+      "Verhuurstrategie moet passen bij lokale vraag en regelgeving.",
+      "Leaseperiode en verlengopties moeten helder zijn.",
+      "Netto rendement hangt sterk af van beheer en onderhoud."
+    ],
+    "costNotes": ["Juridische controle", "Beheer", "Onderhoud", "Lokale lasten"],
+    "scenario": {
+      "averageDailyRate": "Op aanvraag",
+      "occupancy": "Op aanvraag",
+      "grossRevenue": "Op aanvraag",
+      "costPercentage": "Afhankelijk van strategie",
+      "netResult": "Te bepalen na analyse"
+    }
+  },
+  {
+    "slug": "nusa-dua-premium-villa",
+    "title": "Nusa Dua Premium Villa",
+    "location": "Nusa Dua, Bali",
+    "status": "binnenkort",
+    "type": "villa",
+    "shortDescription": "Binnenkort beschikbaar: premium villa-profiel met focus op afwerking, doelgroep, prijsniveau en exit.",
+    "thumbnail": "/assets/gids-2026/rendement-short-stay.webp",
+    "images": ["/assets/gids-2026/rendement-short-stay.webp"],
+    "priceLabel": "Prijs op aanvraag",
+    "bedrooms": 4,
+    "bathrooms": 4,
+    "landSize": "Op aanvraag",
+    "buildingSize": "Op aanvraag",
+    "legalStructure": "Leasehold of passende juridische opzet",
+    "leaseRemaining": "Te controleren",
+    "extensionOptions": "Te controleren",
+    "grossYieldLabel": "Bruto indicatief op aanvraag",
+    "netYieldLabel": "Afhankelijk van positionering en kosten",
+    "investmentGoal": "Premium aankoop / short-stay potentie / latere verkoop",
+    "suitableFor": "Kopers die premium positionering en documentcontrole willen combineren",
+    "highlights": [
+      "Premium locaties vragen om scherpe vergelijking van prijs en doelgroep.",
+      "Afwerking, service en beheer bepalen de verhuurbaarheid.",
+      "Interessant wanneer exit en juridische structuur overtuigend zijn."
+    ],
+    "risks": [
+      "Hogere aankoopprijs vergroot het belang van realistische scenario's.",
+      "Onderhoud en servicekosten kunnen fors zijn.",
+      "Niet iedere premium claim vertaalt zich naar netto rendement."
+    ],
+    "costNotes": ["Premium onderhoud", "Beheer", "Servicekosten", "Juridische controle"],
+    "scenario": {
+      "averageDailyRate": "Op aanvraag",
+      "occupancy": "Op aanvraag",
+      "grossRevenue": "Op aanvraag",
+      "costPercentage": "Afhankelijk van service- en beheermodel",
+      "netResult": "Te bepalen na analyse"
+    }
+  },
+  {
+    "slug": "tabanan-growth-land",
+    "title": "Tabanan Growth Land",
+    "location": "Tabanan, Bali",
+    "status": "binnenkort",
+    "type": "land",
+    "shortDescription": "Binnenkort beschikbaar: landpositie voor investeerders die bestemming, toegang en lange termijn ontwikkeling willen toetsen.",
+    "thumbnail": "/assets/kenniscentrum/tablet-barcharts-dashboard.webp",
+    "images": ["/assets/kenniscentrum/tablet-barcharts-dashboard.webp"],
+    "priceLabel": "Prijs op aanvraag",
+    "landSize": "Op aanvraag",
+    "buildingSize": "Niet van toepassing",
+    "legalStructure": "Leasehold of passende juridische opzet",
+    "leaseRemaining": "Te controleren",
+    "extensionOptions": "Te controleren",
+    "grossYieldLabel": "Niet primair rendementsgedreven",
+    "netYieldLabel": "Niet vooraf vastgesteld",
+    "investmentGoal": "Lange termijn ontwikkeling / waardegroei",
+    "suitableFor": "Investeerders die zoning, toegang en ontwikkelbaarheid kritisch willen laten toetsen",
+    "highlights": [
+      "Landposities kunnen interessant zijn bij duidelijke bestemming en toegang.",
+      "Lange termijn potentie hangt sterk af van infrastructuur en vergunningen.",
+      "Alleen geschikt na grondige juridische en ruimtelijke controle."
+    ],
+    "risks": [
+      "Zoning, toegangsrecht en bouwmogelijkheden zijn doorslaggevend.",
+      "Land is minder liquide dan een afgerond woonobject.",
+      "Ontwikkeling vraagt extra vergunningen, planning en kapitaal."
+    ],
+    "costNotes": ["Zoningcontrole", "Juridische due diligence", "Ontwikkel- en vergunningkosten"],
+    "scenario": {
+      "averageDailyRate": "Niet van toepassing",
+      "occupancy": "Niet van toepassing",
+      "grossRevenue": "Niet van toepassing",
+      "costPercentage": "Afhankelijk van ontwikkelstrategie",
+      "netResult": "Niet vooraf vastgesteld"
+    }
+  }
+]

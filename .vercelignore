@@ -1,0 +1,15 @@
+*.md
+*.docx
+website image from chatgpt.png
+Imagegen 2.png
+assets/**/*.png
+assets/hero/hero-original.jpg
+*.pdf
+dist/*.pdf
+!assets/downloads/gratis-gids-investeren-in-bali-2026.pdf
+dist/*.xlsx
+docs
+scripts
+node_modules
+package-lock.json
+Sketchup design
