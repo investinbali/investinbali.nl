@@ -3,11 +3,9 @@
 node_modules
 package-lock.json
 dist/*.xlsx
+dist/*.zip
 docs/
 *.md
-!docs/
-!docs/knowledge-base-wiki/
-!docs/knowledge-base-wiki/**
 *.docx
 *.pdf
 !assets/downloads/gratis-gids-investeren-in-bali-2026.pdf
