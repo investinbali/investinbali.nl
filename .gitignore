@@ -9,6 +9,8 @@ docs/
 *.md
 *.docx
 *.pdf
+assets/**/*.png
+assets/hero/hero-original.jpg
 !README.md
 !CONTRIBUTING.md
 !assets/downloads/gratis-gids-investeren-in-bali-2026.pdf

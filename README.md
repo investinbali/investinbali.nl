@@ -43,3 +43,34 @@ Na een push naar `main`:
 2. Controleer de deployment in Vercel.
 3. Controleer de live website op https://www.investinbali.nl.
 
+## Projectdata
+
+Projecten worden beheerd in `data/projects.json`. Na een wijziging in die data moet het generator-script draaien:
+
+```bash
+python scripts/generate_project_pages.py
+```
+
+Commit daarna zowel `data/projects.json` als de bijgewerkte HTML in `projecten/`.
+
+## Formulieren en CRM
+
+Alle formulieren posten naar `/api/contact`. De Vercel Function valideert de velden, verrijkt de inzending met `received_at`, `referrer`, `user_agent` en `client_ip`, en stuurt de lead door naar Google Apps Script wanneer `GOOGLE_APPS_SCRIPT_URL` in Vercel is ingesteld.
+
+De Google Apps Script-code staat in `scripts/google-apps-script-form-handler.gs`. Die schrijft iedere inzending naar Google Sheets:
+
+- `Leads`: centrale masterlijst.
+- `Call aanvragen`: plan-een-call leads met lead score.
+- `Gids aanvragen`: gidsdownloads.
+- `Info aanvragen`: gerichte informatievragen via de contactpagina.
+- `Updates`: update-inschrijvingen.
+- `Log`: technische fouten.
+
+Script properties voor Apps Script:
+
+- `SPREADSHEET_ID`: ID van de CRM Google Sheet.
+- `NOTIFY_EMAIL`: `info@investinbali.nl`.
+- `CALENDAR_URL`: Google Calendar appointment schedule URL.
+- `GUIDE_URL`: URL van de gids-PDF.
+
+Zonder `GOOGLE_APPS_SCRIPT_URL` valt de API terug op SMTP-mail. Dat is alleen fallback; de gewenste productieflow is Google Sheets als CRM-log.

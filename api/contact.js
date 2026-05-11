@@ -15,6 +15,7 @@ const REQUIRED_FIELDS = {
   gids_aanvraag: ["name", "email", "interest", "consent"],
   member_gids_inschrijving: ["name", "email", "interest", "consent"],
   member_inschrijving: ["name", "email", "segment", "consent"],
+  info_aanvraag: ["name", "email", "segment", "message", "consent"],
 };
 
 function clean(value) {
@@ -47,13 +48,27 @@ function buildMessage(data) {
   return rows.map(([key, value]) => `${key}: ${clean(value)}`).join("\n");
 }
 
+function getClientIp(req) {
+  return clean(req.headers["x-forwarded-for"]).split(",")[0] || clean(req.socket?.remoteAddress);
+}
+
+function enrichPayload(req, data) {
+  return {
+    ...data,
+    received_at: new Date().toISOString(),
+    user_agent: clean(req.headers["user-agent"]),
+    referrer: clean(req.headers.referer || req.headers.referrer),
+    client_ip: getClientIp(req),
+  };
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const data = req.body || {};
+  const data = enrichPayload(req, req.body || {});
   const leadType = clean(data.lead_type);
   const required = REQUIRED_FIELDS[leadType];
 
@@ -85,7 +100,11 @@ module.exports = async function handler(req, res) {
         });
       }
 
-      return res.status(200).json(result);
+      return res.status(200).json({
+        ok: true,
+        crm: "google_sheets",
+        ...result,
+      });
     } catch (err) {
       console.error("Google Apps Script submit failed", {
         message: err.message,
@@ -139,5 +158,5 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  return res.status(200).json({ ok: true });
+  return res.status(200).json({ ok: true, crm: "email_only" });
 };

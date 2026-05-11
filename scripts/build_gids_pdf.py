@@ -34,7 +34,7 @@ ASSETS = ROOT / "assets" / "gids-2026"
 
 URLS = {
     "Plan een call": "https://www.investinbali.nl/contact/",
-    "Word member": "https://www.investinbali.nl/member-worden/",
+    "Download gids": "https://www.investinbali.nl/gids/",
     "Bekijk huizen": "https://www.investinbali.nl/projecten/",
 }
 
@@ -556,9 +556,9 @@ def build_story(styles):
                     Paragraph("Plan een call", styles["H2"]),
                     Paragraph("Bespreek je situatie, budget en investeringsdoel in een vrijblijvend gesprek.", styles["Body"]),
                     cta_button("Plan een call", styles),
-                    Paragraph("Word member", styles["H2"]),
+                    Paragraph("Vraag meer info op", styles["H2"]),
                     Paragraph("Ontvang updates over nieuwe huizen, marktinzichten en relevante ontwikkelingen.", styles["Body"]),
-                    cta_button("Word member", styles),
+                    cta_button("Vraag meer info op", styles),
                     Paragraph("Bekijk huizen", styles["H2"]),
                     Paragraph("Vergelijk woningen op locatie, profiel, potentie en aandachtspunten.", styles["Body"]),
                     cta_button("Bekijk huizen", styles),

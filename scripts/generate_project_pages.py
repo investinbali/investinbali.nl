@@ -94,10 +94,9 @@ def card(project: dict) -> str:
     type_label = TYPE_LABELS[project["type"]]
     slug = project["slug"]
     bedrooms = f"{project.get('bedrooms')} slaapkamers" if project.get("bedrooms") else "Slaapkamers op aanvraag"
-    is_coming_soon = project["status"] == "binnenkort"
-    href = "/contact/" if is_coming_soon else f"/projecten/{esc(slug)}/"
-    aria = f"Informeer naar {project['title']}" if is_coming_soon else f"Bekijk details van {project['title']}"
-    cta = "Informeer naar beschikbaarheid" if is_coming_soon else "Bekijk details"
+    href = f"/projecten/{esc(slug)}/"
+    aria = f"Bekijk details van {project['title']}"
+    cta = "Bekijk details"
     return f"""<a class="catalog-card" href="{href}" aria-label="{esc(aria)}">
               <div class="catalog-image">
                 <img src="{esc(project['thumbnail'])}" alt="{esc(project['title'])} in {esc(project['location'])}" loading="lazy" />
@@ -188,7 +187,7 @@ def overview(projects: list[dict]) -> str:
           </div>
           <div class="cta-actions">
             <a class="button button-gold" href="/contact/">Plan een call</a>
-            <a class="button button-outline" href="/contact/">Vraag brochure aan</a>
+            <a class="button button-outline" href="/contact/">Vraag meer info op</a>
           </div>
         </div>
       </section>
@@ -228,7 +227,7 @@ def detail(project: dict) -> str:
           <p>{esc(project['shortDescription'])}</p>
           <div class="cta-actions">
             <a class="button button-gold" href="/contact/">Plan een call</a>
-            <a class="button button-outline" href="/contact/">Vraag brochure aan</a>
+            <a class="button button-outline" href="/contact/">Vraag meer info op</a>
             <a class="button button-ghost-dark" href="/projecten/">Terug naar alle projecten</a>
           </div>
         </div>
@@ -278,7 +277,7 @@ def detail(project: dict) -> str:
           </div>
           <div class="cta-actions">
             <a class="button button-gold" href="/contact/">Plan een call</a>
-            <a class="button button-outline" href="/contact/">Vraag brochure aan</a>
+            <a class="button button-outline" href="/contact/">Vraag meer info op</a>
           </div>
         </div>
       </section>

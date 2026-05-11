@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "generate:projects": "python scripts/generate_project_pages.py"
+  },
   "dependencies": {
     "nodemailer": "^6.9.16"
   }

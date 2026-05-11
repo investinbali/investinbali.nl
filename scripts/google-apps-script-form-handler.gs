@@ -12,7 +12,7 @@
 const CONFIG = {
   SPREADSHEET_ID: "1LRl03IuZ5nIAW9FFMxdpJrERUVVndBqIWp03QxCfLlU",
   NOTIFY_EMAIL: "info@investinbali.nl",
-  CALENDAR_URL: "PASTE_GOOGLE_CALENDAR_APPOINTMENT_SCHEDULE_URL_HERE",
+  CALENDAR_URL: "",
   GUIDE_URL: "https://www.investinbali.nl/assets/downloads/gratis-gids-investeren-in-bali-2026.pdf",
 };
 
@@ -31,6 +31,7 @@ const REQUIRED_FIELDS = {
   gids_aanvraag: ["name", "email", "interest", "consent"],
   member_gids_inschrijving: ["name", "email", "interest", "consent"],
   member_inschrijving: ["name", "email", "segment", "consent"],
+  info_aanvraag: ["name", "email", "segment", "message", "consent"],
 };
 
 const FLOW_SHEETS = {
@@ -38,6 +39,7 @@ const FLOW_SHEETS = {
   gids_aanvraag: "Gids aanvragen",
   member_gids_inschrijving: "Gids aanvragen",
   member_inschrijving: "Updates",
+  info_aanvraag: "Info aanvragen",
 };
 
 const HEADERS = [
@@ -61,12 +63,28 @@ const HEADERS = [
   "next_action",
   "calendar_status",
   "calendar_event_id",
+  "referrer",
+  "user_agent",
+  "client_ip",
   "utm_source",
   "utm_medium",
   "utm_campaign",
   "consent",
   "notes",
 ];
+
+function getConfig(key) {
+  return PropertiesService.getScriptProperties().getProperty(key) || CONFIG[key] || "";
+}
+
+function doGet() {
+  return jsonResponse({
+    ok: true,
+    service: "Invest in Bali CRM form handler",
+    sheets: Boolean(getConfig("SPREADSHEET_ID")),
+    calendar: Boolean(getConfig("CALENDAR_URL")),
+  });
+}
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -91,11 +109,15 @@ function doPost(e) {
       sendUpdateConfirmation(lead);
     }
 
+    if (leadType === "info_aanvraag") {
+      sendInfoConfirmation(lead);
+    }
+
     return jsonResponse({
       ok: true,
       lead_id: lead.lead_id,
       next_step: leadType === "call_aanvraag" ? "calendar" : "done",
-      calendar_url: leadType === "call_aanvraag" ? CONFIG.CALENDAR_URL : "",
+      calendar_url: leadType === "call_aanvraag" ? getConfig("CALENDAR_URL") : "",
     });
   } catch (err) {
     logError(err, e);
@@ -162,6 +184,9 @@ function buildLead(data, leadType) {
     next_action: leadType === "call_aanvraag" ? "Plan call via Google Calendar" : "Follow up",
     calendar_status: leadType === "call_aanvraag" ? "calendar_link_sent" : "",
     calendar_event_id: "",
+    referrer: clean(data.referrer),
+    user_agent: clean(data.user_agent),
+    client_ip: clean(data.client_ip),
     utm_source: clean(data.utm_source),
     utm_medium: clean(data.utm_medium),
     utm_campaign: clean(data.utm_campaign),
@@ -183,7 +208,7 @@ function appendLead(sheetName, lead) {
 }
 
 function getOrCreateSheet(sheetName) {
-  const spreadsheet = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+  const spreadsheet = SpreadsheetApp.openById(getConfig("SPREADSHEET_ID"));
   return spreadsheet.getSheetByName(sheetName) || spreadsheet.insertSheet(sheetName);
 }
 
@@ -223,7 +248,7 @@ function sendInternalNotification(lead) {
     lead.message,
   ].join("\n");
 
-  MailApp.sendEmail(CONFIG.NOTIFY_EMAIL, subject, body, {
+  MailApp.sendEmail(getConfig("NOTIFY_EMAIL"), subject, body, {
     replyTo: lead.email,
     name: "Invest in Bali website",
   });
@@ -239,10 +264,10 @@ function sendGuideEmail(lead) {
     "In de gids lees je waar je op moet letten bij huizen kopen op Bali, hoe leasehold werkt, wanneer een PT PMA relevant kan zijn, waarom zoning belangrijk is en hoe je bruto rendement realistischer vertaalt naar netto resultaat.",
     "",
     "Download de gids hier:",
-    CONFIG.GUIDE_URL,
+    getConfig("GUIDE_URL"),
     "",
     "Wil je na het lezen jouw situatie bespreken? Plan dan een call:",
-    CONFIG.CALENDAR_URL,
+    getConfig("CALENDAR_URL"),
     "",
     "Met vriendelijke groet,",
     "Invest in Bali",
@@ -261,7 +286,29 @@ function sendUpdateConfirmation(lead) {
     "Bedankt voor je inschrijving. We sturen je relevante updates over huizen op Bali, marktinzichten en nieuwe content.",
     "",
     "Wil je jouw situatie eerder bespreken? Plan dan een call:",
-    CONFIG.CALENDAR_URL,
+    getConfig("CALENDAR_URL"),
+    "",
+    "Met vriendelijke groet,",
+    "Invest in Bali",
+  ].join("\n");
+
+  MailApp.sendEmail(lead.email, subject, body, {
+    name: "Invest in Bali",
+  });
+}
+
+function sendInfoConfirmation(lead) {
+  const subject = "We hebben je vraag ontvangen";
+  const body = [
+    "Hallo " + lead.name + ",",
+    "",
+    "Bedankt voor je vraag over Invest in Bali. We bekijken je bericht en reageren met een gerichte vervolgstap.",
+    "",
+    "Je vraag:",
+    lead.message,
+    "",
+    "Wil je direct jouw situatie bespreken? Plan dan een call:",
+    getConfig("CALENDAR_URL"),
     "",
     "Met vriendelijke groet,",
     "Invest in Bali",

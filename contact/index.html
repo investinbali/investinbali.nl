@@ -202,14 +202,14 @@
             </form>
           </article>
           <article class="content-card">
-            <h2>Blijf op de hoogte</h2>
+            <h2>Vraag meer info op</h2>
             <p>
-              Schrijf je in voor updates over nieuwe huizen, marktinzichten en
-              relevante ontwikkelingen voor investeerders en vervolgcontent die
-              aansluit op de gids.
+              Stel een gerichte vraag over projecten, regio's, juridische
+              structuur, kosten of verhuurpotentie. We koppelen je aanvraag aan
+              de juiste vervolgstap.
             </p>
-            <form class="prepared-form" data-form-name="member-inschrijving">
-              <input type="hidden" name="lead_type" value="member_inschrijving" />
+            <form class="prepared-form" data-form-name="info-aanvraag">
+              <input type="hidden" name="lead_type" value="info_aanvraag" />
               <input type="hidden" name="page_source" value="contact" />
               <label class="form-field">
                 <span>Naam</span>
@@ -220,23 +220,27 @@
                 <input name="email" type="email" autocomplete="email" required />
               </label>
               <label class="form-field">
-                <span>Interessegebied</span>
+                <span>Waar gaat je vraag over?</span>
                 <select name="segment" required>
                   <option value="">Maak een keuze</option>
-                  <option value="algemeen">Algemene marktupdates</option>
-                  <option value="te_koop">Huizen te koop</option>
-                  <option value="verhuurpotentie">Huizen met verhuurpotentie</option>
-                  <option value="juridische_updates">Juridische updates</option>
-                  <option value="nieuwe_projecten">Nieuwe projecten</option>
+                  <option value="projecten">Specifiek project of woning</option>
+                  <option value="regio">Regio's op Bali vergelijken</option>
+                  <option value="juridisch">Leasehold, PT PMA of zoning</option>
+                  <option value="rendement">Rendement, kosten of verhuurpotentie</option>
+                  <option value="algemeen">Algemene vraag</option>
                 </select>
+              </label>
+              <label class="form-field">
+                <span>Vraag</span>
+                <textarea name="message" rows="4" required></textarea>
               </label>
               <label class="form-consent">
                 <input name="consent" type="checkbox" value="yes" required />
-                <span>Ik ga akkoord dat Invest in Bali mij relevante updates mag sturen. Uitschrijven kan later altijd.</span>
+                <span>Ik ga akkoord dat Invest in Bali mijn gegevens gebruikt om mijn vraag te beantwoorden.</span>
               </label>
-              <button class="button button-gold" type="submit">Schrijf je in</button>
-              <p class="form-note">Ontvang updates over nieuwe huizen, marktinzichten en relevante ontwikkelingen.</p>
-              <p class="form-success" hidden>Bedankt. Je inschrijving is ontvangen.</p>
+              <button class="button button-gold" type="submit">Vraag info op</button>
+              <p class="form-note">We reageren met een gerichte vervolgstap of verwijzen je naar de juiste gids, pagina of call.</p>
+              <p class="form-success" hidden>Bedankt. Je vraag is ontvangen.</p>
             </form>
           </article>
         </div>
