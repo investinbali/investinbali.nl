@@ -4,10 +4,13 @@ node_modules
 package-lock.json
 dist/*.xlsx
 dist/*.zip
+dist/
 docs/
 *.md
 *.docx
 *.pdf
+!README.md
+!CONTRIBUTING.md
 !assets/downloads/gratis-gids-investeren-in-bali-2026.pdf
 website image from chatgpt.png
 Imagegen 2.png
