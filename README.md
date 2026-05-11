@@ -53,6 +53,16 @@ python scripts/generate_project_pages.py
 
 Commit daarna zowel `data/projects.json` als de bijgewerkte HTML in `projecten/`.
 
+## Kenniscentrumartikelen
+
+De uitgebreide kenniscentrumartikelen worden gegenereerd uit de interne rapporten in `docs/knowledge-base-wiki/reports/`.
+
+```bash
+python scripts/generate_knowledge_articles.py
+```
+
+Het script maakt publieke SEO-artikelen onder `kenniscentrum/`, werkt de wiki-hub bij en voegt de nieuwe URL's toe aan `sitemap.xml`. Publiceer juridische, fiscale of vergunninggevoelige updates alleen nadat de bronstatus en lokale interpretatie opnieuw zijn gecontroleerd.
+
 ## Formulieren en CRM
 
 Alle formulieren posten naar `/api/contact`. De Vercel Function valideert de velden, verrijkt de inzending met `received_at`, `referrer`, `user_agent` en `client_ip`, en stuurt de lead door naar Google Apps Script wanneer `GOOGLE_APPS_SCRIPT_URL` in Vercel is ingesteld.

@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "generate:projects": "python scripts/generate_project_pages.py"
+    "generate:projects": "python scripts/generate_project_pages.py",
+    "generate:knowledge": "python scripts/generate_knowledge_articles.py"
   },
   "dependencies": {
     "nodemailer": "^6.9.16"
