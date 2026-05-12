@@ -10,11 +10,14 @@
  */
 
 const CONFIG = {
+  SPREADSHEET_NAME: "Invest in Bali - Leads",
   SPREADSHEET_ID: "1LRl03IuZ5nIAW9FFMxdpJrERUVVndBqIWp03QxCfLlU",
   NOTIFY_EMAIL: "info@investinbali.nl",
   CALENDAR_URL: "",
   GUIDE_URL: "https://www.investinbali.nl/assets/downloads/gratis-gids-investeren-in-bali-2026.pdf",
 };
+
+let cachedSpreadsheet = null;
 
 const REQUIRED_FIELDS = {
   call_aanvraag: [
@@ -78,10 +81,14 @@ function getConfig(key) {
 }
 
 function doGet() {
+  const spreadsheet = getSpreadsheet();
+
   return jsonResponse({
     ok: true,
     service: "Invest in Bali CRM form handler",
-    sheets: Boolean(getConfig("SPREADSHEET_ID")),
+    sheets: true,
+    spreadsheet_id: spreadsheet.getId(),
+    spreadsheet_url: spreadsheet.getUrl(),
     calendar: Boolean(getConfig("CALENDAR_URL")),
   });
 }
@@ -208,8 +215,61 @@ function appendLead(sheetName, lead) {
 }
 
 function getOrCreateSheet(sheetName) {
-  const spreadsheet = SpreadsheetApp.openById(getConfig("SPREADSHEET_ID"));
+  const spreadsheet = getSpreadsheet();
   return spreadsheet.getSheetByName(sheetName) || spreadsheet.insertSheet(sheetName);
+}
+
+function getSpreadsheet() {
+  if (cachedSpreadsheet) {
+    return cachedSpreadsheet;
+  }
+
+  const properties = PropertiesService.getScriptProperties();
+  const savedId = properties.getProperty("SPREADSHEET_ID");
+  const configuredId = getConfig("SPREADSHEET_ID");
+  const spreadsheetId = savedId || configuredId;
+
+  if (spreadsheetId) {
+    try {
+      cachedSpreadsheet = SpreadsheetApp.openById(spreadsheetId);
+      properties.setProperty("SPREADSHEET_ID", cachedSpreadsheet.getId());
+      return cachedSpreadsheet;
+    } catch (err) {
+      console.error("Unable to open configured spreadsheet. Creating a new CRM sheet.", err);
+    }
+  }
+
+  cachedSpreadsheet = SpreadsheetApp.create(getConfig("SPREADSHEET_NAME"));
+  properties.setProperty("SPREADSHEET_ID", cachedSpreadsheet.getId());
+  initialiseSpreadsheet(cachedSpreadsheet);
+  return cachedSpreadsheet;
+}
+
+function initialiseSpreadsheet(spreadsheet) {
+  const defaultSheet = spreadsheet.getSheets()[0];
+  if (defaultSheet && defaultSheet.getName() !== "Leads") {
+    defaultSheet.setName("Leads");
+  }
+
+  const sheetNames = ["Leads", "Call aanvragen", "Gids aanvragen", "Updates", "Info aanvragen", "Log"];
+  sheetNames.forEach(function (sheetName) {
+    const sheet = spreadsheet.getSheetByName(sheetName) || spreadsheet.insertSheet(sheetName);
+    if (sheetName === "Log") {
+      const logHeaders = ["created_at", "flow", "status", "message", "raw_payload"];
+      const currentHeaders = sheet.getRange(1, 1, 1, logHeaders.length).getValues()[0];
+      const hasHeaders = currentHeaders.some(function (value) {
+        return clean(value);
+      });
+
+      if (!hasHeaders) {
+        sheet.getRange(1, 1, 1, logHeaders.length).setValues([logHeaders]);
+        sheet.setFrozenRows(1);
+      }
+      return;
+    }
+
+    ensureHeaders(sheet);
+  });
 }
 
 function ensureHeaders(sheet) {
