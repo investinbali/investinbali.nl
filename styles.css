@@ -1086,6 +1086,20 @@ h2 {
   align-items: start;
 }
 
+.contact-grid {
+  grid-template-columns: minmax(0, 1.12fr) minmax(340px, 0.88fr);
+  align-items: start;
+  grid-auto-rows: auto;
+}
+
+.contact-grid > .content-card:first-child {
+  grid-row: span 2;
+}
+
+.contact-grid > .content-card {
+  min-height: 0;
+}
+
 .content-shell .grid-two > .content-card:nth-child(3):last-child {
   grid-column: 1 / -1;
 }
@@ -1151,6 +1165,7 @@ h2 {
 
 .prepared-form {
   display: grid;
+  align-content: start;
   gap: 14px;
   margin-top: 20px;
 }
@@ -1169,48 +1184,61 @@ h2 {
 
 .form-field {
   display: grid;
-  gap: 8px;
+  align-content: start;
+  gap: 10px;
 }
 
 .form-field span {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: rgba(27, 21, 18, 0.86);
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: rgba(27, 21, 18, 0.9);
 }
 
 .form-field input,
 .form-field select,
 .form-field textarea {
   width: 100%;
-  min-height: 52px;
-  padding: 14px 16px;
+  min-height: 58px;
+  padding: 15px 17px;
   border: 1px solid rgba(27, 21, 18, 0.12);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.96);
   color: var(--dark-text);
   font: inherit;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: rgba(216, 164, 81, 0.66);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(216, 164, 81, 0.14);
 }
 
 .form-field textarea {
-  min-height: 120px;
+  min-height: 128px;
   resize: vertical;
 }
 
 .form-consent {
   align-items: flex-start;
-  color: rgba(27, 21, 18, 0.72);
+  color: rgba(27, 21, 18, 0.76);
   display: grid;
-  font-size: 0.92rem;
-  gap: 12px;
+  font-size: 0.98rem;
+  gap: 14px;
   grid-template-columns: auto 1fr;
   line-height: 1.55;
+  margin-top: 2px;
 }
 
 .form-consent input {
   accent-color: var(--gold);
-  height: 18px;
-  margin-top: 3px;
-  width: 18px;
+  height: 20px;
+  margin-top: 2px;
+  width: 20px;
 }
 
 .form-note {
@@ -1265,6 +1293,7 @@ h2 {
 
   .grid-three,
   .grid-two,
+  .contact-grid,
   .catalog-grid,
   .calculator,
   .content-grid,
@@ -1277,6 +1306,7 @@ h2 {
 
   .content-shell .grid-two,
   .content-shell .grid-three,
+  .content-shell .contact-grid,
   .projects-grid,
   .cards-grid {
     grid-auto-rows: auto;
@@ -1387,6 +1417,7 @@ h2 {
   .usp-strip,
   .grid-three,
   .grid-two,
+  .contact-grid,
   .catalog-grid,
   .detail-facts,
   .scenario-facts,
