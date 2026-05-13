@@ -1,0 +1,1 @@
+window.INVEST_IN_BALI_GA_ID = "";

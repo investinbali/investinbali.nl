@@ -6,6 +6,30 @@ function formatCurrency(value) {
   }).format(value);
 }
 
+function setupGoogleAnalytics() {
+  const configuredId =
+    window.INVEST_IN_BALI_GA_ID ||
+    document.querySelector("meta[name='google-analytics-id']")?.content ||
+    "";
+  const measurementId = configuredId.trim();
+
+  if (!/^G-[A-Z0-9]+$/i.test(measurementId) || typeof window.gtag === "function") {
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+  window.gtag("js", new Date());
+  window.gtag("config", measurementId);
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+  document.head.append(script);
+}
+
 function trackEvent(name, properties = {}) {
   if (typeof window.va === "function") {
     window.va("event", {
@@ -24,6 +48,8 @@ function trackEvent(name, properties = {}) {
     });
   }
 }
+
+setupGoogleAnalytics();
 
 function calculateRoi() {
   const investment = Number(document.getElementById("investment")?.value || 0);

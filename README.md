@@ -75,7 +75,9 @@ Het script maakt de landingspagina's op rootniveau, werkt de kenniscentrum-hub b
 
 ## Analytics en conversiemeting
 
-Alle HTML-pagina's laden Vercel Web Analytics via `/_vercel/insights/script.js`. In `script.js` worden extra events aangeboden voor:
+Alle HTML-pagina's laden Vercel Web Analytics via `/_vercel/insights/script.js`. Google Analytics 4 wordt centraal geactiveerd via `analytics-config.js`: vul daar de GA4 Measurement ID in zodra die beschikbaar is.
+
+In `script.js` worden extra events aangeboden voor:
 
 - CTA-clicks naar contact, gids, projecten en Calendar.
 - Succesvolle formulierinzendingen.

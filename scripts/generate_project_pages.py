@@ -88,6 +88,7 @@ def footer() -> str:
     </footer>
     <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
     <script defer src="/_vercel/insights/script.js"></script>
+    <script src="/analytics-config.js"></script>
     <script src="/script.js"></script>"""
 
 
