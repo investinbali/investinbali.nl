@@ -6,6 +6,18 @@ function formatCurrency(value) {
   }).format(value);
 }
 
+function trackEvent(name, properties = {}) {
+  if (typeof window.va === "function") {
+    window.va("event", {
+      name,
+      data: {
+        page: window.location.pathname,
+        ...properties,
+      },
+    });
+  }
+}
+
 function calculateRoi() {
   const investment = Number(document.getElementById("investment")?.value || 0);
   const dailyRate = Number(document.getElementById("dailyRate")?.value || 0);
@@ -33,7 +45,10 @@ function calculateRoi() {
   )} netto-opbrengst per jaar en een netto rendement van ${roi.toFixed(1)}%.`;
 }
 
-document.getElementById("calculateButton")?.addEventListener("click", calculateRoi);
+document.getElementById("calculateButton")?.addEventListener("click", () => {
+  calculateRoi();
+  trackEvent("roi_calculator_used");
+});
 
 if (document.getElementById("calculateButton")) {
   calculateRoi();
@@ -111,6 +126,10 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
         throw new Error(result.error || "Formulier kon niet worden verstuurd.");
       }
 
+      trackEvent("form_submit_success", {
+        lead_type: payload.lead_type || "unknown",
+      });
+
       form.reset();
       if (success) {
         success.hidden = false;
@@ -127,6 +146,11 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
         nextStep.hidden = false;
       }
     } catch (err) {
+      const formData = Object.fromEntries(new FormData(form));
+      trackEvent("form_submit_error", {
+        lead_type: formData.lead_type || "unknown",
+      });
+
       error.textContent =
         err.message || "Er ging iets mis. Mail ons direct via info@investinbali.nl.";
       error.hidden = false;
@@ -136,5 +160,25 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
         button.textContent = originalText;
       }
     }
+  });
+});
+
+document.querySelectorAll("a[href]").forEach((link) => {
+  link.addEventListener("click", () => {
+    const href = link.getAttribute("href") || "";
+    const shouldTrack =
+      href.includes("/contact") ||
+      href.includes("/gids") ||
+      href.includes("/projecten") ||
+      href.includes("calendar.app.google");
+
+    if (!shouldTrack) {
+      return;
+    }
+
+    trackEvent("cta_click", {
+      href,
+      label: link.textContent.trim().replace(/\s+/g, " ").slice(0, 80),
+    });
   });
 });

@@ -63,6 +63,27 @@ python scripts/generate_knowledge_articles.py
 
 Het script maakt publieke SEO-artikelen onder `kenniscentrum/`, werkt de wiki-hub bij en voegt de nieuwe URL's toe aan `sitemap.xml`. Publiceer juridische, fiscale of vergunninggevoelige updates alleen nadat de bronstatus en lokale interpretatie opnieuw zijn gecontroleerd.
 
+## Nederlandse SEO-landingspagina's
+
+De primaire Nederlandse zoekintenties staan in `content/seo-content-plan-nederland.md`. De bijbehorende pagina's worden gegenereerd met:
+
+```bash
+python scripts/generate_seo_landing_pages.py
+```
+
+Het script maakt de landingspagina's op rootniveau, werkt de kenniscentrum-hub bij en voegt de URL's toe aan `sitemap.xml`. Schrijf deze pagina's als nuchtere uitleg voor Nederlandse investeerders: geen harde rendementsclaims, wel concrete vragen, risico's, bronnen en vervolgstappen.
+
+## Analytics en conversiemeting
+
+Alle HTML-pagina's laden Vercel Web Analytics via `/_vercel/insights/script.js`. In `script.js` worden extra events aangeboden voor:
+
+- CTA-clicks naar contact, gids, projecten en Calendar.
+- Succesvolle formulierinzendingen.
+- Mislukte formulierinzendingen.
+- Gebruik van de ROI-calculator.
+
+Formulierdata blijft leidend in Google Sheets. Analytics is bedoeld om verkeersbronnen, pagina's en conversieroutes te beoordelen, niet als CRM. Let op: Vercel custom events zijn afhankelijk van het Vercel-plan; op de gratis setup blijft Google Sheets daarom de betrouwbare conversieregistratie.
+
 ## Formulieren en CRM
 
 Alle formulieren posten naar `/api/contact`. De Vercel Function valideert de velden, verrijkt de inzending met `received_at`, `referrer`, `user_agent` en `client_ip`, en stuurt de lead door naar Google Apps Script wanneer `GOOGLE_APPS_SCRIPT_URL` in Vercel is ingesteld.

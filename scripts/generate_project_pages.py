@@ -86,6 +86,8 @@ def footer() -> str:
         <a href="/contact/">Contact</a>
       </div>
     </footer>
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
     <script src="/script.js"></script>"""
 
 
