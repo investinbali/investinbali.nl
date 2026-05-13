@@ -955,6 +955,38 @@ h2 {
   color: var(--gold-soft);
 }
 
+.toc-card {
+  grid-column: 1 / -1;
+}
+
+.toc-list {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 0;
+  padding-left: 22px;
+}
+
+.toc-list a {
+  color: #8d5f18;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-column h4 {
+  margin: 0 0 12px;
+  color: var(--gold-soft);
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.footer-column a,
+.footer-links a {
+  display: block;
+  margin: 0 0 10px;
+}
+
 .cta-panel {
   display: flex;
   align-items: center;
@@ -1048,9 +1080,10 @@ h2 {
 }
 
 .site-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 26px;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) repeat(2, minmax(180px, auto));
+  align-items: start;
+  gap: 26px 40px;
   padding: 36px 0 54px;
 }
 
