@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
 
+const CALENDAR_URL = process.env.CALENDAR_URL || "https://calendar.app.google/KmYX9vj1hj8wEcLe6";
+
 const REQUIRED_FIELDS = {
   call_aanvraag: [
     "name",
@@ -62,6 +64,13 @@ function enrichPayload(req, data) {
   };
 }
 
+function addFlowLinks(leadType, result = {}) {
+  return {
+    ...result,
+    calendar_url: leadType === "call_aanvraag" ? result.calendar_url || CALENDAR_URL : result.calendar_url || "",
+  };
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -103,7 +112,7 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({
         ok: true,
         crm: "google_sheets",
-        ...result,
+        ...addFlowLinks(leadType, result),
       });
     } catch (err) {
       console.error("Google Apps Script submit failed", {
@@ -158,5 +167,5 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  return res.status(200).json({ ok: true, crm: "email_only" });
+  return res.status(200).json(addFlowLinks(leadType, { ok: true, crm: "email_only" }));
 };

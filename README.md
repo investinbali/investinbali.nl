@@ -80,7 +80,7 @@ Script properties voor Apps Script:
 
 - `SPREADSHEET_ID`: ID van de CRM Google Sheet.
 - `NOTIFY_EMAIL`: `info@investinbali.nl`.
-- `CALENDAR_URL`: Google Calendar appointment schedule URL.
+- `CALENDAR_URL`: Google Calendar appointment schedule URL. Current booking page: `https://calendar.app.google/KmYX9vj1hj8wEcLe6`.
 - `GUIDE_URL`: URL van de gids-PDF.
 
 Zonder `GOOGLE_APPS_SCRIPT_URL` valt de API terug op SMTP-mail. Dat is alleen fallback; de gewenste productieflow is Google Sheets als CRM-log.

@@ -13,7 +13,7 @@ const CONFIG = {
   SPREADSHEET_NAME: "Invest in Bali - Leads",
   SPREADSHEET_ID: "1LRl03IuZ5nIAW9FFMxdpJrERUVVndBqIWp03QxCfLlU",
   NOTIFY_EMAIL: "info@investinbali.nl",
-  CALENDAR_URL: "",
+  CALENDAR_URL: "https://calendar.app.google/KmYX9vj1hj8wEcLe6",
   GUIDE_URL: "https://www.investinbali.nl/assets/downloads/gratis-gids-investeren-in-bali-2026.pdf",
 };
 
