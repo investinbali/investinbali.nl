@@ -1,1 +1,1 @@
-window.INVEST_IN_BALI_GA_ID = "";
+window.INVEST_IN_BALI_GA_ID = "G-8YTKGPCEWE";
