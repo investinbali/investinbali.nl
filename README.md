@@ -65,7 +65,7 @@ Het script maakt publieke SEO-artikelen onder `kenniscentrum/`, werkt de wiki-hu
 
 ## Nederlandse SEO-landingspagina's
 
-De primaire Nederlandse zoekintenties staan in `content/seo-content-plan-nederland.md`. De bijbehorende pagina's worden gegenereerd met:
+De primaire Nederlandse zoekintenties staan als Google Doc in Drive: https://docs.google.com/document/d/14KHBGCZw2IPVrlnY4ho8IWH9aZJm4AI-DU9UxgrYgqc. De bijbehorende pagina's worden gegenereerd met:
 
 ```bash
 python scripts/generate_seo_landing_pages.py

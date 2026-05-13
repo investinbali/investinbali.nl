@@ -16,6 +16,13 @@ function trackEvent(name, properties = {}) {
       },
     });
   }
+
+  if (typeof window.gtag === "function") {
+    window.gtag("event", name, {
+      page_path: window.location.pathname,
+      ...properties,
+    });
+  }
 }
 
 function calculateRoi() {
