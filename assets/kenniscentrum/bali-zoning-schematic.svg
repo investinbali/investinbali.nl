@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Illustratief kaartje van Bali zoningtypen</title>
+  <desc id="desc">Schematische kaart van Bali met vereenvoudigde zones voor toerisme, wonen, landbouw, bescherming, handel en speciale ontwikkeling.</desc>
+  <rect width="1200" height="620" fill="#fff7ea"/>
+  <path d="M92 360 C160 272 278 238 410 226 C562 212 645 160 770 194 C880 224 948 300 1086 300 C1134 300 1162 322 1168 352 C1178 402 1112 430 1028 420 C910 406 790 432 690 468 C548 518 392 500 282 458 C194 424 126 420 92 360 Z" fill="#f0dfc5" stroke="#7a542b" stroke-width="6"/>
+  <path d="M132 356 C198 292 316 270 432 258 C540 246 612 208 712 212 C696 266 662 314 604 344 C520 388 384 384 278 404 C210 416 158 400 132 356 Z" fill="#d7c48f" opacity=".88"/>
+  <path d="M612 212 C682 204 744 214 810 238 C794 304 750 354 684 384 C650 400 616 410 584 420 C604 356 614 288 612 212 Z" fill="#7eae7b" opacity=".9"/>
+  <path d="M808 238 C890 268 960 312 1086 312 C1122 312 1144 328 1148 350 C1154 386 1094 396 1018 386 C926 374 840 392 760 414 C786 356 802 300 808 238 Z" fill="#d0a25f" opacity=".9"/>
+  <path d="M374 408 C488 392 590 398 690 430 C624 466 522 486 418 472 C338 462 268 436 206 418 C250 410 304 408 374 408 Z" fill="#bf7954" opacity=".84"/>
+  <path d="M710 216 C756 218 792 230 822 244 C804 284 778 314 734 334 C704 348 674 352 642 350 C676 320 698 272 710 216 Z" fill="#8469a8" opacity=".76"/>
+  <path d="M92 360 C160 272 278 238 410 226 C562 212 645 160 770 194 C880 224 948 300 1086 300 C1134 300 1162 322 1168 352 C1178 402 1112 430 1028 420 C910 406 790 432 690 468 C548 518 392 500 282 458 C194 424 126 420 92 360 Z" fill="none" stroke="#5a4028" stroke-width="5"/>
+  <g font-family="Manrope, Arial, sans-serif" font-weight="800" font-size="27" fill="#241a13">
+    <text x="250" y="328">Landbouw</text>
+    <text x="548" y="304">Beschermd</text>
+    <text x="836" y="344">Toerisme</text>
+    <text x="415" y="448">Wonen</text>
+    <text x="644" y="372">Speciale zone</text>
+  </g>
+  <g font-family="Manrope, Arial, sans-serif" font-size="20" fill="#4a3829">
+    <text x="76" y="82" font-weight="800" font-size="34" fill="#1b1512">Bali zoning - vereenvoudigd schema</text>
+    <text x="76" y="118">Illustratief kaartje. De officiele RTRW/RDTR en perceelcheck blijven leidend.</text>
+  </g>
+  <g transform="translate(76 494)" font-family="Manrope, Arial, sans-serif" font-size="20" fill="#2b211a">
+    <rect x="0" y="0" width="1048" height="76" rx="22" fill="#fffaf2" stroke="#d9c8ae"/>
+    <circle cx="34" cy="38" r="12" fill="#d0a25f"/><text x="56" y="45">toerisme</text>
+    <circle cx="190" cy="38" r="12" fill="#bf7954"/><text x="212" y="45">wonen</text>
+    <circle cx="330" cy="38" r="12" fill="#d7c48f"/><text x="352" y="45">landbouw</text>
+    <circle cx="505" cy="38" r="12" fill="#7eae7b"/><text x="527" y="45">bescherming</text>
+    <circle cx="715" cy="38" r="12" fill="#8469a8"/><text x="737" y="45">speciale ontwikkeling</text>
+  </g>
+</svg>

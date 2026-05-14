@@ -525,12 +525,13 @@ h2 {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   gap: 24px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .visual-panel {
   display: grid;
   gap: 24px;
+  align-self: start;
   padding: 30px;
   border: 1px solid rgba(27, 21, 18, 0.08);
   border-radius: var(--radius);
@@ -1143,6 +1144,61 @@ h2 {
   max-width: 13ch;
 }
 
+.subpage-hero p:not(.eyebrow) {
+  color: rgba(255, 248, 239, 0.92);
+}
+
+.subpage-hero .form-note {
+  color: rgba(255, 248, 239, 0.76);
+}
+
+.zone-map-card {
+  margin: 28px 0;
+  padding: 18px;
+  border: 1px solid rgba(27, 21, 18, 0.08);
+  border-radius: 18px;
+  background: #fffaf2;
+}
+
+.zone-map-card img {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(27, 21, 18, 0.08);
+}
+
+.zone-map-card figcaption {
+  margin-top: 12px;
+  max-width: 82ch;
+  color: rgba(27, 21, 18, 0.68);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.zone-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 18px 0 8px;
+}
+
+.zone-card {
+  padding: 20px;
+  border: 1px solid rgba(27, 21, 18, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 250, 242, 0.76);
+}
+
+.zone-card h4 {
+  margin: 0 0 10px;
+  color: var(--dark-text);
+  font-size: 1.02rem;
+  line-height: 1.25;
+}
+
+.zone-card p {
+  margin: 0;
+}
+
 .content-shell {
   width: min(calc(100% - 48px), var(--max-width));
   margin: 0 auto 56px;
@@ -1173,7 +1229,7 @@ h2 {
   object-fit: cover;
 }
 
-.visual-panel {
+.content-shell .visual-panel {
   display: grid;
   grid-template-rows: repeat(3, minmax(0, 1fr));
   gap: 18px;
@@ -1181,7 +1237,7 @@ h2 {
   min-height: 100%;
 }
 
-.visual-panel figure {
+.content-shell .visual-panel figure {
   margin: 0;
   overflow: hidden;
   border-radius: 22px;
@@ -1189,14 +1245,14 @@ h2 {
   min-height: 0;
 }
 
-.visual-panel img {
+.content-shell .visual-panel img {
   width: 100%;
   height: 100%;
   min-height: 0;
   object-fit: cover;
 }
 
-.visual-panel figure:nth-child(3) img {
+.content-shell .visual-panel figure:nth-child(3) img {
   object-position: center bottom;
 }
 
@@ -1382,12 +1438,17 @@ h2 {
 }
 
 .faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
   list-style: none;
   cursor: pointer;
-  padding: 24px 28px;
-  font-family: "Playfair Display", serif;
-  font-size: 1.85rem;
-  line-height: 1.02;
+  padding: 22px 26px;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.18rem;
+  line-height: 1.35;
+  font-weight: 800;
   color: var(--dark-text);
 }
 
@@ -1397,7 +1458,7 @@ h2 {
 
 .faq-item summary::after {
   content: "+";
-  float: right;
+  flex: 0 0 auto;
   font-family: "Manrope", sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
@@ -1511,6 +1572,15 @@ h2 {
   font-size: 0.9rem;
   line-height: 1.5;
   color: rgba(27, 21, 18, 0.56);
+}
+
+.subpage-hero .form-note,
+.seo-landing .subpage-hero .form-note {
+  color: rgba(255, 248, 239, 0.76);
+}
+
+.seo-landing .subpage-hero p:not(.eyebrow):not(.form-note) {
+  color: rgba(255, 248, 239, 0.94);
 }
 
 .form-success {
@@ -1807,7 +1877,11 @@ h2 {
 
   .faq-item summary {
     padding: 20px 22px;
-    font-size: 1.45rem;
+    font-size: 1.05rem;
+  }
+
+  .zone-grid {
+    grid-template-columns: 1fr;
   }
 
   .image-card img {
