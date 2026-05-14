@@ -202,6 +202,13 @@ h2 {
   line-height: 1.65;
 }
 
+.footer-email {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--gold-soft);
+  font-weight: 800;
+}
+
 .hero-copy {
   max-width: 640px;
   margin: 28px 0 0;
@@ -251,6 +258,12 @@ h2 {
   border-color: rgba(216, 164, 81, 0.32);
   color: var(--dark-text);
   background: transparent;
+}
+
+.subpage-hero .button-outline {
+  border-color: rgba(255, 222, 176, 0.5);
+  color: #fff8ef;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .button-dark {
@@ -1127,7 +1140,7 @@ h2 {
 .subpage-hero h1 {
   font-size: 3.25rem;
   line-height: 0.98;
-  max-width: 11ch;
+  max-width: 13ch;
 }
 
 .content-shell {
@@ -1306,7 +1319,36 @@ h2 {
 
 .content-shell .knowledge-grid {
   grid-auto-rows: auto;
-  align-items: start;
+  align-items: stretch;
+}
+
+.knowledge-wide-card {
+  grid-column: 1 / -1;
+}
+
+.knowledge-wide-card h2 {
+  max-width: 18ch;
+  min-height: auto;
+}
+
+.knowledge-wide-card .article-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.about-risk-grid {
+  margin-top: 24px;
+}
+
+.direct-contact {
+  margin-top: 22px;
+  color: rgba(255, 248, 239, 0.88);
+}
+
+.direct-contact a {
+  color: var(--gold-soft);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .contact-grid {
@@ -1651,6 +1693,7 @@ h2 {
   .detail-facts,
   .scenario-facts,
   .project-gallery,
+  .knowledge-wide-card .article-list,
   .calculator-form {
     grid-template-columns: 1fr;
   }

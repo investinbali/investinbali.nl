@@ -357,6 +357,7 @@ def footer() -> str:
       <div>
         <h3>Invest in Bali</h3>
         <p>Huizen op Bali voor kopers en investeerders die duidelijkheid willen over potentie, risico en structuur.</p>
+        <a class="footer-email" href="mailto:info@investinbali.nl">info@investinbali.nl</a>
       </div>
       <div class="footer-column">
         <h4>Navigatie</h4>
@@ -518,14 +519,14 @@ def replace_article_lists() -> None:
     index_path = ROOT / "kenniscentrum" / "index.html"
     text = index_path.read_text(encoding="utf-8")
     insert = f"""
-          <article class="content-card">
-            <h2>Uitgebreide SEO-artikelen</h2>
-            <p>Deze verdiepende artikelen beantwoorden concrete vragen over Bali vastgoed, regelgeving, bouwen, verhuur, projectontwikkeling en investeerdersrisico's.</p>
+          <article class="content-card knowledge-wide-card">
+            <h2>Verdiepende artikelen voor betere beslissingen</h2>
+            <p>Lees verder over wetgeving, bouwen, verhuur, projectontwikkeling en risico's. De artikelen zijn geschreven om een woning of project kritischer te kunnen beoordelen voordat je een gesprek aangaat of documenten laat controleren.</p>
             <div class="article-list">
 {article_cards()}
             </div>
           </article>"""
-    if "Uitgebreide SEO-artikelen" not in text:
+    if "Verdiepende artikelen voor betere beslissingen" not in text:
         text = text.replace("</div>\n      </section>\n    </main>", f"{insert}\n        </div>\n      </section>\n    </main>", 1)
     index_path.write_text(text, encoding="utf-8")
 

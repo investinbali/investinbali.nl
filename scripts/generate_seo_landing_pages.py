@@ -379,6 +379,7 @@ def footer() -> str:
       <div>
         <h3>Invest in Bali</h3>
         <p>Huizen op Bali voor kopers en investeerders die duidelijkheid willen over potentie, risico en structuur.</p>
+        <a class="footer-email" href="mailto:info@investinbali.nl">info@investinbali.nl</a>
       </div>
       <div class="footer-column">
         <h4>Navigatie</h4>
@@ -565,7 +566,7 @@ def update_sitemap() -> None:
 def update_knowledge_index() -> None:
     path = ROOT / "kenniscentrum" / "index.html"
     text = path.read_text(encoding="utf-8")
-    marker = "Nederlandse zoekvragen over Bali vastgoed"
+    marker = "Startvragen voor kopers en investeerders"
     if marker in text:
         text = "\n".join(line.rstrip() for line in text.splitlines()) + "\n"
         path.write_text(text, encoding="utf-8")
@@ -577,9 +578,9 @@ def update_knowledge_index() -> None:
               </a>'''
         for page in PAGES
     )
-    block = f"""          <article class="content-card">
+    block = f"""          <article class="content-card knowledge-wide-card">
             <h2>{marker}</h2>
-            <p>Deze landingspagina's beantwoorden de zoekvragen die Nederlandse kopers meestal eerst stellen voordat ze projecten vergelijken.</p>
+            <p>Deze pagina's helpen je snel grip te krijgen op de eerste keuzes: investeren, kopen, leasehold, rendement, belasting, risico's en de toekomst van Bali.</p>
             <div class="article-list">
 {cards}
             </div>
