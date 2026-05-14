@@ -1,0 +1,12 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Invest in Bali logo variant 03 - arch entry</title>
+  <desc id="desc">Dark rounded square logo with villa outline and Balinese-inspired arch entry.</desc>
+  <rect width="1024" height="1024" rx="210" fill="#211813"/>
+  <rect x="86" y="86" width="852" height="852" rx="174" stroke="#DDA94F" stroke-width="28"/>
+  <circle cx="714" cy="294" r="62" fill="#DDA94F"/>
+  <path d="M276 646H748" stroke="#FFF1DD" stroke-width="46" stroke-linecap="round"/>
+  <path d="M350 646V492L512 340L674 492V646" stroke="#FFF1DD" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M408 506H616" stroke="#DDA94F" stroke-width="34" stroke-linecap="round"/>
+  <path d="M444 646V574C444 536 474 506 512 506C550 506 580 536 580 574V646" stroke="#DDA94F" stroke-width="38" stroke-linecap="round"/>
+  <path d="M338 746C414 801 610 801 686 746" stroke="#DDA94F" stroke-width="32" stroke-linecap="round"/>
+</svg>

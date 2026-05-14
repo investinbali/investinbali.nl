@@ -1,0 +1,13 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Invest in Bali logo variant 05 - window door</title>
+  <desc id="desc">Dark rounded square logo with villa outline, clean gold window and door geometry.</desc>
+  <rect width="1024" height="1024" rx="210" fill="#211813"/>
+  <rect x="86" y="86" width="852" height="852" rx="174" stroke="#DDA94F" stroke-width="28"/>
+  <circle cx="714" cy="294" r="62" fill="#DDA94F"/>
+  <path d="M276 646H748" stroke="#FFF1DD" stroke-width="46" stroke-linecap="round"/>
+  <path d="M350 646V492L512 340L674 492V646" stroke="#FFF1DD" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M414 510H610" stroke="#DDA94F" stroke-width="32" stroke-linecap="round"/>
+  <rect x="432" y="552" width="54" height="64" rx="10" stroke="#DDA94F" stroke-width="26"/>
+  <path d="M538 646V552H604V646" stroke="#DDA94F" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M338 746C414 801 610 801 686 746" stroke="#DDA94F" stroke-width="32" stroke-linecap="round"/>
+</svg>
