@@ -1,0 +1,21 @@
+<svg width="1600" height="520" viewBox="0 0 1600 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Invest in Bali logo concept 03 - Estate Seal</title>
+  <desc id="desc">Premium circular estate seal with villa, horizon and structured wordmark.</desc>
+  <rect width="1600" height="520" rx="72" fill="#F7F1E8"/>
+  <g transform="translate(112 62)">
+    <circle cx="198" cy="198" r="198" fill="#2A201A"/>
+    <circle cx="198" cy="198" r="164" stroke="#D8A451" stroke-width="12"/>
+    <path d="M104 214L198 134L292 214" stroke="#FFF8EF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M128 214V280H268V214" stroke="#FFF8EF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M170 280V234H226V280" stroke="#D8A451" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M92 318H304" stroke="#D8A451" stroke-width="12" stroke-linecap="round"/>
+    <path d="M124 342H272" stroke="#D8A451" stroke-width="8" stroke-linecap="round" opacity="0.75"/>
+    <text x="118" y="92" fill="#D8A451" font-family="Manrope, Arial, sans-serif" font-size="24" font-weight="800" letter-spacing="5">BALI</text>
+  </g>
+  <g transform="translate(548 136)">
+    <text x="0" y="82" fill="#1F1712" font-family="Manrope, Arial, sans-serif" font-size="88" font-weight="800" letter-spacing="12">INVEST IN BALI</text>
+    <rect x="4" y="118" width="486" height="6" rx="3" fill="#D8A451"/>
+    <text x="4" y="184" fill="#6F4B29" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700">Curated Bali property opportunities</text>
+    <text x="4" y="236" fill="#1F1712" font-family="Manrope, Arial, sans-serif" font-size="28" font-weight="600">Analyse · toegang · begeleiding</text>
+  </g>
+</svg>

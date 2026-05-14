@@ -1,0 +1,13 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Invest in Bali icon concept 03 - Estate Seal</title>
+  <desc id="desc">Circular estate seal with villa and horizon for Invest in Bali.</desc>
+  <rect width="1024" height="1024" rx="220" fill="#2A201A"/>
+  <circle cx="512" cy="512" r="384" stroke="#D8A451" stroke-width="34"/>
+  <circle cx="512" cy="512" r="310" stroke="#FFF8EF" stroke-width="8" opacity="0.28"/>
+  <path d="M286 518L512 326L738 518" stroke="#FFF8EF" stroke-width="52" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M346 518V686H678V518" stroke="#FFF8EF" stroke-width="52" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M448 686V570H576V686" stroke="#D8A451" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M278 786H746" stroke="#D8A451" stroke-width="34" stroke-linecap="round"/>
+  <path d="M348 844H676" stroke="#D8A451" stroke-width="22" stroke-linecap="round" opacity="0.78"/>
+  <text x="322" y="238" fill="#D8A451" font-family="Manrope, Arial, sans-serif" font-size="78" font-weight="800" letter-spacing="16">BALI</text>
+</svg>

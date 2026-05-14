@@ -1,0 +1,22 @@
+<svg width="1600" height="520" viewBox="0 0 1600 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Invest in Bali logo concept 01 - Villa Gate</title>
+  <desc id="desc">Premium wordmark with a Balinese gate, villa roof and palm sun icon.</desc>
+  <rect width="1600" height="520" rx="72" fill="#F4EDE2"/>
+  <g transform="translate(112 82)">
+    <rect x="0" y="0" width="356" height="356" rx="92" fill="#231B16"/>
+    <rect x="26" y="26" width="304" height="304" rx="74" stroke="#D8A451" stroke-width="10"/>
+    <path d="M88 218H268" stroke="#F6E8D3" stroke-width="16" stroke-linecap="round"/>
+    <path d="M112 218V160L178 102L244 160V218" stroke="#F6E8D3" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M134 160H222" stroke="#D8A451" stroke-width="13" stroke-linecap="round"/>
+    <path d="M154 218V178H202V218" stroke="#D8A451" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M106 248C132 269 224 269 250 248" stroke="#D8A451" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="260" cy="98" r="22" fill="#D8A451"/>
+    <path d="M72 122C94 110 114 110 135 122" stroke="#F6E8D3" stroke-width="10" stroke-linecap="round"/>
+    <path d="M83 102C101 112 111 128 113 150" stroke="#F6E8D3" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(548 156)">
+    <text x="0" y="58" fill="#1F1712" font-family="Manrope, Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="18">INVEST IN BALI</text>
+    <path d="M0 102H540" stroke="#D8A451" stroke-width="8" stroke-linecap="round"/>
+    <text x="0" y="166" fill="#6F4B29" font-family="Manrope, Arial, sans-serif" font-size="34" font-weight="600" letter-spacing="2">Vastgoed met inzicht, structuur en lokale marktkennis</text>
+  </g>
+</svg>
