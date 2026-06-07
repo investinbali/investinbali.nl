@@ -49,7 +49,88 @@ function trackEvent(name, properties = {}) {
   }
 }
 
+function normaliseEventPart(value, fallback = "unknown") {
+  const normalised = String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+  return normalised || fallback;
+}
+
 setupGoogleAnalytics();
+
+const scrollMilestones = [25, 50, 75, 90];
+const reachedScrollMilestones = new Set();
+let engagedReaderTracked = false;
+let engagedReaderTimer = null;
+
+function getPageCategory() {
+  const path = window.location.pathname;
+
+  if (path === "/") {
+    return "home";
+  }
+  if (path.startsWith("/projecten/")) {
+    return path === "/projecten/" ? "projecten_hub" : "project_detail";
+  }
+  if (path.startsWith("/kenniscentrum/")) {
+    return path === "/kenniscentrum/" ? "kenniscentrum_hub" : "kenniscentrum_article";
+  }
+
+  return path.replace(/^\/|\/$/g, "") || "other";
+}
+
+function trackScrollDepth() {
+  const root = document.documentElement;
+  const scrollRange = root.scrollHeight - window.innerHeight;
+
+  if (scrollRange <= 0) {
+    return;
+  }
+
+  const progress = Math.round((window.scrollY / scrollRange) * 100);
+
+  scrollMilestones.forEach((milestone) => {
+    if (progress >= milestone && !reachedScrollMilestones.has(milestone)) {
+      reachedScrollMilestones.add(milestone);
+      trackEvent("scroll_depth", {
+        percent_scrolled: milestone,
+        page_category: getPageCategory(),
+      });
+    }
+  });
+}
+
+function resetEngagedReaderTimer() {
+  if (engagedReaderTracked || document.hidden) {
+    return;
+  }
+
+  window.clearTimeout(engagedReaderTimer);
+  engagedReaderTimer = window.setTimeout(() => {
+    if (document.hidden || engagedReaderTracked) {
+      return;
+    }
+
+    engagedReaderTracked = true;
+    trackEvent("engaged_read_30s", {
+      page_category: getPageCategory(),
+    });
+  }, 30000);
+}
+
+window.addEventListener("scroll", trackScrollDepth, { passive: true });
+window.addEventListener("load", trackScrollDepth);
+window.addEventListener("focus", resetEngagedReaderTimer);
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    window.clearTimeout(engagedReaderTimer);
+    return;
+  }
+
+  resetEngagedReaderTimer();
+});
+resetEngagedReaderTimer();
 
 function calculateRoi() {
   const investment = Number(document.getElementById("investment")?.value || 0);
@@ -162,6 +243,14 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
       trackEvent("form_submit_success", {
         lead_type: payload.lead_type || "unknown",
       });
+      trackEvent("generate_lead", {
+        lead_type: payload.lead_type || "unknown",
+        form_name: form.dataset.formName || "unknown",
+        page_category: getPageCategory(),
+      });
+      trackEvent(`form_submit_success_${normaliseEventPart(payload.lead_type)}`, {
+        lead_type: payload.lead_type || "unknown",
+      });
 
       form.reset();
       if (success) {
@@ -177,10 +266,16 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
         link.textContent = "Plan je call in de agenda";
         nextStep.append(link);
         nextStep.hidden = false;
+        trackEvent("schedule_call_prompt_shown", {
+          lead_type: payload.lead_type || "unknown",
+        });
       }
     } catch (err) {
       const formData = Object.fromEntries(new FormData(form));
       trackEvent("form_submit_error", {
+        lead_type: formData.lead_type || "unknown",
+      });
+      trackEvent(`form_submit_error_${normaliseEventPart(formData.lead_type)}`, {
         lead_type: formData.lead_type || "unknown",
       });
 
@@ -209,9 +304,49 @@ document.querySelectorAll("a[href]").forEach((link) => {
       return;
     }
 
+    let ctaType = "other";
+    if (href.includes("calendar.app.google")) {
+      ctaType = "calendar";
+    } else if (href.includes("/contact")) {
+      ctaType = "contact";
+    } else if (href.includes("/gids")) {
+      ctaType = "gids";
+    } else if (href.includes("/projecten")) {
+      ctaType = "projecten";
+    }
+
+    const label = link.textContent.trim().replace(/\s+/g, " ").slice(0, 80);
+
     trackEvent("cta_click", {
       href,
-      label: link.textContent.trim().replace(/\s+/g, " ").slice(0, 80),
+      label,
+      cta_type: ctaType,
+      page_category: getPageCategory(),
     });
+    trackEvent(`cta_${normaliseEventPart(ctaType)}_click`, {
+      href,
+      label,
+    });
+
+    if (href.includes("/projecten/") && href !== "/projecten/") {
+      trackEvent("project_interest_click", {
+        href,
+        label,
+      });
+    }
+
+    if (href.includes("/gids")) {
+      trackEvent("download_gids_click", {
+        href,
+        label,
+      });
+    }
+
+    if (href.includes("calendar.app.google") || label.toLowerCase().includes("plan")) {
+      trackEvent("schedule_call_click", {
+        href,
+        label,
+      });
+    }
   });
 });

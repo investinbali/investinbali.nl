@@ -1343,6 +1343,19 @@ h2 {
   text-underline-offset: 3px;
 }
 
+.answer-block {
+  border-left: 4px solid var(--gold);
+  background: #fff8ea;
+}
+
+.answer-block h2 {
+  margin-bottom: 0.65rem;
+}
+
+.answer-block p {
+  max-width: 74ch;
+}
+
 .proof-card blockquote {
   margin: 0;
   color: rgba(27, 21, 18, 0.82);

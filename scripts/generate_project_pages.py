@@ -152,6 +152,9 @@ def fact_rows(project: dict) -> str:
         ("Juridische structuur", project["legalStructure"]),
         ("Leasehold resterende looptijd", project.get("leaseRemaining", "Te controleren")),
         ("Verlengopties", project.get("extensionOptions", "Te controleren")),
+        ("Zoning status", project.get("zoningStatus", "Te controleren op perceelniveau")),
+        ("Vergunningenstatus", project.get("permitStatus", "Te controleren")),
+        ("Due-diligence status", project.get("dueDiligenceStatus", "Nog niet volledig afgerond")),
         ("Verwachte bruto opbrengst", project.get("grossYieldLabel", "Bruto indicatief op aanvraag")),
         ("Verwachte netto opbrengst", project.get("netYieldLabel", "Afhankelijk van kosten")),
         ("Kostenposten", ", ".join(project.get("costNotes", [])) or "Te controleren"),
@@ -217,13 +220,46 @@ def detail(project: dict) -> str:
     type_label = TYPE_LABELS[project["type"]]
     description = f"Kritische projectinformatie over {project['title']} in {project['location']}: prijsindicatie, juridische structuur, verhuurpotentie, risico’s en rendementsscenario."
     scenario = project.get("scenario", {})
+    canonical = f"{BASE_URL}/projecten/{project['slug']}/"
+    image_url = project["thumbnail"] if project["thumbnail"].startswith("http") else f"{BASE_URL}{project['thumbnail']}"
+    product_schema = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": project["title"],
+        "description": description,
+        "image": image_url,
+        "url": canonical,
+        "brand": {"@type": "Organization", "name": "Invest in Bali", "url": BASE_URL + "/"},
+        "category": f"Bali vastgoed - {type_label}",
+        "additionalProperty": [
+            {"@type": "PropertyValue", "name": "Locatie", "value": project["location"]},
+            {"@type": "PropertyValue", "name": "Juridische structuur", "value": project["legalStructure"]},
+            {"@type": "PropertyValue", "name": "Leasehold resterend", "value": project.get("leaseRemaining", "Te controleren")},
+            {"@type": "PropertyValue", "name": "Zoning status", "value": project.get("zoningStatus", "Te controleren op perceelniveau")},
+            {"@type": "PropertyValue", "name": "Vergunningenstatus", "value": project.get("permitStatus", "Te controleren")},
+            {"@type": "PropertyValue", "name": "Due-diligence status", "value": project.get("dueDiligenceStatus", "Nog niet volledig afgerond")},
+            {"@type": "PropertyValue", "name": "Bruto rendement indicatief", "value": project.get("grossYieldLabel", "Bruto indicatief op aanvraag")},
+            {"@type": "PropertyValue", "name": "Netto scenario", "value": project.get("netYieldLabel", "Afhankelijk van kosten")},
+        ],
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "EUR",
+            "priceSpecification": {"@type": "PriceSpecification", "description": project["priceLabel"]},
+            "availability": "https://schema.org/InStock" if project["status"] in ["te-koop", "investering"] else "https://schema.org/PreOrder",
+            "url": canonical,
+        },
+    }
     gallery = "\n".join(
         f'<img src="{esc(src)}" alt="{esc(project["title"])} - afbeelding {index}" loading="lazy" />'
         for index, src in enumerate(project.get("images", []), start=1)
     )
+    head = page_head(f"{project['title']} | Investeren in Bali vastgoed", description, canonical, project["thumbnail"], f"{project['title']} in {project['location']}").replace(
+        "  </head>",
+        f'    <script type="application/ld+json">{json.dumps(product_schema, ensure_ascii=False)}</script>\n  </head>',
+    )
     return f"""<!DOCTYPE html>
 <html lang="nl">
-  {page_head(f"{project['title']} | Investeren in Bali vastgoed", description, f"{BASE_URL}/projecten/{project['slug']}/", project["thumbnail"], f"{project['title']} in {project['location']}")}
+  {head}
   <body class="subpage">
     {header()}
     <main>

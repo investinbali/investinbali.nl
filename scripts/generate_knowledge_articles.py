@@ -283,9 +283,9 @@ def page_head(article: dict) -> str:
                 "headline": article["h1"],
                 "description": article["description"],
                 "inLanguage": "nl-NL",
-                "dateModified": "2026-05-11",
-                "author": {"@type": "Organization", "name": "Invest in Bali"},
-                "publisher": {"@type": "Organization", "name": "Invest in Bali"},
+                "dateModified": "2026-05-20",
+                "author": {"@type": "Organization", "name": "Invest in Bali", "url": BASE_URL + "/over-ons/"},
+                "publisher": {"@type": "Organization", "name": "Invest in Bali", "url": BASE_URL + "/"},
                 "mainEntityOfPage": canonical,
                 "image": image,
             },
@@ -448,9 +448,14 @@ def article_page(article: dict) -> str:
         <p class="eyebrow">KENNISCENTRUM</p>
         <h1>{esc(article['h1'])}</h1>
         <p>{md_inline(intro)}</p>
-        <p class="form-note">Laatst nagelopen: 11 mei 2026. Gebruik dit als startpunt voor betere vragen; laat documenten en afspraken lokaal juridisch en fiscaal controleren.</p>
+        <p class="form-note">Laatst bijgewerkt: 20 mei 2026. Geschreven door het Invest in Bali team. Gebruik dit als startpunt voor betere vragen; laat documenten en afspraken lokaal juridisch en fiscaal controleren.</p>
       </section>
       <section class="content-shell longform">
+        <article class="content-card answer-block">
+          <h2>Kort antwoord</h2>
+          <p>{md_inline(intro)}</p>
+          <p>De juiste beoordeling hangt af van het concrete object, de juridische structuur, zoning, vergunningen, kosten en je doel met de woning. Gebruik deze pagina daarom als startpunt voor due diligence, niet als aankoopadvies.</p>
+        </article>
         <article class="content-card">
           <h2>{why_heading}</h2>
           {paragraphs_from(summary, 3, skip_first=True)}

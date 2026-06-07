@@ -2,7 +2,9 @@
   "private": true,
   "scripts": {
     "generate:projects": "python scripts/generate_project_pages.py",
-    "generate:knowledge": "python scripts/generate_knowledge_articles.py",
+    "generate:knowledge": "python scripts/generate_knowledge_articles.py && python scripts/generate_priority_knowledge_pages.py",
+    "generate:knowledge:wiki": "python scripts/generate_knowledge_articles.py",
+    "generate:knowledge:priority": "python scripts/generate_priority_knowledge_pages.py",
     "generate:seo": "python scripts/generate_seo_landing_pages.py"
   },
   "dependencies": {
