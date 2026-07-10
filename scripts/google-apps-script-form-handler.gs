@@ -104,20 +104,31 @@ function doPost(e) {
 
     const lead = buildLead(data, leadType);
     appendLead("Leads", lead);
-    appendLead(FLOW_SHEETS[leadType], lead);
+    const deliveryWarnings = [];
 
-    sendInternalNotification(lead);
+    runOptionalStep("flow_sheet", lead, deliveryWarnings, function () {
+      appendLead(FLOW_SHEETS[leadType], lead);
+    });
+    runOptionalStep("internal_notification", lead, deliveryWarnings, function () {
+      sendInternalNotification(lead);
+    });
 
     if (leadType === "gids_aanvraag" || leadType === "member_gids_inschrijving") {
-      sendGuideEmail(lead);
+      runOptionalStep("guide_email", lead, deliveryWarnings, function () {
+        sendGuideEmail(lead);
+      });
     }
 
     if (leadType === "member_inschrijving") {
-      sendUpdateConfirmation(lead);
+      runOptionalStep("update_confirmation", lead, deliveryWarnings, function () {
+        sendUpdateConfirmation(lead);
+      });
     }
 
     if (leadType === "info_aanvraag") {
-      sendInfoConfirmation(lead);
+      runOptionalStep("info_confirmation", lead, deliveryWarnings, function () {
+        sendInfoConfirmation(lead);
+      });
     }
 
     return jsonResponse({
@@ -125,6 +136,7 @@ function doPost(e) {
       lead_id: lead.lead_id,
       next_step: leadType === "call_aanvraag" ? "calendar" : "done",
       calendar_url: leadType === "call_aanvraag" ? getConfig("CALENDAR_URL") : "",
+      delivery_status: deliveryWarnings.length ? "stored_with_warnings" : "complete",
     });
   } catch (err) {
     logError(err, e);
@@ -255,7 +267,7 @@ function initialiseSpreadsheet(spreadsheet) {
   sheetNames.forEach(function (sheetName) {
     const sheet = spreadsheet.getSheetByName(sheetName) || spreadsheet.insertSheet(sheetName);
     if (sheetName === "Log") {
-      const logHeaders = ["created_at", "flow", "status", "message", "raw_payload"];
+      const logHeaders = ["created_at", "lead_id", "flow", "status", "message", "raw_payload"];
       const currentHeaders = sheet.getRange(1, 1, 1, logHeaders.length).getValues()[0];
       const hasHeaders = currentHeaders.some(function (value) {
         return clean(value);
@@ -426,7 +438,7 @@ function statusFromScore(score) {
 function logError(err, event) {
   try {
     const sheet = getOrCreateSheet("Log");
-    const headers = ["created_at", "flow", "status", "message", "raw_payload"];
+    const headers = ["created_at", "lead_id", "flow", "status", "message", "raw_payload"];
     const currentHeaders = sheet.getRange(1, 1, 1, headers.length).getValues()[0];
     const hasHeaders = currentHeaders.some(function (value) {
       return clean(value);
@@ -439,10 +451,36 @@ function logError(err, event) {
 
     sheet.appendRow([
       new Date().toISOString(),
+      "",
       "form_submit",
       "error",
       err.message,
-      event && event.postData ? event.postData.contents : "",
+      "",
+    ]);
+  } catch (logErr) {
+    console.error(logErr);
+  }
+}
+
+function runOptionalStep(flow, lead, warnings, callback) {
+  try {
+    callback();
+  } catch (err) {
+    warnings.push(flow);
+    logDeliveryWarning(flow, lead.lead_id, err);
+  }
+}
+
+function logDeliveryWarning(flow, leadId, err) {
+  try {
+    const sheet = getOrCreateSheet("Log");
+    sheet.appendRow([
+      new Date().toISOString(),
+      leadId,
+      flow,
+      "warning",
+      err && err.message ? String(err.message).slice(0, 500) : "Unknown delivery warning",
+      "",
     ]);
   } catch (logErr) {
     console.error(logErr);
