@@ -1113,6 +1113,9 @@ h2 {
 
 .seseh-media-card.feature {
   grid-column: 1 / -1;
+  width: 100%;
+  max-width: 480px;
+  justify-self: center;
 }
 
 .seseh-media-card img,
