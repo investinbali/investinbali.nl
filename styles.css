@@ -1166,6 +1166,10 @@ h2 {
   gap: 16px;
 }
 
+.seseh-location-grid {
+  align-items: start;
+}
+
 .seseh-location-grid .seseh-media-card:last-child img {
   height: 460px;
   object-position: center;
