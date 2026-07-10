@@ -1290,8 +1290,8 @@ h2 {
 
 .seseh-map-marker {
   position: absolute;
-  top: 55%;
-  left: 58%;
+  top: 50%;
+  left: 50%;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -1319,6 +1319,49 @@ h2 {
   color: #45534a;
   font-size: 0.82rem;
   font-weight: 700;
+}
+
+.seseh-plot-detail {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  align-items: center;
+  gap: 34px;
+  margin-top: 28px;
+}
+
+.seseh-plot-boundary-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(44, 54, 47, 0.13);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(27, 33, 28, 0.07);
+}
+
+.seseh-plot-boundary-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.seseh-plot-boundary-card figcaption {
+  padding: 13px 15px;
+  color: #45534a;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.seseh-plot-detail-copy h3 {
+  margin: 8px 0 12px;
+  color: #20352a;
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+}
+
+.seseh-plot-detail-copy p {
+  max-width: 620px;
+  margin: 0;
+  color: #59625b;
+  line-height: 1.75;
 }
 
 .seseh-plan-grid {
@@ -1479,6 +1522,10 @@ h2 {
 
   .seseh-location-grid .seseh-media-card:last-child img {
     height: auto;
+  }
+
+  .seseh-plot-detail {
+    grid-template-columns: 1fr;
   }
 
   .seseh-walkthrough {
