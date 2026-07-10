@@ -220,6 +220,18 @@ def detail(project: dict) -> str:
     type_label = TYPE_LABELS[project["type"]]
     description = f"Kritische projectinformatie over {project['title']} in {project['location']}: prijsindicatie, juridische structuur, verhuurpotentie, risico’s en rendementsscenario."
     scenario = project.get("scenario", {})
+    external_project_url = project.get("externalProjectUrl")
+    external_project_cta = (
+        f'\n            <a class="button button-outline" href="{esc(external_project_url)}" target="_blank" rel="noopener noreferrer">Bekijk projectsite</a>'
+        if external_project_url
+        else ""
+    )
+    external_walkthrough_url = project.get("externalWalkthroughUrl")
+    external_walkthrough_cta = (
+        f'\n            <a class="button button-outline" href="{esc(external_walkthrough_url)}" target="_blank" rel="noopener noreferrer">Bekijk 3D walkthrough</a>'
+        if external_walkthrough_url
+        else ""
+    )
     canonical = f"{BASE_URL}/projecten/{project['slug']}/"
     image_url = project["thumbnail"] if project["thumbnail"].startswith("http") else f"{BASE_URL}{project['thumbnail']}"
     product_schema = {
@@ -278,6 +290,8 @@ def detail(project: dict) -> str:
           <div class="cta-actions">
             <a class="button button-gold" href="/contact/">Plan een call</a>
             <a class="button button-outline" href="/contact/">Vraag meer info op</a>
+            {external_project_cta}
+            {external_walkthrough_cta}
             <a class="button button-ghost-dark" href="/projecten/">Terug naar alle projecten</a>
           </div>
         </div>
