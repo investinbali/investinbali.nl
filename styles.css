@@ -1166,6 +1166,11 @@ h2 {
   gap: 16px;
 }
 
+.seseh-location-grid .seseh-media-card:last-child img {
+  height: 460px;
+  object-position: center;
+}
+
 .seseh-plan-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -1320,6 +1325,10 @@ h2 {
   .seseh-plan-card img {
     height: auto;
     min-height: 0;
+  }
+
+  .seseh-location-grid .seseh-media-card:last-child img {
+    height: auto;
   }
 
   .seseh-walkthrough {
