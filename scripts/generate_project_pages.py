@@ -165,7 +165,8 @@ def fact_rows(project: dict) -> str:
 
 
 def overview(projects: list[dict]) -> str:
-    visible = projects[:9]
+    ordered_projects = sorted(projects, key=lambda project: not project.get("featured", False))
+    visible = ordered_projects[:9]
     more_text = (
         '<p class="catalog-note">Meer objecten beschikbaar op aanvraag.</p>'
         if len(projects) > 9
