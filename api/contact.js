@@ -162,6 +162,8 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: "Vul een geldig e-mailadres in.", code: "INVALID_EMAIL" });
   }
 
+  let googleAppsScriptFailed = false;
+
   if (process.env.GOOGLE_APPS_SCRIPT_URL) {
     try {
       const googleResponse = await fetch(process.env.GOOGLE_APPS_SCRIPT_URL, {
@@ -174,33 +176,34 @@ module.exports = async function handler(req, res) {
       const result = responseText ? JSON.parse(responseText) : { ok: true };
 
       if (!googleResponse.ok || result.ok === false) {
-        return res.status(502).json({
-          error:
-            result.error ||
-            "Aanvraag is niet opgeslagen. Probeer later opnieuw of mail info@investinbali.nl.",
-          code: "GOOGLE_APPS_SCRIPT_ERROR",
+        googleAppsScriptFailed = true;
+        console.error("Google Apps Script rejected submission", {
+          status: googleResponse.status,
+          upstream_ok: result.ok,
+        });
+      } else {
+        return res.status(200).json({
+          ok: true,
+          crm: "google_sheets",
+          ...addFlowLinks(leadType, result),
         });
       }
-
-      return res.status(200).json({
-        ok: true,
-        crm: "google_sheets",
-        ...addFlowLinks(leadType, result),
-      });
     } catch (err) {
+      googleAppsScriptFailed = true;
       console.error("Google Apps Script submit failed", {
         message: err.message,
       });
+    }
+  }
 
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    if (googleAppsScriptFailed) {
       return res.status(502).json({
         error:
           "Aanvraag is niet opgeslagen. Probeer later opnieuw of mail info@investinbali.nl.",
         code: "GOOGLE_APPS_SCRIPT_ERROR",
       });
     }
-  }
-
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
     return res.status(500).json({
       error: "Mail is nog niet geconfigureerd.",
       code: "MAIL_NOT_CONFIGURED",
@@ -243,5 +246,10 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  return res.status(200).json(addFlowLinks(leadType, { ok: true, crm: "email_only" }));
+  return res.status(200).json(
+    addFlowLinks(leadType, {
+      ok: true,
+      crm: googleAppsScriptFailed ? "email_fallback" : "email_only",
+    })
+  );
 };

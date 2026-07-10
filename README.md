@@ -111,4 +111,4 @@ Script properties voor Apps Script:
 - `CALENDAR_URL`: Google Calendar appointment schedule URL. Current booking page: `https://calendar.app.google/KmYX9vj1hj8wEcLe6`.
 - `GUIDE_URL`: URL van de gids-PDF.
 
-Zonder `GOOGLE_APPS_SCRIPT_URL` valt de API terug op SMTP-mail. Dat is alleen fallback; de gewenste productieflow is Google Sheets als CRM-log.
+Zonder `GOOGLE_APPS_SCRIPT_URL`, of wanneer die endpoint een fout teruggeeft, valt de API terug op SMTP-mail. Zo blijft een aanvraag bereikbaar terwijl de Sheets-koppeling wordt hersteld. De gewenste productieflow blijft Google Sheets als CRM-log; controleer daarom een `email_fallback` respons en herstel de Apps Script-deployment.

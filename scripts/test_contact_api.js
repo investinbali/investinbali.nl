@@ -117,6 +117,21 @@ async function main() {
   assert.equal(downstreamFailure.statusCode, 502);
   assert.equal(downstreamFailure.payload.code, "GOOGLE_APPS_SCRIPT_ERROR");
 
+  process.env.SMTP_USER = "test@example.com";
+  process.env.SMTP_PASS = "secret";
+  const fallbackSuccess = await invoke({
+    lead_type: "gids_aanvraag",
+    name: "Test",
+    email: "test@example.com",
+    interest: "oriëntatie",
+    consent: "yes",
+  });
+  assert.equal(fallbackSuccess.statusCode, 200);
+  assert.equal(fallbackSuccess.payload.ok, true);
+  assert.equal(fallbackSuccess.payload.crm, "email_fallback");
+  delete process.env.SMTP_USER;
+  delete process.env.SMTP_PASS;
+
   const invalidPayload = await invoke({
     lead_type: "gids_aanvraag",
     name: { nested: true },
