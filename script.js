@@ -6,12 +6,46 @@ function formatCurrency(value) {
   }).format(value);
 }
 
+const ANALYTICS_CONSENT_KEY = "investinbali_analytics_consent";
+
+function getAnalyticsConsent() {
+  try {
+    return window.localStorage.getItem(ANALYTICS_CONSENT_KEY);
+  } catch (_error) {
+    return null;
+  }
+}
+
+function setAnalyticsDisabled(disabled) {
+  const measurementId = String(window.INVEST_IN_BALI_GA_ID || "").trim();
+  if (measurementId) {
+    window[`ga-disable-${measurementId}`] = disabled;
+  }
+}
+
+function clearAnalyticsCookies() {
+  const hostname = window.location.hostname;
+  const domains = ["", hostname, `.${hostname}`, ".investinbali.nl"];
+  document.cookie.split(";").forEach((cookie) => {
+    const name = cookie.split("=")[0].trim();
+    if (!/^_ga(?:_|$)|^_gid$|^_gat(?:_|$)/.test(name)) return;
+    domains.forEach((domain) => {
+      const domainPart = domain ? `; domain=${domain}` : "";
+      document.cookie = `${name}=; Max-Age=0; path=/${domainPart}; SameSite=Lax`;
+    });
+  });
+}
+
 function setupGoogleAnalytics() {
+  if (getAnalyticsConsent() !== "accepted") {
+    return;
+  }
   const configuredId =
     window.INVEST_IN_BALI_GA_ID ||
     document.querySelector("meta[name='google-analytics-id']")?.content ||
     "";
   const measurementId = configuredId.trim();
+  setAnalyticsDisabled(false);
 
   if (!/^G-[A-Z0-9]+$/i.test(measurementId) || typeof window.gtag === "function") {
     return;
@@ -28,6 +62,48 @@ function setupGoogleAnalytics() {
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
   document.head.append(script);
+}
+
+function setupCookieConsent(force = false) {
+  if (!force && getAnalyticsConsent()) {
+    return;
+  }
+  if (document.querySelector(".cookie-banner")) return;
+
+  const banner = document.createElement("section");
+  banner.className = "cookie-banner";
+  banner.setAttribute("role", "dialog");
+  banner.setAttribute("aria-modal", "false");
+  banner.setAttribute("aria-labelledby", "cookie-consent-title");
+  banner.innerHTML = `
+    <div>
+      <h2 id="cookie-consent-title">Jouw privacykeuze</h2>
+      <p>We gebruiken alleen met jouw toestemming Google Analytics om de website te verbeteren. Noodzakelijke opslag voor je keuze staat altijd aan. Lees meer in ons <a href="/cookiebeleid/">cookiebeleid</a>.</p>
+    </div>
+    <div class="cookie-actions">
+      <button class="button button-outline" type="button" data-cookie-choice="rejected">Weigeren</button>
+      <button class="button button-gold" type="button" data-cookie-choice="accepted">Accepteren</button>
+    </div>`;
+  document.body.append(banner);
+
+  banner.querySelectorAll("[data-cookie-choice]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const choice = button.dataset.cookieChoice;
+      try {
+        window.localStorage.setItem(ANALYTICS_CONSENT_KEY, choice);
+      } catch (_error) {
+        // The choice remains effective for this page view if storage is unavailable.
+      }
+      banner.remove();
+      if (choice === "accepted") {
+        setAnalyticsDisabled(false);
+        setupGoogleAnalytics();
+      } else {
+        setAnalyticsDisabled(true);
+        clearAnalyticsCookies();
+      }
+    });
+  });
 }
 
 function trackEvent(name, properties = {}) {
@@ -49,6 +125,14 @@ function trackEvent(name, properties = {}) {
   }
 }
 
+function trackFunnelStep(step, properties = {}) {
+  trackEvent("funnel_step_reached", {
+    funnel_step: step,
+    page_category: getPageCategory(),
+    ...properties,
+  });
+}
+
 function normaliseEventPart(value, fallback = "unknown") {
   const normalised = String(value || "")
     .toLowerCase()
@@ -58,6 +142,22 @@ function normaliseEventPart(value, fallback = "unknown") {
 }
 
 setupGoogleAnalytics();
+setupCookieConsent();
+
+document.addEventListener("click", (event) => {
+  const control = event.target.closest("[data-cookie-preferences]");
+  if (!control) return;
+  event.preventDefault();
+  setAnalyticsDisabled(true);
+  clearAnalyticsCookies();
+  try {
+    window.localStorage.removeItem(ANALYTICS_CONSENT_KEY);
+  } catch (_error) {
+    // Reopening the banner still lets the visitor choose for this page view.
+  }
+  setupCookieConsent(true);
+  document.querySelector(".cookie-banner button")?.focus();
+});
 
 const scrollMilestones = [25, 50, 75, 90];
 const reachedScrollMilestones = new Set();
@@ -78,6 +178,34 @@ function getPageCategory() {
   }
 
   return path.replace(/^\/|\/$/g, "") || "other";
+}
+
+function reportTrackingHealth() {
+  const storageKey = `tracking_ready:${window.location.pathname}`;
+
+  try {
+    if (window.sessionStorage.getItem(storageKey)) {
+      return;
+    }
+  } catch (_error) {
+    // Ignore storage failures and fall through to best-effort tracking.
+  }
+
+  window.setTimeout(() => {
+    trackEvent("tracking_ready", {
+      page_category: getPageCategory(),
+      has_ga_id: Boolean(window.INVEST_IN_BALI_GA_ID),
+      has_gtag: typeof window.gtag === "function",
+      has_vercel_analytics: typeof window.va === "function",
+      page_title: document.title,
+    });
+
+    try {
+      window.sessionStorage.setItem(storageKey, "1");
+    } catch (_error) {
+      // Ignore storage failures and avoid breaking user flows.
+    }
+  }, 1500);
 }
 
 function trackScrollDepth() {
@@ -116,6 +244,7 @@ function resetEngagedReaderTimer() {
     trackEvent("engaged_read_30s", {
       page_category: getPageCategory(),
     });
+    trackFunnelStep("engaged_read_30s");
   }, 30000);
 }
 
@@ -131,6 +260,7 @@ document.addEventListener("visibilitychange", () => {
   resetEngagedReaderTimer();
 });
 resetEngagedReaderTimer();
+reportTrackingHealth();
 
 function calculateRoi() {
   const investment = Number(document.getElementById("investment")?.value || 0);
@@ -151,17 +281,39 @@ function calculateRoi() {
     return;
   }
 
+  const invalid = [];
+  if (!Number.isFinite(investment) || investment <= 0) invalid.push("investering moet groter zijn dan 0");
+  if (!Number.isFinite(dailyRate) || dailyRate < 0) invalid.push("dagprijs mag niet negatief zijn");
+  if (!Number.isFinite(occupancy) || occupancy < 0 || occupancy > 1) invalid.push("bezetting moet tussen 0 en 100% liggen");
+  if (!Number.isFinite(costs) || costs < 0 || costs > 1) invalid.push("kosten moeten tussen 0 en 100% liggen");
+
+  summary.setAttribute("role", "status");
+  summary.setAttribute("aria-live", "polite");
+  if (invalid.length) {
+    revenueValue.textContent = "-";
+    netValue.textContent = "-";
+    roiValue.textContent = "-";
+    summary.textContent = `Controleer de invoer: ${invalid.join(", ")}.`;
+    return false;
+  }
+
   revenueValue.textContent = formatCurrency(revenue);
   netValue.textContent = formatCurrency(netRevenue);
   roiValue.textContent = `${roi.toFixed(1)}%`;
   summary.textContent = `Bij deze aannames kom je indicatief uit op ${formatCurrency(
     netRevenue
   )} netto-opbrengst per jaar en een netto rendement van ${roi.toFixed(1)}%.`;
+  return true;
 }
 
 document.getElementById("calculateButton")?.addEventListener("click", () => {
   calculateRoi();
-  trackEvent("roi_calculator_used");
+  trackEvent("roi_calculator_used", {
+    page_category: getPageCategory(),
+  });
+  trackFunnelStep("micro_conversion", {
+    micro_conversion_type: "roi_calculator_used",
+  });
 });
 
 if (document.getElementById("calculateButton")) {
@@ -188,6 +340,17 @@ function getTrackingFields() {
 }
 
 document.querySelectorAll(".prepared-form").forEach((form) => {
+  if (!form.querySelector("input[name='website']")) {
+    const honeypot = document.createElement("input");
+    honeypot.type = "text";
+    honeypot.name = "website";
+    honeypot.tabIndex = -1;
+    honeypot.autocomplete = "off";
+    honeypot.className = "honeypot-field";
+    honeypot.setAttribute("aria-hidden", "true");
+    form.prepend(honeypot);
+  }
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -205,6 +368,13 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
       error.className = "form-error";
       error.hidden = true;
       form.append(error);
+    }
+
+    error.setAttribute("role", "alert");
+    error.setAttribute("aria-live", "assertive");
+    if (success) {
+      success.setAttribute("role", "status");
+      success.setAttribute("aria-live", "polite");
     }
 
     if (success) {
@@ -237,7 +407,10 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(result.error || "Formulier kon niet worden verstuurd.");
+        const requestError = new Error(result.error || "Formulier kon niet worden verstuurd.");
+        requestError.httpStatus = response.status;
+        requestError.errorCode = result.code || "HTTP_ERROR";
+        throw requestError;
       }
 
       trackEvent("form_submit_success", {
@@ -248,8 +421,17 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
         form_name: form.dataset.formName || "unknown",
         page_category: getPageCategory(),
       });
+      trackEvent("qualify_lead", {
+        lead_type: payload.lead_type || "unknown",
+        form_name: form.dataset.formName || "unknown",
+        page_category: getPageCategory(),
+      });
       trackEvent(`form_submit_success_${normaliseEventPart(payload.lead_type)}`, {
         lead_type: payload.lead_type || "unknown",
+      });
+      trackFunnelStep("generate_lead", {
+        lead_type: payload.lead_type || "unknown",
+        form_name: form.dataset.formName || "unknown",
       });
 
       form.reset();
@@ -274,9 +456,15 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
       const formData = Object.fromEntries(new FormData(form));
       trackEvent("form_submit_error", {
         lead_type: formData.lead_type || "unknown",
+        form_name: form.dataset.formName || "unknown",
+        http_status: Number(err.httpStatus || 0),
+        error_code: normaliseEventPart(err.errorCode || "client_or_network_error"),
       });
       trackEvent(`form_submit_error_${normaliseEventPart(formData.lead_type)}`, {
         lead_type: formData.lead_type || "unknown",
+        form_name: form.dataset.formName || "unknown",
+        http_status: Number(err.httpStatus || 0),
+        error_code: normaliseEventPart(err.errorCode || "client_or_network_error"),
       });
 
       error.textContent =
@@ -294,7 +482,17 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
 document.querySelectorAll("a[href]").forEach((link) => {
   link.addEventListener("click", () => {
     const href = link.getAttribute("href") || "";
+    const ctaTypeOverride = link.dataset.ctaType || "";
+    const funnelStage = link.dataset.funnelStage || "";
+    const intentRoute = link.dataset.intentRoute || "";
+    const isInternalContentLink =
+      href.startsWith("/") &&
+      (link.classList.contains("article-link-card") ||
+        link.classList.contains("text-link") ||
+        link.classList.contains("section-cta"));
     const shouldTrack =
+      Boolean(ctaTypeOverride) ||
+      isInternalContentLink ||
       href.includes("/contact") ||
       href.includes("/gids") ||
       href.includes("/projecten") ||
@@ -304,15 +502,17 @@ document.querySelectorAll("a[href]").forEach((link) => {
       return;
     }
 
-    let ctaType = "other";
-    if (href.includes("calendar.app.google")) {
+    let ctaType = ctaTypeOverride || "other";
+    if (!ctaTypeOverride && href.includes("calendar.app.google")) {
       ctaType = "calendar";
-    } else if (href.includes("/contact")) {
+    } else if (!ctaTypeOverride && href.includes("/contact")) {
       ctaType = "contact";
-    } else if (href.includes("/gids")) {
+    } else if (!ctaTypeOverride && href.includes("/gids")) {
       ctaType = "gids";
-    } else if (href.includes("/projecten")) {
+    } else if (!ctaTypeOverride && href.includes("/projecten")) {
       ctaType = "projecten";
+    } else if (!ctaTypeOverride && isInternalContentLink) {
+      ctaType = "internal_content";
     }
 
     const label = link.textContent.trim().replace(/\s+/g, " ").slice(0, 80);
@@ -321,12 +521,40 @@ document.querySelectorAll("a[href]").forEach((link) => {
       href,
       label,
       cta_type: ctaType,
+      funnel_stage: funnelStage || "unassigned",
+      intent_route: intentRoute || "none",
       page_category: getPageCategory(),
     });
     trackEvent(`cta_${normaliseEventPart(ctaType)}_click`, {
       href,
       label,
     });
+
+    if (intentRoute) {
+      trackEvent("intent_route_selected", {
+        href,
+        label,
+        intent_route: intentRoute,
+        funnel_stage: funnelStage || "route_select",
+        page_category: getPageCategory(),
+      });
+    }
+
+    if (isInternalContentLink) {
+      trackEvent("content_navigation_click", {
+        href,
+        label,
+        page_category: getPageCategory(),
+      });
+    }
+
+    if (funnelStage) {
+      trackFunnelStep(funnelStage, {
+        cta_type: ctaType,
+        intent_route: intentRoute || "none",
+        href,
+      });
+    }
 
     if (href.includes("/projecten/") && href !== "/projecten/") {
       trackEvent("project_interest_click", {
@@ -339,6 +567,10 @@ document.querySelectorAll("a[href]").forEach((link) => {
       trackEvent("download_gids_click", {
         href,
         label,
+      });
+      trackFunnelStep("micro_conversion", {
+        micro_conversion_type: "download_gids_click",
+        href,
       });
     }
 

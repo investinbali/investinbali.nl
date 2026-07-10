@@ -3,11 +3,28 @@ from __future__ import annotations
 import html
 import json
 import re
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.investinbali.nl"
 REPORTS = ROOT / "docs" / "knowledge-base-wiki" / "reports"
+TODAY = date.today().isoformat()
+MONTHS_NL = [
+    "januari",
+    "februari",
+    "maart",
+    "april",
+    "mei",
+    "juni",
+    "juli",
+    "augustus",
+    "september",
+    "oktober",
+    "november",
+    "december",
+]
+UPDATED_LABEL = f"{date.today().day} {MONTHS_NL[date.today().month - 1]} {date.today().year}"
 
 
 ARTICLES = [
@@ -283,7 +300,7 @@ def page_head(article: dict) -> str:
                 "headline": article["h1"],
                 "description": article["description"],
                 "inLanguage": "nl-NL",
-                "dateModified": "2026-05-20",
+                "dateModified": TODAY,
                 "author": {"@type": "Organization", "name": "Invest in Bali", "url": BASE_URL + "/over-ons/"},
                 "publisher": {"@type": "Organization", "name": "Invest in Bali", "url": BASE_URL + "/"},
                 "mainEntityOfPage": canonical,
@@ -376,8 +393,6 @@ def footer() -> str:
         <a href="/toekomst-van-bali/">Toekomst van Bali</a>
       </div>
     </footer>
-    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
-    <script defer src="/_vercel/insights/script.js"></script>
     <script src="/analytics-config.js"></script>
     <script src="/script.js"></script>"""
 
@@ -448,7 +463,7 @@ def article_page(article: dict) -> str:
         <p class="eyebrow">KENNISCENTRUM</p>
         <h1>{esc(article['h1'])}</h1>
         <p>{md_inline(intro)}</p>
-        <p class="form-note">Laatst bijgewerkt: 20 mei 2026. Geschreven door het Invest in Bali team. Gebruik dit als startpunt voor betere vragen; laat documenten en afspraken lokaal juridisch en fiscaal controleren.</p>
+        <p class="form-note">Laatst bijgewerkt: {UPDATED_LABEL}. Geschreven door het Invest in Bali team. Gebruik dit als startpunt voor betere vragen; laat documenten en afspraken lokaal juridisch en fiscaal controleren.</p>
       </section>
       <section class="content-shell longform">
         <article class="content-card answer-block">
@@ -545,7 +560,7 @@ def update_sitemap() -> None:
             continue
         entry = f"""  <url>
     <loc>{loc}</loc>
-    <lastmod>2026-05-11</lastmod>
+    <lastmod>{TODAY}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -565,3 +580,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    from site_postprocess import enhance_site
+
+    enhance_site()

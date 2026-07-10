@@ -75,7 +75,9 @@ Het script maakt de landingspagina's op rootniveau, werkt de kenniscentrum-hub b
 
 ## Analytics en conversiemeting
 
-Alle HTML-pagina's laden Vercel Web Analytics via `/_vercel/insights/script.js`. Google Analytics 4 wordt centraal geactiveerd via `analytics-config.js`: vul daar de GA4 Measurement ID in zodra die beschikbaar is.
+Google Analytics 4 wordt centraal geconfigureerd via `analytics-config.js`. Zet daar de GA4 Measurement ID; de huidige live configuratie gebruikt `G-8YTKGPCEWE`. Het Analytics-script wordt pas geladen nadat de bezoeker analytics expliciet heeft geaccepteerd. Die keuze wordt lokaal opgeslagen onder `investinbali_analytics_consent`. De knop `Cookievoorkeuren` in iedere footer trekt de huidige toestemming in, verwijdert bereikbare GA-cookies en opent de keuze opnieuw.
+
+Vercel Web Analytics wordt niet hardcoded geladen. Als Vercel Analytics later in het Vercel-dashboard wordt geactiveerd, controleer dan eerst of `/_vercel/insights/script.js` live een `200` teruggeeft voordat je die loader opnieuw toevoegt. Een niet-geactiveerde Vercel Analytics endpoint geeft `404` en veroorzaakt onnodige browserfouten.
 
 In `script.js` worden extra events aangeboden voor:
 
@@ -83,8 +85,11 @@ In `script.js` worden extra events aangeboden voor:
 - Succesvolle formulierinzendingen.
 - Mislukte formulierinzendingen.
 - Gebruik van de ROI-calculator.
+- Funnelstappen zoals `route_select`, `micro_conversion`, `lead_intent`, `generate_lead` en `engaged_read_30s`.
 
-Formulierdata blijft leidend in Google Sheets. Analytics is bedoeld om verkeersbronnen, pagina's en conversieroutes te beoordelen, niet als CRM. Let op: Vercel custom events zijn afhankelijk van het Vercel-plan; op de gratis setup blijft Google Sheets daarom de betrouwbare conversieregistratie.
+Mislukte formulierinzendingen sturen alleen veilige technische parameters mee: `form_name`, `http_status` en `error_code`, nooit ingevulde persoonsgegevens.
+
+Markeer in GA4 Admin minimaal `generate_lead` en `form_submit_success` als key events zodra deze eventnamen na een echte of gecontroleerde testinzending voor het eerst zijn waargenomen. Ook `qualify_lead`, `download_gids_click`, `schedule_call_click` en `roi_calculator_used` kunnen als key event worden gemarkeerd. Formulierdata blijft leidend in Google Sheets. Analytics is bedoeld om verkeersbronnen, pagina's en conversieroutes te beoordelen, niet als CRM.
 
 ## Formulieren en CRM
 

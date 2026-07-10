@@ -1,11 +1,28 @@
 from __future__ import annotations
 
 import json
+from datetime import date
 from pathlib import Path
 
 from generate_knowledge_articles import BASE_URL, esc, footer, header
 
 ROOT = Path(__file__).resolve().parents[1]
+TODAY = date.today().isoformat()
+MONTHS_NL = [
+    "januari",
+    "februari",
+    "maart",
+    "april",
+    "mei",
+    "juni",
+    "juli",
+    "augustus",
+    "september",
+    "oktober",
+    "november",
+    "december",
+]
+UPDATED_LABEL = f"{date.today().day} {MONTHS_NL[date.today().month - 1]} {date.today().year}"
 
 
 PAGES = [
@@ -184,7 +201,7 @@ def priority_head(page: dict) -> str:
                 "headline": page["h1"],
                 "description": page["description"],
                 "inLanguage": "nl-NL",
-                "dateModified": "2026-05-20",
+                "dateModified": TODAY,
                 "author": {"@type": "Organization", "name": "Invest in Bali", "url": BASE_URL + "/over-ons/"},
                 "publisher": {"@type": "Organization", "name": "Invest in Bali", "url": BASE_URL + "/"},
                 "mainEntityOfPage": canonical,
@@ -265,7 +282,7 @@ def page_html(page: dict) -> str:
         <p class="eyebrow">KENNISCENTRUM</p>
         <h1>{esc(page['h1'])}</h1>
         <p>{esc(page['short'])}</p>
-        <p class="form-note">Laatst bijgewerkt: 20 mei 2026. Geschreven door het Invest in Bali team. Geen juridisch, fiscaal of financieel advies.</p>
+        <p class="form-note">Laatst bijgewerkt: {UPDATED_LABEL}. Geschreven door het Invest in Bali team. Geen juridisch, fiscaal of financieel advies.</p>
       </section>
       <section class="content-shell longform">
         <article class="content-card answer-block">
@@ -356,7 +373,7 @@ def update_sitemap() -> None:
             continue
         entry = f"""  <url>
     <loc>{loc}</loc>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>{TODAY}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.82</priority>
   </url>
@@ -377,3 +394,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    from site_postprocess import enhance_site
+
+    enhance_site()

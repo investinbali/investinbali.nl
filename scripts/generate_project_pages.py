@@ -97,8 +97,6 @@ def footer() -> str:
         <a href="/toekomst-van-bali/">Toekomst van Bali</a>
       </div>
     </footer>
-    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
-    <script defer src="/_vercel/insights/script.js"></script>
     <script src="/analytics-config.js"></script>
     <script src="/script.js"></script>"""
 
@@ -107,7 +105,13 @@ def card(project: dict) -> str:
     status = STATUS_LABELS[project["status"]]
     type_label = TYPE_LABELS[project["type"]]
     slug = project["slug"]
-    bedrooms = f"{project.get('bedrooms')} slaapkamers" if project.get("bedrooms") else "Slaapkamers op aanvraag"
+    bedrooms = (
+        "Niet van toepassing"
+        if project.get("type") == "land"
+        else f"{project.get('bedrooms')} slaapkamers"
+        if project.get("bedrooms")
+        else "Slaapkamers op aanvraag"
+    )
     href = f"/projecten/{esc(slug)}/"
     aria = f"Bekijk details van {project['title']}"
     cta = "Bekijk details"
@@ -145,8 +149,8 @@ def fact_rows(project: dict) -> str:
         ("Type woning/project", TYPE_LABELS[project["type"]]),
         ("Status", STATUS_LABELS[project["status"]]),
         ("Prijsindicatie", project["priceLabel"]),
-        ("Slaapkamers", project.get("bedrooms", "Op aanvraag")),
-        ("Badkamers", project.get("bathrooms", "Op aanvraag")),
+        ("Slaapkamers", "Niet van toepassing" if project.get("type") == "land" else project.get("bedrooms", "Op aanvraag")),
+        ("Badkamers", "Niet van toepassing" if project.get("type") == "land" else project.get("bathrooms", "Op aanvraag")),
         ("Grondoppervlak", project.get("landSize", "Op aanvraag")),
         ("Bouwoppervlak", project.get("buildingSize", "Op aanvraag")),
         ("Juridische structuur", project["legalStructure"]),
@@ -364,3 +368,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    from site_postprocess import enhance_site
+
+    enhance_site()

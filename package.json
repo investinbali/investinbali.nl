@@ -5,7 +5,9 @@
     "generate:knowledge": "python scripts/generate_knowledge_articles.py && python scripts/generate_priority_knowledge_pages.py",
     "generate:knowledge:wiki": "python scripts/generate_knowledge_articles.py",
     "generate:knowledge:priority": "python scripts/generate_priority_knowledge_pages.py",
-    "generate:seo": "python scripts/generate_seo_landing_pages.py"
+    "generate:seo": "python scripts/generate_seo_landing_pages.py",
+    "postprocess": "python scripts/site_postprocess.py",
+    "test:contact-api": "node scripts/test_contact_api.js"
   },
   "dependencies": {
     "nodemailer": "^6.9.16"

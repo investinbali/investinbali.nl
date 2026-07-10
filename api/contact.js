@@ -1,6 +1,17 @@
 const nodemailer = require("nodemailer");
 
 const CALENDAR_URL = process.env.CALENDAR_URL || "https://calendar.app.google/KmYX9vj1hj8wEcLe6";
+const MAX_BODY_BYTES = 32 * 1024;
+const DEFAULT_FIELD_LIMIT = 200;
+const FIELD_LIMITS = {
+  email: 254,
+  phone: 40,
+  message: 3000,
+  user_agent: 500,
+  referrer: 1000,
+  page_source: 1000,
+  website: 200,
+};
 
 const REQUIRED_FIELDS = {
   call_aanvraag: [
@@ -24,8 +35,47 @@ function clean(value) {
   return String(value || "").trim();
 }
 
+function cleanHeader(value) {
+  return clean(value).replace(/[\r\n]+/g, " ");
+}
+
+function isValidEmail(value) {
+  const email = cleanHeader(value);
+  return email.length <= FIELD_LIMITS.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function validateAndCleanPayload(body) {
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return { error: "Ongeldige aanvraag.", code: "INVALID_PAYLOAD" };
+  }
+
+  let encodedLength;
+  try {
+    encodedLength = Buffer.byteLength(JSON.stringify(body), "utf8");
+  } catch (_error) {
+    return { error: "Ongeldige aanvraag.", code: "INVALID_PAYLOAD" };
+  }
+  if (encodedLength > MAX_BODY_BYTES) {
+    return { error: "De aanvraag is te groot.", code: "PAYLOAD_TOO_LARGE" };
+  }
+
+  const data = {};
+  for (const [key, rawValue] of Object.entries(body)) {
+    if (typeof rawValue !== "string" && typeof rawValue !== "number" && typeof rawValue !== "boolean") {
+      return { error: "Ongeldige veldwaarde.", code: "INVALID_FIELD" };
+    }
+    const value = clean(rawValue);
+    const limit = FIELD_LIMITS[key] || DEFAULT_FIELD_LIMIT;
+    if (value.length > limit) {
+      return { error: "Een of meer velden zijn te lang.", code: "INVALID_FIELD" };
+    }
+    data[key] = value;
+  }
+  return { data };
+}
+
 function label(value) {
-  return clean(value).replace(/_/g, " ");
+  return cleanHeader(value).replace(/_/g, " ");
 }
 
 function buildMessage(data) {
@@ -58,8 +108,8 @@ function enrichPayload(req, data) {
   return {
     ...data,
     received_at: new Date().toISOString(),
-    user_agent: clean(req.headers["user-agent"]),
-    referrer: clean(req.headers.referer || req.headers.referrer),
+    user_agent: clean(req.headers["user-agent"]).slice(0, FIELD_LIMITS.user_agent),
+    referrer: clean(req.headers.referer || req.headers.referrer).slice(0, FIELD_LIMITS.referrer),
     client_ip: getClientIp(req),
   };
 }
@@ -74,20 +124,42 @@ function addFlowLinks(leadType, result = {}) {
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({ error: "Method not allowed", code: "METHOD_NOT_ALLOWED" });
   }
 
-  const data = enrichPayload(req, req.body || {});
+  const contentLength = Number(req.headers["content-length"] || 0);
+  if (contentLength > MAX_BODY_BYTES) {
+    return res.status(413).json({ error: "De aanvraag is te groot.", code: "PAYLOAD_TOO_LARGE" });
+  }
+
+  const validated = validateAndCleanPayload(req.body || {});
+  if (validated.error) {
+    const status = validated.code === "PAYLOAD_TOO_LARGE" ? 413 : 400;
+    return res.status(status).json({ error: validated.error, code: validated.code });
+  }
+  if (clean(validated.data.website)) {
+    // Do not reveal bot detection; legitimate clients never fill this field.
+    return res.status(200).json({ ok: true });
+  }
+
+  const data = enrichPayload(req, validated.data);
   const leadType = clean(data.lead_type);
   const required = REQUIRED_FIELDS[leadType];
 
   if (!required) {
-    return res.status(400).json({ error: "Onbekend formulier." });
+    return res.status(400).json({ error: "Onbekend formulier.", code: "INVALID_FIELD" });
   }
 
   const missing = required.filter((field) => !clean(data[field]));
   if (missing.length) {
-    return res.status(400).json({ error: "Niet alle verplichte velden zijn ingevuld." });
+    return res.status(400).json({
+      error: "Niet alle verplichte velden zijn ingevuld.",
+      code: "MISSING_REQUIRED_FIELDS",
+    });
+  }
+
+  if (!isValidEmail(data.email)) {
+    return res.status(400).json({ error: "Vul een geldig e-mailadres in.", code: "INVALID_EMAIL" });
   }
 
   if (process.env.GOOGLE_APPS_SCRIPT_URL) {
@@ -106,6 +178,7 @@ module.exports = async function handler(req, res) {
           error:
             result.error ||
             "Aanvraag is niet opgeslagen. Probeer later opnieuw of mail info@investinbali.nl.",
+          code: "GOOGLE_APPS_SCRIPT_ERROR",
         });
       }
 
@@ -128,7 +201,10 @@ module.exports = async function handler(req, res) {
   }
 
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    return res.status(500).json({ error: "Mail is nog niet geconfigureerd." });
+    return res.status(500).json({
+      error: "Mail is nog niet geconfigureerd.",
+      code: "MAIL_NOT_CONFIGURED",
+    });
   }
 
   const transporter = nodemailer.createTransport({
@@ -148,7 +224,7 @@ module.exports = async function handler(req, res) {
     await transporter.sendMail({
       from: `"Invest in Bali website" <${process.env.SMTP_USER}>`,
       to: process.env.LEAD_TO_EMAIL || "info@investinbali.nl",
-      replyTo: clean(data.email),
+      replyTo: cleanHeader(data.email),
       subject,
       text,
     });
@@ -163,7 +239,7 @@ module.exports = async function handler(req, res) {
     return res.status(502).json({
       error:
         "Mailserver kon de aanvraag niet verzenden. Mail ons direct via info@investinbali.nl.",
-      code: err.code || "SMTP_ERROR",
+      code: "MAIL_SEND_ERROR",
     });
   }
 

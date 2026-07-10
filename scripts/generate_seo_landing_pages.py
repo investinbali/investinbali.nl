@@ -2,18 +2,35 @@ from __future__ import annotations
 
 import html
 import json
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.investinbali.nl"
-TODAY = "2026-05-13"
+TODAY = date.today().isoformat()
+
+MONTHS_NL = [
+    "januari",
+    "februari",
+    "maart",
+    "april",
+    "mei",
+    "juni",
+    "juli",
+    "augustus",
+    "september",
+    "oktober",
+    "november",
+    "december",
+]
+UPDATED_LABEL = f"{date.today().day} {MONTHS_NL[date.today().month - 1]} {date.today().year}"
 
 
 PAGES = [
     {
         "slug": "investeren-in-bali",
-        "title": "Investeren in Bali vastgoed | Nuchtere uitleg voor Nederlandse investeerders",
-        "description": "Investeren in Bali vastgoed? Lees hoe je locatie, leasehold, zoning, kosten, verhuurpotentie, risico's en rendement realistisch beoordeelt.",
+        "title": "Investeren in Bali vastgoed | Rendement en risico helder",
+        "description": "Investeren in Bali? Vergelijk rendement, risico, leasehold, zoning en kosten voor huizen en villa's voordat je een object beoordeelt.",
         "h1": "Investeren in Bali: begin met de vragen die ertoe doen",
         "eyebrow": "INVESTEREN IN BALI",
         "intro": "Bali trekt veel aandacht van Nederlandse investeerders. Dat is logisch: de vraag naar goede woningen en short-stay verblijf blijft groot. Toch begint een goede beslissing niet bij een rendementspercentage, maar bij de vraag of locatie, juridische structuur, kosten en gebruiksdoel bij elkaar passen.",
@@ -50,8 +67,8 @@ PAGES = [
     },
     {
         "slug": "huis-kopen-bali",
-        "title": "Huis kopen op Bali | Waar Nederlandse kopers op moeten letten",
-        "description": "Een huis kopen op Bali? Lees waar je op moet letten bij locatie, leasehold, zoning, kosten, juridische structuur en doorverkoopbaarheid.",
+        "title": "Huis kopen Bali | Regels, leasehold en kosten",
+        "description": "Huis kopen op Bali? Lees de regels voor Nederlandse kopers: leasehold, zoning, kosten, juridische structuur en doorverkoopbaarheid.",
         "h1": "Huis kopen op Bali: kijk verder dan de foto's",
         "eyebrow": "HUIS KOPEN BALI",
         "intro": "Een huis op Bali kopen klinkt overzichtelijk: je ziet een mooie woning, vraagt de prijs op en vergelijkt locaties. In de praktijk zit de echte beoordeling dieper. Je wilt weten welk recht je krijgt, of het gebruik past bij de bestemming en welke kosten na aankoop blijven terugkomen.",
@@ -126,7 +143,7 @@ PAGES = [
     },
     {
         "slug": "vastgoed-bali-rendement",
-        "title": "Vastgoed Bali rendement | Bruto, netto en realistische scenario's",
+        "title": "Vastgoed Bali rendement | Bruto en netto realistisch",
         "description": "Lees hoe je vastgoedrendement op Bali beoordeelt: bruto omzet, netto resultaat, bezetting, dagprijs, beheer, OTA-kosten en risico's.",
         "h1": "Vastgoedrendement op Bali: bruto is nog geen netto",
         "eyebrow": "BALI VASTGOED RENDEMENT",
@@ -241,7 +258,7 @@ PAGES = [
     },
     {
         "slug": "bali-vastgoed-belasting",
-        "title": "Bali vastgoed belasting | Fiscale vragen voor Nederlandse investeerders",
+        "title": "Bali vastgoed belasting | Fiscale vragen en risico's",
         "description": "Welke belastingvragen spelen bij Bali vastgoed? Lees over lokale heffingen, verhuurinkomsten, structuur, Nederland en fiscale due diligence.",
         "h1": "Belasting bij Bali vastgoed: neem het vroeg mee",
         "eyebrow": "BALI VASTGOED BELASTING",
@@ -317,7 +334,7 @@ PAGES = [
     },
     {
         "slug": "pt-pma-bali-vastgoed",
-        "title": "PT PMA Bali vastgoed | Wanneer is een Indonesische structuur relevant?",
+        "title": "PT PMA Bali vastgoed | Structuur, OSS en risico's",
         "description": "PT PMA bij Bali vastgoed uitgelegd: wanneer relevant, wat betekent OSS/NIB, welke vragen stel je en welke risico's moet je toetsen?",
         "h1": "PT PMA voor Bali vastgoed: nuttig in sommige situaties, niet standaard",
         "eyebrow": "PT PMA BALI VASTGOED",
@@ -398,8 +415,6 @@ def footer() -> str:
         <a href="/toekomst-van-bali/">Toekomst van Bali</a>
       </div>
     </footer>
-    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
-    <script defer src="/_vercel/insights/script.js"></script>
     <script src="/analytics-config.js"></script>
     <script src="/script.js"></script>"""
 
@@ -461,6 +476,14 @@ def page_html(page: dict) -> str:
         ("/gids/", "Download de gids", "Gebruik de gids als eerste filter voordat je concrete objecten beoordeelt."),
         ("/contact/", "Plan een call", "Bespreek jouw budget, doel en vragen voordat je verder gaat met een object."),
     ]
+    if page["slug"] == "investeren-in-bali":
+        related = [
+            ("/kenniscentrum/due-diligence-bali/", "Due diligence Bali", "Controleer documenten, zoning, contracten en aannames voordat je beslist."),
+            ("/bali-vastgoed-belasting/", "Belasting bij Bali vastgoed", "Neem lokale en Nederlandse fiscale vragen mee in je netto rendement."),
+            ("/vastgoed-bali-rendement/", "Vastgoedrendement Bali", "Vertaal bruto verhuurprognoses naar realistische netto scenario's."),
+            ("/pt-pma-bali-vastgoed/", "PT PMA Bali vastgoed", "Bekijk wanneer een Indonesische structuur relevant kan zijn."),
+            *related,
+        ]
     related_links = "\n".join(
         f'<a class="article-link-card" href="{href}"><h3>{label}</h3><p>{esc(description)}</p></a>'
         for href, label, description in related
@@ -497,7 +520,7 @@ def page_html(page: dict) -> str:
         <p class="eyebrow">{esc(page['eyebrow'])}</p>
         <h1>{esc(page['h1'])}</h1>
         <p>{esc(page['intro'])}</p>
-        <p class="form-note">{esc(page['intent'])} Laatst bijgewerkt: 13 mei 2026.</p>
+        <p class="form-note">{esc(page['intent'])} Laatst bijgewerkt: {UPDATED_LABEL}.</p>
         <div class="hero-actions">
           <a class="button button-gold" href="/contact/">Plan een call</a>
           <a class="button button-outline" href="/gids/">Download gids</a>
@@ -601,3 +624,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    from site_postprocess import enhance_site
+
+    enhance_site()
