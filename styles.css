@@ -1261,12 +1261,16 @@ h2 {
 }
 
 .seseh-location-grid {
+  grid-template-columns: 1fr;
   align-items: start;
 }
 
-.seseh-location-grid .seseh-media-card:last-child img {
-  height: 460px;
-  object-position: center;
+.seseh-location-grid .seseh-media-card img {
+  height: auto;
+}
+
+.seseh-location-grid .seseh-media-card {
+  margin: 0;
 }
 
 .seseh-map-card {
@@ -1518,10 +1522,6 @@ h2 {
   .seseh-plan-card img {
     height: auto;
     min-height: 0;
-  }
-
-  .seseh-location-grid .seseh-media-card:last-child img {
-    height: auto;
   }
 
   .seseh-plot-detail {
