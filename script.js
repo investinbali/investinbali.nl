@@ -419,6 +419,7 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
       trackEvent("generate_lead", {
         lead_type: payload.lead_type || "unknown",
         form_name: form.dataset.formName || "unknown",
+        method: "website_form",
         page_category: getPageCategory(),
       });
       trackEvent("qualify_lead", {
@@ -429,6 +430,20 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
       trackEvent(`form_submit_success_${normaliseEventPart(payload.lead_type)}`, {
         lead_type: payload.lead_type || "unknown",
       });
+      const conversionEventByLeadType = {
+        gids_aanvraag: "gids_request_success",
+        member_gids_inschrijving: "gids_request_success",
+        call_aanvraag: "call_request_success",
+        info_aanvraag: "info_request_success",
+      };
+      const conversionEvent = conversionEventByLeadType[payload.lead_type];
+      if (conversionEvent) {
+        trackEvent(conversionEvent, {
+          lead_type: payload.lead_type,
+          form_name: form.dataset.formName || "unknown",
+          method: "website_form",
+        });
+      }
       trackFunnelStep("generate_lead", {
         lead_type: payload.lead_type || "unknown",
         form_name: form.dataset.formName || "unknown",
@@ -493,6 +508,8 @@ document.querySelectorAll("a[href]").forEach((link) => {
     const shouldTrack =
       Boolean(ctaTypeOverride) ||
       isInternalContentLink ||
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:") ||
       href.includes("/contact") ||
       href.includes("/gids") ||
       href.includes("/projecten") ||
@@ -505,6 +522,10 @@ document.querySelectorAll("a[href]").forEach((link) => {
     let ctaType = ctaTypeOverride || "other";
     if (!ctaTypeOverride && href.includes("calendar.app.google")) {
       ctaType = "calendar";
+    } else if (!ctaTypeOverride && href.startsWith("mailto:")) {
+      ctaType = "email";
+    } else if (!ctaTypeOverride && href.startsWith("tel:")) {
+      ctaType = "phone";
     } else if (!ctaTypeOverride && href.includes("/contact")) {
       ctaType = "contact";
     } else if (!ctaTypeOverride && href.includes("/gids")) {
@@ -574,11 +595,19 @@ document.querySelectorAll("a[href]").forEach((link) => {
       });
     }
 
-    if (href.includes("calendar.app.google") || label.toLowerCase().includes("plan")) {
+    if (href.includes("calendar.app.google") || ctaType === "calendar") {
       trackEvent("schedule_call_click", {
         href,
         label,
       });
+    }
+
+    if (href.startsWith("mailto:")) {
+      trackEvent("email_click", { label });
+    }
+
+    if (href.startsWith("tel:")) {
+      trackEvent("phone_click", { label });
     }
   });
 });

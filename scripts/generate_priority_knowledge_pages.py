@@ -68,7 +68,7 @@ PAGES = [
         "title": "Airbnb verhuur Bali vergunningen",
         "h1": "Airbnb verhuur op Bali: vergunningen en risico's",
         "keyword": "Airbnb verhuur Bali vergunningen",
-        "description": "Wanneer is Airbnb of short-stay verhuur op Bali juridisch en operationeel risicovol? Lees over zoning, vergunningen, belasting, beheer en realistische netto opbrengst.",
+        "description": "Airbnb-verhuur op Bali? Controleer zoning, vergunningen, belasting, beheer en realistisch netto rendement voordat je investeert.",
         "short": "Airbnb-verhuur op Bali is niet alleen een rendementsvraag. Je moet controleren of short-stay gebruik past bij zoning, vergunningen, juridische structuur, belastingpositie, beheerafspraken en lokale regels.",
         "sections": [
             (
@@ -143,14 +143,14 @@ PAGES = [
         "title": "Nederlander investeren Bali belasting",
         "h1": "Nederlander investeren in Bali: belastingvragen die je vooraf wilt stellen",
         "keyword": "Nederlander investeren Bali belasting",
-        "description": "Belastingvragen voor Nederlanders die investeren in Bali vastgoed: Indonesische heffingen, verhuurinkomsten, structuur, Nederland, administratie en fiscale due diligence.",
+        "description": "Investeren in Bali als Nederlander? Bekijk lokale heffingen, verhuurinkomsten, structuur en fiscale due diligence vooraf.",
         "short": "Nederlanders die investeren in Bali moeten belasting niet pas na aankoop bekijken. Indonesische heffingen, verhuurinkomsten, structuur, administratie en Nederlandse fiscale positie kunnen het netto resultaat en risicoprofiel veranderen.",
         "sections": [
             (
                 "Belasting hoort bij de aankoopanalyse",
                 [
                     "Een rendementsprognose zonder fiscale laag is onvolledig. Lokale heffingen, inkomstenbelasting, bedrijfsstructuur en rapportageverplichtingen kunnen invloed hebben op wat netto overblijft.",
-                    "Ook de Nederlandse fiscale positie moet worden bekeken. Buitenlands vermogen, inkomsten en structuur kunnen gevolgen hebben die per persoon verschillen.",
+                    "Ook de Nederlandse fiscale positie moet worden bekeken. Buitenlands vermogen, inkomsten en structuur kunnen gevolgen hebben die per persoon verschillen. Koppel dit aan de keuze om te investeren in Bali en aan een volledige due-diligencecontrole vóór aankoop.",
                 ],
             ),
             (

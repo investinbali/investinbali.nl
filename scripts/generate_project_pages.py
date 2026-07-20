@@ -178,9 +178,45 @@ def overview(projects: list[dict]) -> str:
     )
     cards = "\n".join(card(project) for project in visible)
     description = "Vergelijk projecten en investeringsobjecten op Bali op locatie, prijs, juridische structuur, risico's en verhuurpotentie."
+    indexable_projects = [project for project in ordered_projects if project.get("status") != "binnenkort"]
+    collection_schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "CollectionPage",
+                "name": "Projecten op Bali",
+                "description": description,
+                "url": f"{BASE_URL}/projecten/",
+                "inLanguage": "nl-NL",
+            },
+            {
+                "@type": "ItemList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": position,
+                        "name": project["title"],
+                        "url": f"{BASE_URL}/projecten/{project['slug']}/",
+                    }
+                    for position, project in enumerate(indexable_projects, start=1)
+                ],
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{BASE_URL}/"},
+                    {"@type": "ListItem", "position": 2, "name": "Projecten", "item": f"{BASE_URL}/projecten/"},
+                ],
+            },
+        ],
+    }
+    head = page_head("Projecten op Bali | Invest in Bali", description, f"{BASE_URL}/projecten/", "/assets/hero/bali-villa-hero.webp", "Villa op Bali als sfeerbeeld voor vastgoedcatalogus.").replace(
+        "  </head>",
+        f'    <script type="application/ld+json">{json.dumps(collection_schema, ensure_ascii=False)}</script>\n  </head>',
+    )
     return f"""<!DOCTYPE html>
 <html lang="nl">
-  {page_head("Projecten op Bali | Invest in Bali", description, f"{BASE_URL}/projecten/", "/assets/hero/bali-villa-hero.webp", "Villa op Bali als sfeerbeeld voor vastgoedcatalogus.")}
+  {head}
   <body class="subpage">
     {header()}
     <main>
@@ -223,7 +259,7 @@ def overview(projects: list[dict]) -> str:
 def detail(project: dict) -> str:
     status = STATUS_LABELS[project["status"]]
     type_label = TYPE_LABELS[project["type"]]
-    description = f"Kritische projectinformatie over {project['title']} in {project['location']}: prijsindicatie, juridische structuur, verhuurpotentie, risico’s en rendementsscenario."
+    description = f"Analyse van {project['title']} in {project['location']}: prijs, juridische structuur, verhuurpotentie, risico's en rendement."
     scenario = project.get("scenario", {})
     external_project_url = project.get("externalProjectUrl")
     external_project_cta = (

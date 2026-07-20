@@ -105,7 +105,7 @@ PAGES = [
     },
     {
         "slug": "villa-kopen-bali",
-        "title": "Villa kopen op Bali | Aankoop, verhuurpotentie en risico's",
+        "title": "Villa kopen Bali | Kosten, verhuur en risico's",
         "description": "Een villa kopen op Bali? Beoordeel locatie, bouwkwaliteit, leasehold, beheer, short-stay potentie, kosten en risico's voordat je beslist.",
         "h1": "Villa kopen op Bali: wanneer klopt het totaalplaatje?",
         "eyebrow": "VILLA KOPEN BALI",
@@ -181,7 +181,7 @@ PAGES = [
     },
     {
         "slug": "leasehold-bali",
-        "title": "Leasehold Bali | Uitleg voor Nederlandse kopers en investeerders",
+        "title": "Leasehold Bali | Looptijd, verlenging en risico's",
         "description": "Leasehold op Bali uitgelegd: looptijd, verlenging, overdraagbaarheid, risico's, contractvoorwaarden en vragen voor due diligence.",
         "h1": "Leasehold op Bali: niet eng, wel precies lezen",
         "eyebrow": "LEASEHOLD BALI",
@@ -219,7 +219,7 @@ PAGES = [
     },
     {
         "slug": "airbnb-rendement-bali",
-        "title": "Airbnb rendement Bali | Short-stay verhuur realistisch beoordelen",
+        "title": "Airbnb rendement Bali | Kosten, bezetting en regels",
         "description": "Airbnb rendement op Bali beoordelen? Lees hoe dagprijs, bezetting, beheer, OTA-kosten, vergunningen en seizoenen het netto resultaat bepalen.",
         "h1": "Airbnb-rendement op Bali: kijk naar het hele exploitatiemodel",
         "eyebrow": "AIRBNB RENDEMENT BALI",
