@@ -39,6 +39,46 @@ function setLanguageToggleState(language) {
 
 const originalLanguageText = new Map();
 let metadataWasTranslated = false;
+const ENGLISH_TRANSLATIONS = {
+  "Ga naar de inhoud": "Skip to content",
+  "Projecten": "Projects",
+  "Kenniscentrum": "Knowledge centre",
+  "Over ons": "About us",
+  "Contact": "Contact",
+  "PLAN EEN CALL": "BOOK A CALL",
+  "INVESTEREN IN BALI": "INVESTING IN BALI",
+  "Investeren in Bali met helder inzicht": "Invest in Bali with clear insight",
+  "Kies eerst je route: investeren, kopen voor verhuur of juridische structuur. Daarna wordt het pas zinvol om objecten of rendementen te vergelijken.": "Choose your route first: investing, buying for rental, or legal structure. Only then does it make sense to compare properties or returns.",
+  "Start met het investeringskader": "Start with the investment framework",
+  "Download gratis gids": "Download the free guide",
+  "Huizen in toplocaties": "Homes in prime locations",
+  "Focus op plekken waar vraag, uitstraling en potentie samenkomen.": "Focus on locations where demand, appeal and potential come together.",
+  "Inzicht in rendement": "Clear view of returns",
+  "Realistische aannames over bezetting, kosten en netto-opbrengst.": "Realistic assumptions about occupancy, costs and net returns.",
+  "Helder over risico's": "Clear about risks",
+  "Geen verkooppraat, maar duidelijkheid over structuur en aandachtspunten.": "No sales talk, just clarity about structure and key points to check.",
+  "Lokale context": "Local context",
+  "Inzicht in leasehold, zoning, regelgeving en marktpraktijk op Bali.": "Insight into leasehold, zoning, regulations and how the Bali market works.",
+  "Voor investeerders die eerst duidelijkheid willen, daarna pas een woning kiezen": "For investors who want clarity first, and only then choose a property",
+  "Investeren in Bali vastgoed begint met een nuchtere beoordeling": "Investing in Bali property starts with a clear-eyed assessment",
+  "Kies een woning die past bij jouw investeringsdoel": "Choose a property that fits your investment goal",
+  "Wat je wilt weten vóór je investeert": "What to know before you invest",
+  "Nieuwe vragen die kopers nu stellen": "The questions buyers are asking now",
+  "Controlepunten voor serieuze kopers": "Key checks for serious buyers",
+  "Bekijk locatie en rendement als één geheel": "Look at location and returns as one whole",
+  "Uitgelichte projecten": "Featured projects",
+  "Gratis gids investeren in Bali 2026": "Free guide to investing in Bali 2026",
+  "Start met helder inzicht": "Start with clear insight",
+  "Bereken een eerste indicatie van je mogelijke ROI": "Calculate an initial estimate of your potential ROI",
+  "Waarom investeerders extra controle willen": "Why investors want additional checks",
+  "Bekijk alle projecten": "View all projects",
+  "Bekijk woning": "View property",
+  "Plan een call": "Book a call",
+  "Download gids": "Download guide",
+  "Bereken": "Calculate",
+  "Indicatieve uitkomst": "Indicative result",
+  "Laat je scenario toetsen": "Have your scenario reviewed"
+};
 
 function getTranslatableTextNodes() {
   const nodes = [];
@@ -73,7 +113,22 @@ async function translatePageToEnglish() {
     if (!originalLanguageText.has(node)) originalLanguageText.set(node, node.textContent);
   });
 
-  const uniqueTexts = [...new Set(nodes.map((node) => node.textContent.trim()))];
+  nodes.forEach((node) => {
+    const source = node.textContent.trim();
+    const translated = ENGLISH_TRANSLATIONS[source];
+    if (!translated) return;
+    const leadingWhitespace = node.textContent.match(/^\s*/)?.[0] || "";
+    const trailingWhitespace = node.textContent.match(/\s*$/)?.[0] || "";
+    node.textContent = `${leadingWhitespace}${translated}${trailingWhitespace}`;
+  });
+
+  const uniqueTexts = [
+    ...new Set(
+      nodes
+        .map((node) => node.textContent.trim())
+        .filter((text) => !Object.values(ENGLISH_TRANSLATIONS).includes(text))
+    ),
+  ];
   const translations = new Map();
   for (let index = 0; index < uniqueTexts.length; index += 8) {
     const batch = uniqueTexts.slice(index, index + 8);
