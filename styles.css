@@ -367,6 +367,53 @@ h2 {
   white-space: nowrap;
 }
 
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 12px;
+}
+
+.language-toggle {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(216, 164, 81, 0.65);
+  border-radius: 999px;
+  background: rgba(22, 19, 17, 0.42);
+  color: rgba(255, 255, 255, 0.94);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.language-toggle:hover,
+.language-toggle:focus-visible {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #201812;
+}
+
+#google_translate_element {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+body > .skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
 .usp-strip {
   position: relative;
   z-index: 3;
@@ -2359,6 +2406,10 @@ h2 {
 
   .header-cta {
     display: none;
+  }
+
+  .header-actions {
+    margin-left: auto;
   }
 
   .hero {

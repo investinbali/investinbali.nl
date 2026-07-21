@@ -7,6 +7,103 @@ function formatCurrency(value) {
 }
 
 const ANALYTICS_CONSENT_KEY = "investinbali_analytics_consent";
+const LANGUAGE_PREFERENCE_KEY = "investinbali_language";
+
+function getLanguagePreference() {
+  try {
+    return window.localStorage.getItem(LANGUAGE_PREFERENCE_KEY) || "nl";
+  } catch (_error) {
+    return "nl";
+  }
+}
+
+function setLanguagePreference(language) {
+  try {
+    window.localStorage.setItem(LANGUAGE_PREFERENCE_KEY, language);
+  } catch (_error) {
+    // Translation remains active for this page view if storage is unavailable.
+  }
+}
+
+function setLanguageToggleState(language) {
+  const toggle = document.querySelector("[data-language-toggle]");
+  if (!toggle) return;
+
+  const isEnglish = language === "en";
+  toggle.textContent = isEnglish ? "Nederlands" : "English";
+  toggle.setAttribute("aria-label", isEnglish ? "Schakel naar Nederlands" : "Switch to English");
+  toggle.setAttribute("aria-pressed", String(isEnglish));
+  toggle.dataset.language = isEnglish ? "en" : "nl";
+  document.documentElement.lang = isEnglish ? "en" : "nl";
+}
+
+function applyGoogleLanguage(language) {
+  const selector = document.querySelector(".goog-te-combo");
+  if (!selector) return false;
+
+  selector.value = language;
+  selector.dispatchEvent(new Event("change"));
+  setLanguageToggleState(language);
+  return true;
+}
+
+function loadGoogleTranslate(language) {
+  window.googleTranslateElementInit = () => {
+    new window.google.translate.TranslateElement(
+      { pageLanguage: "nl", includedLanguages: "en", autoDisplay: false },
+      "google_translate_element"
+    );
+    window.setTimeout(() => applyGoogleLanguage(language), 250);
+  };
+
+  if (!document.querySelector("#google-translate-script")) {
+    const script = document.createElement("script");
+    script.id = "google-translate-script";
+    script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    script.async = true;
+    document.head.append(script);
+  } else {
+    window.setTimeout(() => applyGoogleLanguage(language), 250);
+  }
+}
+
+function setupLanguageToggle() {
+  const header = document.querySelector(".site-header");
+  if (!header || document.querySelector("[data-language-toggle]")) return;
+
+  const cta = header.querySelector(".header-cta");
+  const actions = document.createElement("div");
+  actions.className = "header-actions";
+  const toggle = document.createElement("button");
+  toggle.className = "language-toggle";
+  toggle.type = "button";
+  toggle.dataset.languageToggle = "true";
+  toggle.addEventListener("click", () => {
+    const nextLanguage = toggle.dataset.language === "en" ? "nl" : "en";
+    setLanguagePreference(nextLanguage);
+    setLanguageToggleState(nextLanguage);
+    trackEvent("language_changed", { language: nextLanguage });
+
+    if (nextLanguage === "en") {
+      loadGoogleTranslate("en");
+    } else if (!applyGoogleLanguage("nl")) {
+      window.location.reload();
+    }
+  });
+
+  if (cta) actions.append(toggle, cta);
+  else actions.append(toggle);
+  header.append(actions);
+
+  const translateContainer = document.createElement("div");
+  translateContainer.id = "google_translate_element";
+  translateContainer.setAttribute("aria-hidden", "true");
+  document.body.append(translateContainer);
+
+  const language = getLanguagePreference();
+  setLanguageToggleState(language);
+  if (language === "en") loadGoogleTranslate("en");
+}
 
 function getAnalyticsConsent() {
   try {
@@ -143,6 +240,7 @@ function normaliseEventPart(value, fallback = "unknown") {
 
 setupGoogleAnalytics();
 setupCookieConsent();
+setupLanguageToggle();
 
 document.addEventListener("click", (event) => {
   const control = event.target.closest("[data-cookie-preferences]");
