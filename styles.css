@@ -546,6 +546,34 @@ h2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+/* Keep consecutive card rows visually separated and align their actions. */
+.section-light > .grid + .grid {
+  margin-top: 24px;
+}
+
+.section-light .grid-three > .content-card,
+.section-light .grid-two > .feature-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-light .content-card h3,
+.section-light .feature-card h3,
+.section-light .article-link-card h3 {
+  color: #4f382a;
+}
+
+.section-light .content-card p,
+.section-light .feature-card p,
+.section-light .article-link-card p {
+  color: #5f5148;
+}
+
+.section-light .content-card > a:last-of-type,
+.section-light .feature-card > a:last-of-type {
+  margin-top: auto;
+}
+
 .feature-card,
 .project-card,
 .info-block,
@@ -641,13 +669,14 @@ h2 {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .visual-panel {
   display: grid;
   gap: 24px;
-  align-self: start;
+  align-self: stretch;
+  height: 100%;
   padding: 30px;
   border: 1px solid rgba(27, 21, 18, 0.08);
   border-radius: var(--radius);
@@ -738,10 +767,19 @@ h2 {
   line-height: 1.15;
 }
 
+.visual-copy {
+  display: flex;
+  flex-direction: column;
+}
+
 .visual-copy p {
   margin: 0;
   color: rgba(27, 21, 18, 0.76);
   line-height: 1.65;
+}
+
+.visual-copy > .text-link {
+  margin-top: auto;
 }
 
 .legend-list {
