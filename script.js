@@ -37,34 +37,89 @@ function setLanguageToggleState(language) {
   document.documentElement.lang = isEnglish ? "en" : "nl";
 }
 
-function applyGoogleLanguage(language) {
-  const selector = document.querySelector(".goog-te-combo");
-  if (!selector) return false;
+const originalLanguageText = new Map();
+let metadataWasTranslated = false;
 
-  selector.value = language;
-  selector.dispatchEvent(new Event("change"));
-  setLanguageToggleState(language);
-  return true;
+function getTranslatableTextNodes() {
+  const nodes = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let node;
+
+  while ((node = walker.nextNode())) {
+    const parent = node.parentElement;
+    const text = node.textContent?.trim() || "";
+    if (!parent || !text || text.length < 2) continue;
+    if (parent.closest("script, style, noscript, #google_translate_element, .language-toggle")) continue;
+    if (!/[A-Za-zÀ-ÿ]/.test(text)) continue;
+    nodes.push(node);
+  }
+
+  return nodes;
 }
 
-function loadGoogleTranslate(language) {
-  window.googleTranslateElementInit = () => {
-    new window.google.translate.TranslateElement(
-      { pageLanguage: "nl", includedLanguages: "en", autoDisplay: false },
-      "google_translate_element"
-    );
-    window.setTimeout(() => applyGoogleLanguage(language), 250);
-  };
+async function translateText(text) {
+  const endpoint =
+    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=nl&tl=en&dt=t&q=" +
+    encodeURIComponent(text);
+  const response = await fetch(endpoint);
+  if (!response.ok) throw new Error(`Translation request failed with ${response.status}`);
+  const result = await response.json();
+  return result?.[0]?.map((part) => part?.[0] || "").join("") || text;
+}
 
-  if (!document.querySelector("#google-translate-script")) {
-    const script = document.createElement("script");
-    script.id = "google-translate-script";
-    script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-    script.async = true;
-    document.head.append(script);
-  } else {
-    window.setTimeout(() => applyGoogleLanguage(language), 250);
+async function translatePageToEnglish() {
+  const nodes = getTranslatableTextNodes();
+  nodes.forEach((node) => {
+    if (!originalLanguageText.has(node)) originalLanguageText.set(node, node.textContent);
+  });
+
+  const uniqueTexts = [...new Set(nodes.map((node) => node.textContent.trim()))];
+  const translations = new Map();
+  for (let index = 0; index < uniqueTexts.length; index += 8) {
+    const batch = uniqueTexts.slice(index, index + 8);
+    const results = await Promise.all(
+      batch.map(async (text) => {
+        try {
+          return [text, await translateText(text)];
+        } catch (_error) {
+          return [text, text];
+        }
+      })
+    );
+    results.forEach(([source, translated]) => translations.set(source, translated));
   }
+
+  nodes.forEach((node) => {
+    const source = node.textContent.trim();
+    const translated = translations.get(source);
+    if (!translated) return;
+    const leadingWhitespace = node.textContent.match(/^\s*/)?.[0] || "";
+    const trailingWhitespace = node.textContent.match(/\s*$/)?.[0] || "";
+    node.textContent = `${leadingWhitespace}${translated}${trailingWhitespace}`;
+  });
+
+  const title = document.querySelector("title");
+  const description = document.querySelector("meta[name='description']");
+  if (title && !metadataWasTranslated) {
+    title.dataset.originalText = title.textContent;
+    title.textContent = await translateText(title.textContent).catch(() => title.textContent);
+  }
+  if (description && !metadataWasTranslated) {
+    description.dataset.originalContent = description.content;
+    description.content = await translateText(description.content).catch(() => description.content);
+  }
+  metadataWasTranslated = true;
+}
+
+function restoreDutchPage() {
+  originalLanguageText.forEach((text, node) => {
+    node.textContent = text;
+  });
+  const title = document.querySelector("title");
+  const description = document.querySelector("meta[name='description']");
+  if (title?.dataset.originalText) title.textContent = title.dataset.originalText;
+  if (description?.dataset.originalContent) description.content = description.dataset.originalContent;
+  metadataWasTranslated = false;
 }
 
 function setupLanguageToggle() {
@@ -85,9 +140,9 @@ function setupLanguageToggle() {
     trackEvent("language_changed", { language: nextLanguage });
 
     if (nextLanguage === "en") {
-      loadGoogleTranslate("en");
-    } else if (!applyGoogleLanguage("nl")) {
-      window.location.reload();
+      translatePageToEnglish();
+    } else {
+      restoreDutchPage();
     }
   });
 
@@ -95,14 +150,9 @@ function setupLanguageToggle() {
   else actions.append(toggle);
   header.append(actions);
 
-  const translateContainer = document.createElement("div");
-  translateContainer.id = "google_translate_element";
-  translateContainer.setAttribute("aria-hidden", "true");
-  document.body.append(translateContainer);
-
   const language = getLanguagePreference();
   setLanguageToggleState(language);
-  if (language === "en") loadGoogleTranslate("en");
+  if (language === "en") translatePageToEnglish();
 }
 
 function getAnalyticsConsent() {

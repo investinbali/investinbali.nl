@@ -396,24 +396,6 @@ h2 {
   color: #201812;
 }
 
-#google_translate_element {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-body > .skiptranslate,
-.goog-te-banner-frame {
-  display: none !important;
-}
-
-body {
-  top: 0 !important;
-}
-
 .usp-strip {
   position: relative;
   z-index: 3;
@@ -1292,7 +1274,8 @@ body {
   background: #17251d;
 }
 
-.seseh-walkthrough iframe {
+.seseh-walkthrough iframe,
+.seseh-walkthrough video {
   display: block;
   width: 100%;
   height: 100%;
