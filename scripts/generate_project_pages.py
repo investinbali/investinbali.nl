@@ -397,6 +397,8 @@ def main() -> None:
     projects = json.loads((ROOT / "data" / "projects.json").read_text(encoding="utf-8"))
     (ROOT / "projecten" / "index.html").write_text(overview(projects), encoding="utf-8")
     for project in projects:
+        if project["slug"] == "casa-surya-villas":
+            continue
         target = ROOT / "projecten" / project["slug"]
         target.mkdir(parents=True, exist_ok=True)
         (target / "index.html").write_text(detail(project), encoding="utf-8")

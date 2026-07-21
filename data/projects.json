@@ -265,6 +265,67 @@
     }
   },
   {
+    "slug": "casa-surya-villas",
+    "featured": true,
+    "title": "Casa Surya Villas - Cemagi Collection",
+    "location": "Cemagi, Bali",
+    "status": "te-koop",
+    "type": "project",
+    "shortDescription": "Twee nieuwe 3-bedroom villa's in Cemagi met private pool, rijstveld- en zonsondergangzicht en een verlengbare leasehold-structuur.",
+    "thumbnail": "/assets/projects/casa-surya-villas/page-01-CN_fYdxn.jpg",
+    "images": [
+      "/assets/projects/casa-surya-villas/page-01-CN_fYdxn.jpg",
+      "/assets/projects/casa-surya-villas/page-03-CwE2imXR.jpg",
+      "/assets/projects/casa-surya-villas/page-07-BAr7Qck-.jpg",
+      "/assets/projects/casa-surya-villas/page-11-O3njpMio.jpg",
+      "/assets/projects/casa-surya-villas/page-13-B2dvrJKI.jpg",
+      "/assets/projects/casa-surya-villas/page-15-D0B_uehM.jpg",
+      "/assets/projects/casa-surya-villas/page-17-b-AAaNRJ.jpg",
+      "/assets/projects/casa-surya-villas/page-19-DNn2HX6F.jpg",
+      "/assets/projects/casa-surya-villas/page-21-CuiJ8y4h.jpg",
+      "/assets/projects/casa-surya-villas/page-23-BBcs6jqM.jpg"
+    ],
+    "priceLabel": "$450.000 USD per villa",
+    "externalProjectUrl": "https://casasuryavillas.com/cemagi-collection",
+    "bedrooms": 3,
+    "bathrooms": 4,
+    "landSize": "Eigen grond volgens projectinformatie",
+    "buildingSize": "Niet gepubliceerd",
+    "legalStructure": "Leasehold van 25 jaar met optie op 25 jaar verlenging",
+    "leaseRemaining": "25 jaar indicatief; verlenging met 25 jaar voor vaste $60.000 volgens projectinformatie",
+    "extensionOptions": "Vaste verlengoptie van 25 jaar voor $60.000 volgens projectinformatie",
+    "zoningStatus": "Yellow zone boven beschermde green zone volgens projectinformatie",
+    "permitStatus": "Ontwikkeling/architectuur underway; vergunningen en oplevering controleren",
+    "dueDiligenceStatus": "Projectinformatie beschikbaar; juridische, financiële en bouwkundige controle vereist",
+    "grossYieldLabel": "12-18% geprojecteerd per jaar volgens projectsite",
+    "netYieldLabel": "Niet onafhankelijk geverifieerd; 7-15% waardegroei wordt afzonderlijk genoemd",
+    "investmentGoal": "Short-stay verhuur / waardegroei / eigen gebruik",
+    "suitableFor": "Investeerders die een kleine, direct beheerde villa-collectie in Cemagi willen beoordelen",
+    "highlights": [
+      "Twee nieuwe villa's op land dat volgens de projectinformatie al in bezit is van Casa Surya Villas.",
+      "3 slaapkamers, 4 badkamers en een private pool per villa.",
+      "Cemagi combineert een rustigere setting met korte afstand tot Canggu en de kust.",
+      "Rijstvelden, zonsondergang en mountain views vormen het onderscheidende verkoopverhaal.",
+      "Optioneel volledig beheer door een team dat volgens de projectsite zeven bestaande villa's beheert."
+    ],
+    "risks": [
+      "De genoemde 12-18% return is een projectie van de bron en geen onafhankelijk gevalideerd rendement.",
+      "Yellow-zone classificatie, beschermde green zone, vergunningen en feitelijk verhuurgebruik moeten per perceel worden gecontroleerd.",
+      "Leasehold, vaste verlengoptie en betalingsmomenten moeten contractueel en notarieel worden vastgelegd.",
+      "Bouwplanning, kwaliteit, oplevering en het genoemde handover-moment in april 2027 moeten worden geverifieerd.",
+      "Bezetting, dagprijs, beheer, OTA-kosten, onderhoud, belasting en verzekering bepalen het netto resultaat.",
+      "Doorverkoopbaarheid blijft afhankelijk van resterende lease, documentkwaliteit en marktomstandigheden."
+    ],
+    "costNotes": ["Aankoopprijs", "Juridische en notariële controle", "Beheer en guest services", "OTA/platformkosten", "Onderhoud en utilities", "Verzekering en lokale lasten", "Belastingen"],
+    "scenario": {
+      "averageDailyRate": "Niet gepubliceerd door projectsite",
+      "occupancy": "Niet gepubliceerd door projectsite",
+      "grossRevenue": "Te berekenen na onafhankelijke ADR- en bezettingsanalyse",
+      "costPercentage": "Niet gepubliceerd; doorrekenen met beheer, OTA, onderhoud, utilities en belasting",
+      "netResult": "Niet verantwoord vast te stellen zonder financiële onderliggende stukken"
+    }
+  },
+  {
     "slug": "sanur-leasehold-home",
     "title": "Sanur Leasehold Home",
     "location": "Sanur, Bali",
