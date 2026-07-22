@@ -1166,6 +1166,23 @@ h2 {
   line-height: 1.7;
 }
 
+.seseh-hero .button-outline,
+.seseh-hero .button-ghost-dark {
+  border-color: rgba(255, 248, 239, 0.42);
+  background: rgba(20, 33, 27, 0.42);
+  color: #fff8ef;
+  backdrop-filter: blur(18px);
+}
+
+.seseh-hero .button-outline:hover,
+.seseh-hero .button-outline:focus-visible,
+.seseh-hero .button-ghost-dark:hover,
+.seseh-hero .button-ghost-dark:focus-visible {
+  border-color: var(--gold-soft);
+  background: rgba(20, 33, 27, 0.72);
+  color: #fff8ef;
+}
+
 .seseh-actions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
