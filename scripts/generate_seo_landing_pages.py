@@ -29,11 +29,11 @@ UPDATED_LABEL = f"{date.today().day} {MONTHS_NL[date.today().month - 1]} {date.t
 PAGES = [
     {
         "slug": "investeren-in-bali",
-        "title": "Investeren in Bali vastgoed | Rendement en risico helder",
-        "description": "Investeren in Bali? Vergelijk rendement, risico, leasehold, zoning en kosten voor huizen en villa's voordat je een object beoordeelt.",
-        "h1": "Investeren in Bali: begin met de vragen die ertoe doen",
+        "title": "Investeren in Bali | Rendement, risico en regels",
+        "description": "Investeren in Bali? Vergelijk rendement, risico, leasehold, zoning en kosten voordat je in Bali vastgoed beslist.",
+        "h1": "Investeren in Bali: rendement begint bij de juiste vragen",
         "eyebrow": "INVESTEREN IN BALI",
-        "intro": "Bali trekt veel aandacht van Nederlandse investeerders. Dat is logisch: de vraag naar goede woningen en short-stay verblijf blijft groot. Toch begint een goede beslissing niet bij een rendementspercentage, maar bij de vraag of locatie, juridische structuur, kosten en gebruiksdoel bij elkaar passen.",
+        "intro": "Investeren in Bali begint niet met een rendementspercentage. Beoordeel eerst locatie, juridische structuur, kosten en gebruiksdoel; daarna pas de verhuurpotentie en het nettoresultaat.",
         "intent": "Deze pagina is bedoeld voor wie Bali vastgoed serieus onderzoekt en een eerste kader wil voordat er met makelaars, ontwikkelaars of beheerders wordt gesproken.",
         "sections": [
             ("Wat maakt Bali interessant?", [
@@ -67,11 +67,11 @@ PAGES = [
     },
     {
         "slug": "huis-kopen-bali",
-        "title": "Huis kopen Bali | Regels, leasehold en kosten",
-        "description": "Huis kopen op Bali? Lees de regels voor Nederlandse kopers: leasehold, zoning, kosten, juridische structuur en doorverkoopbaarheid.",
-        "h1": "Huis kopen op Bali: kijk verder dan de foto's",
+        "title": "Huis kopen Bali | Regels, kosten en leasehold",
+        "description": "Huis kopen Bali als Nederlander? Bekijk leasehold, zoning, kosten en juridische structuur voordat je een woning beoordeelt.",
+        "h1": "Huis kopen op Bali: regels en kosten eerst begrijpen",
         "eyebrow": "HUIS KOPEN BALI",
-        "intro": "Een huis op Bali kopen klinkt overzichtelijk: je ziet een mooie woning, vraagt de prijs op en vergelijkt locaties. In de praktijk zit de echte beoordeling dieper. Je wilt weten welk recht je krijgt, of het gebruik past bij de bestemming en welke kosten na aankoop blijven terugkomen.",
+        "intro": "Huis kopen Bali als Nederlander vraagt meer dan een mooie woning en een prijs. Controleer eerst welk recht je krijgt, of het gebruik past bij de bestemming en welke kosten blijven terugkomen.",
         "intent": "Deze pagina helpt Nederlandse kopers om een woning op Bali zakelijker te beoordelen, ook als het object deels voor eigen gebruik bedoeld is.",
         "sections": [
             ("Eigen gebruik of investering?", [
@@ -105,11 +105,11 @@ PAGES = [
     },
     {
         "slug": "villa-kopen-bali",
-        "title": "Villa kopen Bali | Kosten, verhuur en risico's",
-        "description": "Een villa kopen op Bali? Beoordeel locatie, bouwkwaliteit, leasehold, beheer, short-stay potentie, kosten en risico's voordat je beslist.",
-        "h1": "Villa kopen op Bali: wanneer klopt het totaalplaatje?",
+        "title": "Villa kopen Bali | Kosten, verhuur en risico",
+        "description": "Villa kopen Bali? Beoordeel locatie, leasehold, bouwkwaliteit, verhuur, beheer en kosten voordat je beslist.",
+        "h1": "Villa kopen op Bali: kosten, verhuur en risico beoordelen",
         "eyebrow": "VILLA KOPEN BALI",
-        "intro": "Een villa op Bali verkoopt zichzelf vaak via beeld: zwembad, tropische tuin, open leefruimte en een populaire locatie. Voor een investering is dat pas de eerste laag. De vraag is of de villa juridisch, technisch en commercieel verdedigbaar is.",
+        "intro": "Villa kopen Bali draait niet alleen om zwembad en locatie. Beoordeel eerst of de villa juridisch, technisch en commercieel verdedigbaar is, vooral wanneer verhuur onderdeel van je plan is.",
         "intent": "Deze pagina is voor kopers die een villa zoeken voor eigen gebruik, verhuurpotentie of latere verkoop.",
         "sections": [
             ("Locatie blijft leidend", [
@@ -143,11 +143,11 @@ PAGES = [
     },
     {
         "slug": "vastgoed-bali-rendement",
-        "title": "Vastgoed Bali rendement | Bruto en netto realistisch",
-        "description": "Lees hoe je vastgoedrendement op Bali beoordeelt: bruto omzet, netto resultaat, bezetting, dagprijs, beheer, OTA-kosten en risico's.",
-        "h1": "Vastgoedrendement op Bali: bruto is nog geen netto",
+        "title": "Vastgoed Bali rendement | Zo bereken je netto",
+        "description": "Vastgoedrendement op Bali berekenen? Vergelijk bruto omzet, netto resultaat, bezetting, kosten, beheer en risico's.",
+        "h1": "Vastgoedrendement op Bali: zo bereken je netto",
         "eyebrow": "BALI VASTGOED RENDEMENT",
-        "intro": "Rendement is vaak het eerste getal waarnaar wordt gekeken. Juist daarom moet je er kritisch mee omgaan. Een bruto indicatie zegt weinig wanneer bezetting, dagprijs, beheer, onderhoud, belastingen en platformkosten niet helder zijn.",
+        "intro": "Vastgoed Bali rendement beoordelen? Begin met bruto omzet, bezetting en kosten. Pas daarna weet je of het nettoresultaat realistisch is.",
         "intent": "Deze pagina helpt je rendementsclaims op Bali vastgoed nuchter te lezen en naast meerdere scenario's te leggen.",
         "sections": [
             ("Begin met omzet, niet met percentage", [
