@@ -1,0 +1,650 @@
+{
+  "/assets/gids-2026/cover-villa.webp": [
+    {
+      "src": "/assets/responsive/cover-villa-a6ff6d732511-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/cover-villa-a6ff6d732511-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/gids-2026/cover-villa.webp",
+      "width": 1024
+    }
+  ],
+  "/assets/gids-2026/rendement-short-stay.webp": [
+    {
+      "src": "/assets/responsive/rendement-short-stay-1de615370129-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/rendement-short-stay-1de615370129-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/rendement-short-stay-1de615370129-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/gids-2026/rendement-short-stay.webp",
+      "width": 1536
+    }
+  ],
+  "/assets/hero/bali-villa-hero.webp": [
+    {
+      "src": "/assets/responsive/bali-villa-hero-2db8d7d2fe59-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/bali-villa-hero-2db8d7d2fe59-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/bali-villa-hero-2db8d7d2fe59-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/hero/bali-villa-hero.webp",
+      "width": 1920
+    }
+  ],
+  "/assets/kenniscentrum/meeting-overdracht.webp": [
+    {
+      "src": "/assets/responsive/meeting-overdracht-15892688660a-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/meeting-overdracht-15892688660a-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/meeting-overdracht-15892688660a-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/kenniscentrum/meeting-overdracht.webp",
+      "width": 1536
+    }
+  ],
+  "/assets/kenniscentrum/regelgeving-bali-2026-v2.webp": [
+    {
+      "src": "/assets/responsive/regelgeving-bali-2026-v2-748d16202ce5-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/regelgeving-bali-2026-v2-748d16202ce5-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/regelgeving-bali-2026-v2-748d16202ce5-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/kenniscentrum/regelgeving-bali-2026-v2.webp",
+      "width": 1672
+    }
+  ],
+  "/assets/kenniscentrum/tablet-barcharts-dashboard.webp": [
+    {
+      "src": "/assets/responsive/tablet-barcharts-dashboard-56b5e67ac7e0-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/tablet-barcharts-dashboard-56b5e67ac7e0-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/tablet-barcharts-dashboard-56b5e67ac7e0-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/kenniscentrum/tablet-barcharts-dashboard.webp",
+      "width": 1536
+    }
+  ],
+  "/assets/kenniscentrum/villa-in-aanbouw-strand.webp": [
+    {
+      "src": "/assets/responsive/villa-in-aanbouw-strand-5cad2fdc9719-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/villa-in-aanbouw-strand-5cad2fdc9719-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/villa-in-aanbouw-strand-5cad2fdc9719-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/kenniscentrum/villa-in-aanbouw-strand.webp",
+      "width": 1536
+    }
+  ],
+  "/assets/kenniscentrum/zoning-map-example-bali.jpg": [
+    {
+      "src": "/assets/responsive/zoning-map-example-bali-279c58130e9b-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/zoning-map-example-bali-279c58130e9b-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/kenniscentrum/zoning-map-example-bali.jpg",
+      "width": 1308
+    }
+  ],
+  "/assets/projects/casa-surya-villas/page-01-CN_fYdxn.jpg": [
+    {
+      "src": "/assets/responsive/page-01-CN_fYdxn-6aa6568cab70-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/page-01-CN_fYdxn-6aa6568cab70-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/page-01-CN_fYdxn-6aa6568cab70-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/casa-surya-villas/page-01-CN_fYdxn.jpg",
+      "width": 1537
+    }
+  ],
+  "/assets/projects/casa-surya-villas/page-03-CwE2imXR.jpg": [
+    {
+      "src": "/assets/responsive/page-03-CwE2imXR-34f3e004878c-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/page-03-CwE2imXR-34f3e004878c-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/page-03-CwE2imXR-34f3e004878c-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/casa-surya-villas/page-03-CwE2imXR.jpg",
+      "width": 1536
+    }
+  ],
+  "/assets/projects/casa-surya-villas/page-07-BAr7Qck-.jpg": [
+    {
+      "src": "/assets/responsive/page-07-BAr7Qck--77fd2ff39d21-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/page-07-BAr7Qck--77fd2ff39d21-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/page-07-BAr7Qck--77fd2ff39d21-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/casa-surya-villas/page-07-BAr7Qck-.jpg",
+      "width": 1448
+    }
+  ],
+  "/assets/projects/casa-surya-villas/page-11-O3njpMio.jpg": [
+    {
+      "src": "/assets/responsive/page-11-O3njpMio-4d70e2e4d3ff-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/page-11-O3njpMio-4d70e2e4d3ff-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/page-11-O3njpMio-4d70e2e4d3ff-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/casa-surya-villas/page-11-O3njpMio.jpg",
+      "width": 1537
+    }
+  ],
+  "/assets/projects/casa-surya-villas/page-13-B2dvrJKI.jpg": [
+    {
+      "src": "/assets/responsive/page-13-B2dvrJKI-1c52469cbd09-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/page-13-B2dvrJKI-1c52469cbd09-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/page-13-B2dvrJKI-1c52469cbd09-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/casa-surya-villas/page-13-B2dvrJKI.jpg",
+      "width": 1537
+    }
+  ],
+  "/assets/projects/casa-surya-villas/page-21-CuiJ8y4h.jpg": [
+    {
+      "src": "/assets/responsive/page-21-CuiJ8y4h-44adc2672297-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/page-21-CuiJ8y4h-44adc2672297-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/page-21-CuiJ8y4h-44adc2672297-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/casa-surya-villas/page-21-CuiJ8y4h.jpg",
+      "width": 1448
+    }
+  ],
+  "/assets/projects/casa-surya-villas/page-23-BBcs6jqM.jpg": [
+    {
+      "src": "/assets/responsive/page-23-BBcs6jqM-317ecdf8aa96-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/page-23-BBcs6jqM-317ecdf8aa96-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/page-23-BBcs6jqM-317ecdf8aa96-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/casa-surya-villas/page-23-BBcs6jqM.jpg",
+      "width": 1537
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-01.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-01-d4cffd3e1aeb-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-01-d4cffd3e1aeb-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-01.webp",
+      "width": 1147
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-02.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-02-cec335726dbf-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-02-cec335726dbf-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-02.webp",
+      "width": 1147
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-03.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-03-bc03f8a77ca8-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-03-bc03f8a77ca8-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-03.webp",
+      "width": 1147
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-04.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-04-5398e4a38be8-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-04-5398e4a38be8-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-04.webp",
+      "width": 1147
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-05.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-05-1f331e792eff-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-05-1f331e792eff-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-05-1f331e792eff-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-05.webp",
+      "width": 1768
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-06.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-06-4d05249ca74f-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-06-4d05249ca74f-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-06-4d05249ca74f-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-06.webp",
+      "width": 1768
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-07.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-07-b83c465029d8-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-07-b83c465029d8-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-07.webp",
+      "width": 1147
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-08.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-08-6d215404e4bd-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-08-6d215404e4bd-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-08.webp",
+      "width": 1147
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-09.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-09-7672bb090921-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-09-7672bb090921-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-09.webp",
+      "width": 1147
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-10.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-10-4ee895199295-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-10-4ee895199295-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-10-4ee895199295-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-10.webp",
+      "width": 1768
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-11.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-11-36e49f0ff00b-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-11-36e49f0ff00b-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-11-36e49f0ff00b-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-11.webp",
+      "width": 1768
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-12.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-12-b8092f5f3bb8-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-12-b8092f5f3bb8-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-12-b8092f5f3bb8-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-12.webp",
+      "width": 1768
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-13.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-13-236009f959dc-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-13-236009f959dc-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-13-236009f959dc-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-13.webp",
+      "width": 1768
+    }
+  ],
+  "/assets/projects/seseh-plot-12/seseh-plot-12-render-14.webp": [
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-14-a1de4947841c-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-14-a1de4947841c-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/seseh-plot-12-render-14-a1de4947841c-1440.webp",
+      "width": 1440
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/seseh-plot-12-render-14.webp",
+      "width": 1768
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/aerial.webp": [
+    {
+      "src": "/assets/responsive/aerial-37ed8f8979b8-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/aerial-37ed8f8979b8-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/aerial.webp",
+      "width": 1160
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/beach.jpg": [
+    {
+      "src": "/assets/responsive/beach-d9846ad642bd-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/beach-d9846ad642bd-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/beach.jpg",
+      "width": 1280
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/bedroom.webp": [
+    {
+      "src": "/assets/responsive/bedroom-3cc3e1d0eb22-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/bedroom-3cc3e1d0eb22-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/bedroom.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/facade.webp": [
+    {
+      "src": "/assets/responsive/facade-8161970a3c21-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/facade-8161970a3c21-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/facade.webp",
+      "width": 1284
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/kitchen.webp": [
+    {
+      "src": "/assets/responsive/kitchen-4a72d589e91b-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/kitchen-4a72d589e91b-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/kitchen.webp",
+      "width": 1029
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/living-lounge.webp": [
+    {
+      "src": "/assets/responsive/living-lounge-1023895ec4b3-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/living-lounge-1023895ec4b3-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/living-lounge.webp",
+      "width": 1152
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/plan-first.jpg": [
+    {
+      "src": "/assets/responsive/plan-first-6c29241620ea-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/plan-first.jpg",
+      "width": 707
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/plan-ground.jpg": [
+    {
+      "src": "/assets/responsive/plan-ground-8d9131c72015-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/plan-ground.jpg",
+      "width": 711
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/plan-rooftop.jpg": [
+    {
+      "src": "/assets/responsive/plan-rooftop-285b10cfeeb1-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/plan-rooftop.jpg",
+      "width": 715
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/plot-boundary.webp": [
+    {
+      "src": "/assets/responsive/plot-boundary-632f0c1a123b-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/plot-boundary.webp",
+      "width": 582
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/pool1.webp": [
+    {
+      "src": "/assets/responsive/pool1-f1470cbf8f26-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/pool1-f1470cbf8f26-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/pool1.webp",
+      "width": 1150
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/pool2.webp": [
+    {
+      "src": "/assets/responsive/pool2-1467cf9feb22-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/responsive/pool2-1467cf9feb22-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/pool2.webp",
+      "width": 1140
+    }
+  ],
+  "/assets/projects/seseh-plot-12/site/rooftop-callout.webp": [
+    {
+      "src": "/assets/responsive/rooftop-callout-96d311258b20-480.webp",
+      "width": 480
+    },
+    {
+      "src": "/assets/projects/seseh-plot-12/site/rooftop-callout.webp",
+      "width": 958
+    }
+  ]
+}
