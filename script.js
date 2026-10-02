@@ -8,6 +8,47 @@ function formatCurrency(value) {
 
 const ANALYTICS_CONSENT_KEY = "investinbali_analytics_consent";
 const LANGUAGE_PREFERENCE_KEY = "investinbali_language";
+const CAMPAIGN_SESSION_KEY = "investinbali_campaign";
+const GUIDE_PATH = "/assets/downloads/gratis-gids-investeren-in-bali-2026.pdf";
+
+function setupMobileNavigation() {
+  const header = document.querySelector(".site-header");
+  const nav = header?.querySelector(".main-nav");
+  const actions = header?.querySelector(".header-actions");
+  if (!nav || !actions) return;
+  nav.id = "site-navigation";
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "menu-toggle";
+  button.textContent = "Menu";
+  button.setAttribute("aria-controls", nav.id);
+  button.setAttribute("aria-expanded", "false");
+  function closeMenu(returnFocus = false) {
+    header.classList.remove("menu-open");
+    button.setAttribute("aria-expanded", "false");
+    if (returnFocus) button.focus();
+  }
+  button.addEventListener("click", () => {
+    const open = header.classList.toggle("menu-open");
+    button.setAttribute("aria-expanded", String(open));
+  });
+  header.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && header.classList.contains("menu-open")) closeMenu(true);
+  });
+  document.addEventListener("click", (event) => {
+    if (!header.contains(event.target)) closeMenu();
+  });
+  nav.addEventListener("click", (event) => {
+    if (event.target.closest("a")) closeMenu();
+  });
+  actions.append(button);
+  header.classList.add("navigation-enhanced");
+  nav.querySelectorAll("a").forEach((link) => {
+    if (window.location.pathname.startsWith(link.getAttribute("href"))) {
+      link.setAttribute("aria-current", "page");
+    }
+  });
+}
 
 function getLanguagePreference() {
   try {
@@ -299,10 +340,12 @@ function setupCookieConsent(force = false) {
       banner.remove();
       if (choice === "accepted") {
         setAnalyticsDisabled(false);
+        getTrackingFields();
         setupGoogleAnalytics();
       } else {
         setAnalyticsDisabled(true);
         clearAnalyticsCookies();
+        clearCampaignSession();
       }
     });
   });
@@ -346,6 +389,7 @@ function normaliseEventPart(value, fallback = "unknown") {
 setupGoogleAnalytics();
 setupCookieConsent();
 setupLanguageToggle();
+setupMobileNavigation();
 
 document.addEventListener("click", (event) => {
   const control = event.target.closest("[data-cookie-preferences]");
@@ -353,6 +397,7 @@ document.addEventListener("click", (event) => {
   event.preventDefault();
   setAnalyticsDisabled(true);
   clearAnalyticsCookies();
+  clearCampaignSession();
   try {
     window.localStorage.removeItem(ANALYTICS_CONSENT_KEY);
   } catch (_error) {
@@ -535,12 +580,102 @@ const CALENDAR_URL =
 
 function getTrackingFields() {
   const params = new URLSearchParams(window.location.search);
-  return {
+  const current = {
     utm_source: params.get("utm_source") || "",
     utm_medium: params.get("utm_medium") || "",
     utm_campaign: params.get("utm_campaign") || "",
   };
+  Object.keys(current).forEach((key) => { current[key] = current[key].slice(0, 200); });
+  if (getAnalyticsConsent() !== "accepted") {
+    clearCampaignSession();
+    return current;
+  }
+  try {
+    if (Object.values(current).some(Boolean)) {
+      window.sessionStorage.setItem(CAMPAIGN_SESSION_KEY, JSON.stringify(current));
+      return current;
+    }
+    const saved = JSON.parse(window.sessionStorage.getItem(CAMPAIGN_SESSION_KEY) || "{}");
+    return Object.fromEntries(Object.keys(current).map((key) => [key, String(saved[key] || "").slice(0, 200)]));
+  } catch (_error) {
+    return current;
+  }
 }
+
+function clearCampaignSession() {
+  try { window.sessionStorage.removeItem(CAMPAIGN_SESSION_KEY); } catch (_error) { /* Storage is optional. */ }
+}
+
+getTrackingFields();
+
+function setupContactRoutes() {
+  const grid = document.querySelector(".contact-grid");
+  const panels = Array.from(document.querySelectorAll("[data-contact-panel]"));
+  if (!grid || !panels.length) return;
+  function selectRoute() {
+    const requested = window.location.hash.slice(1);
+    const selected = panels.some((panel) => panel.id === requested) ? requested : "gesprek";
+    panels.forEach((panel) => { panel.hidden = panel.id !== selected; });
+    document.querySelectorAll(".contact-choices a").forEach((link) => {
+      if (link.hash === `#${selected}`) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    });
+  }
+  grid.classList.add("contact-enhanced");
+  selectRoute();
+  window.addEventListener("hashchange", selectRoute);
+  const projects = {
+    "seseh-boutique-villas": "Seseh Plot 12 Boutique Villas",
+    "casa-surya-villas": "Casa Surya (uitverkocht) — interesse in andere projecten",
+    "canggu-ocean-villas": "Canggu Ocean Villas",
+    "seminyak-sunset-residence": "Seminyak Sunset Residence",
+    "uluwatu-cliffside-home": "Uluwatu Cliffside Home",
+    "berawa-family-villa": "Berawa Family Villa",
+    "nusa-dua-premium-villa": "Nusa Dua Premium Villa",
+    "pererenan-ricefield-home": "Pererenan Ricefield Home",
+    "sanur-leasehold-home": "Sanur Leasehold Home",
+    "tabanan-growth-land": "Tabanan Growth Land",
+  };
+  const slug = new URLSearchParams(window.location.search).get("project");
+  if (!Object.prototype.hasOwnProperty.call(projects, slug)) return;
+  const form = document.querySelector('[data-form-name="info-aanvraag"]');
+  if (!form) return;
+  const context = document.createElement("p");
+  context.className = "form-note project-context";
+  context.textContent = `Je vraag gaat over: ${projects[slug]}.`;
+  form.prepend(context);
+  form.elements.page_source.value = `contact: ${slug}`;
+  form.elements.page_source.defaultValue = `contact: ${slug}`;
+  form.elements.segment.value = "projecten";
+  Array.from(form.elements.segment.options).forEach((option) => { option.defaultSelected = option.value === "projecten"; });
+}
+
+function setupKnowledgeSearch() {
+  const input = document.getElementById("knowledge-search");
+  const category = document.getElementById("knowledge-category");
+  if (!input || !category) return;
+  const cards = Array.from(document.querySelectorAll(".knowledge-results .article-link-card"));
+  const normalise = (value) => value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  function filter() {
+    const words = normalise(input.value.trim()).split(/\s+/).filter(Boolean);
+    let found = 0;
+    cards.forEach((card) => {
+      const matches = (!category.value || card.dataset.category === category.value)
+        && words.every((word) => normalise(card.textContent).includes(word));
+      card.hidden = !matches;
+      if (matches) found += 1;
+    });
+    document.getElementById("knowledge-count").textContent = `${found} ${found === 1 ? "artikel" : "artikelen"} gevonden`;
+    document.getElementById("knowledge-empty").hidden = found !== 0;
+  }
+  document.querySelector(".knowledge-tools").hidden = false;
+  input.addEventListener("input", filter);
+  category.addEventListener("change", filter);
+  filter();
+}
+
+setupContactRoutes();
+setupKnowledgeSearch();
 
 document.querySelectorAll(".prepared-form").forEach((form) => {
   if (!form.querySelector("input[name='website']")) {
@@ -609,7 +744,7 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
 
       const result = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
+      if (!response.ok || result.ok !== true) {
         const requestError = new Error(result.error || "Formulier kon niet worden verstuurd.");
         requestError.httpStatus = response.status;
         requestError.errorCode = result.code || "HTTP_ERROR";
@@ -623,11 +758,6 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
         lead_type: payload.lead_type || "unknown",
         form_name: form.dataset.formName || "unknown",
         method: "website_form",
-        page_category: getPageCategory(),
-      });
-      trackEvent("qualify_lead", {
-        lead_type: payload.lead_type || "unknown",
-        form_name: form.dataset.formName || "unknown",
         page_category: getPageCategory(),
       });
       trackEvent(`form_submit_success_${normaliseEventPart(payload.lead_type)}`, {
@@ -655,6 +785,17 @@ document.querySelectorAll(".prepared-form").forEach((form) => {
       form.reset();
       if (success) {
         success.hidden = false;
+        if (["gids_aanvraag", "member_gids_inschrijving"].includes(payload.lead_type)) {
+          success.textContent = result.guide_email_status === "accepted"
+            ? "Bedankt. Je aanvraag is ontvangen en de gids is aangeboden aan de maildienst. Controleer ook je spammap of download de gids hieronder."
+            : "Bedankt. Je aanvraag is ontvangen. E-mailverzending is niet bevestigd; download de gids direct hieronder.";
+          const download = document.createElement("a");
+          download.href = GUIDE_PATH;
+          download.className = "button button-gold guide-download";
+          download.setAttribute("download", "Invest-in-Bali-gids-2026.pdf");
+          download.textContent = "Download de gids (PDF)";
+          success.append(document.createElement("br"), download);
+        }
       }
 
       const calendarUrl = result.calendar_url || CALENDAR_URL;

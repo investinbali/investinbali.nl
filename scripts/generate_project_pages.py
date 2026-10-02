@@ -170,12 +170,8 @@ def fact_rows(project: dict) -> str:
 
 def overview(projects: list[dict]) -> str:
     ordered_projects = sorted(projects, key=lambda project: not project.get("featured", False))
-    visible = ordered_projects[:9]
-    more_text = (
-        '<p class="catalog-note">Meer objecten beschikbaar op aanvraag.</p>'
-        if len(projects) > 9
-        else ""
-    )
+    visible = ordered_projects
+    more_text = ""
     cards = "\n".join(card(project) for project in visible)
     description = "Vergelijk projecten en investeringsobjecten op Bali op locatie, prijs, juridische structuur, risico's en verhuurpotentie."
     indexable_projects = [project for project in ordered_projects if project.get("status") != "binnenkort"]
@@ -330,7 +326,7 @@ def detail(project: dict) -> str:
           <p>{esc(project['shortDescription'])}</p>
           <div class="cta-actions">
             <a class="button button-gold" href="/contact/">Plan een call</a>
-            <a class="button button-outline" href="/contact/">Vraag meer info op</a>
+            <a class="button button-outline" href="/contact/?project={esc(project['slug'])}#informatie">Vraag meer info op</a>
             {external_project_cta}
             {external_walkthrough_cta}
             <a class="button button-ghost-dark" href="/projecten/">Terug naar alle projecten</a>
@@ -382,7 +378,7 @@ def detail(project: dict) -> str:
           </div>
           <div class="cta-actions">
             <a class="button button-gold" href="/contact/">Plan een call</a>
-            <a class="button button-outline" href="/contact/">Vraag meer info op</a>
+            <a class="button button-outline" href="/contact/?project={esc(project['slug'])}#informatie">Vraag meer info op</a>
           </div>
         </div>
       </section>
@@ -397,7 +393,7 @@ def main() -> None:
     projects = json.loads((ROOT / "data" / "projects.json").read_text(encoding="utf-8"))
     (ROOT / "projecten" / "index.html").write_text(overview(projects), encoding="utf-8")
     for project in projects:
-        if project["slug"] == "casa-surya-villas":
+        if project["slug"] in {"casa-surya-villas", "seseh-boutique-villas"}:
             continue
         target = ROOT / "projecten" / project["slug"]
         target.mkdir(parents=True, exist_ok=True)

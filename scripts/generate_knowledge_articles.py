@@ -538,6 +538,10 @@ def replace_article_lists() -> None:
 
     index_path = ROOT / "kenniscentrum" / "index.html"
     text = index_path.read_text(encoding="utf-8")
+    if 'class="knowledge-results"' in text:
+        from knowledge_catalogue import refresh_catalogue
+        index_path.write_text(refresh_catalogue(text, article_cards()), encoding="utf-8")
+        return
     insert = f"""
           <article class="content-card knowledge-wide-card">
             <h2>Verdiepende artikelen voor betere beslissingen</h2>

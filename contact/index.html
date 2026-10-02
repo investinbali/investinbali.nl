@@ -43,7 +43,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css?v=20261002-ux1" />
     <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "ContactPage", "name": "Contact | Invest in Bali", "url": "https://www.investinbali.nl/contact/", "description": "Plan een vrijblijvend gesprek over investeren in Bali vastgoed, aankoop, verhuurpotentie en juridische structuur.", "isPartOf": {"@id": "https://www.investinbali.nl/#organization"}}, {"@type": "Organization", "@id": "https://www.investinbali.nl/#organization", "name": "Invest in Bali", "url": "https://www.investinbali.nl/", "email": "info@investinbali.nl", "contactPoint": [{"@type": "ContactPoint", "contactType": "sales", "email": "info@investinbali.nl", "availableLanguage": ["nl", "en"]}], "logo": "https://www.investinbali.nl/assets/logo-variations/villa-gate-variant-01-balanced-door.svg"}]}</script>
       <link rel="icon" href="/assets/logo-variations/villa-gate-variant-01-balanced-door.svg" type="image/svg+xml" />
   </head>
@@ -69,18 +69,20 @@
           potentie, een eerste gesprek geeft direct meer duidelijkheid. Heb je
           de gids al gelezen, dan kunnen we sneller de diepte in.
         </p>
+        <nav class="contact-choices" aria-label="Kies je contactroute"><a href="#gesprek">Gesprek plannen</a><a href="#gids">Gids aanvragen</a><a href="#informatie">Vraag stellen</a></nav>
         <p class="direct-contact">
           Mail direct: <a href="mailto:info@investinbali.nl">info@investinbali.nl</a>
         </p>
       </section>
-      <section class="content-shell">
+      <section class="content-shell" aria-label="Contactmogelijkheden">
         <div class="grid contact-grid">
-          <article class="content-card">
+          <article class="content-card" id="gesprek" data-contact-panel>
             <h2>Plan een call</h2>
             <p>
               Bespreek in een eerste gesprek waar je naar zoekt en welke vragen
               voor jouw situatie het belangrijkst zijn.
             </p>
+            <p><a class="button button-gold" href="https://calendar.app.google/KmYX9vj1hj8wEcLe6" target="_blank" rel="noopener noreferrer">Kies direct een moment in de agenda</a></p><p>Je opent Google Agenda. Liever eerst je situatie toelichten? Gebruik de terugbeloptie hieronder.</p><details class="callback-details"><summary>Vraag een terugbelgesprek aan</summary>
             <form class="prepared-form" data-form-name="call-aanvraag">
               <input type="hidden" name="lead_type" value="call_aanvraag" />
               <input type="hidden" name="page_source" value="contact" />
@@ -163,9 +165,9 @@
               <p class="form-note">We nemen contact op om je vraag en investeringsdoel gericht te bespreken.</p>
               <p class="form-success" role="status" aria-live="polite" hidden>Bedankt. Je aanvraag is ontvangen. Plan daarna direct een geschikt moment in onze agenda.</p>
               <p class="form-next-step" hidden></p>
-            </form>
+            </form></details>
           </article>
-          <article class="content-card">
+          <article class="content-card" id="gids" data-contact-panel>
             <h2>Ontvang de gids</h2>
             <p>
               Download de gids over investeren in Bali met uitleg over
@@ -203,7 +205,7 @@
               <p class="form-success" role="status" aria-live="polite" hidden>Bedankt. We sturen de gids naar je e-mailadres. Controleer ook je spammap.</p>
             </form>
           </article>
-          <article class="content-card">
+          <article class="content-card" id="informatie" data-contact-panel>
             <h2>Vraag meer info op</h2>
             <p>
               Stel een gerichte vraag over projecten, regio's, juridische
@@ -279,6 +281,6 @@
       </div>
     </footer>
     <script src="/analytics-config.js"></script>
-    <script src="/script.js"></script>
+    <script src="/script.js?v=20261002-ux1"></script>
   </body>
   </html>

@@ -1,5 +1,22 @@
 # Invest in Bali full context
 
+Dit bestand is een beknopte wegwijzer, niet de volledige website. Gebruik de gelinkte pagina's voor context, bronverwijzingen en aannames. Technische en redactionele controle: 2 oktober 2026. Dit is geen verklaring dat alle juridische informatie op die datum onafhankelijk is geverifieerd.
+
+## Canonieke bronnen per onderwerp
+
+- Organisatie en contact: https://www.investinbali.nl/over-ons/ en https://www.investinbali.nl/contact/
+- Aankoopcontrole: https://www.investinbali.nl/kenniscentrum/due-diligence-bali/
+- Leasehold: https://www.investinbali.nl/kenniscentrum/leasehold-bali/
+- Regels en recente wijzigingen: https://www.investinbali.nl/kenniscentrum/nieuwe-regels-bali-vastgoed-2026/
+- Bouw- en gebruiksdocumenten: https://www.investinbali.nl/kenniscentrum/pbg-slf-bali/
+- Verhuur en beheer: https://www.investinbali.nl/kenniscentrum/villa-management-bali/
+- Rendementsbegrippen: https://www.investinbali.nl/vastgoed-bali-rendement/
+
+## Projectstatus en rekenkundige afbakening
+
+- Seseh: https://www.investinbali.nl/projecten/seseh-boutique-villas/ — de scenario's gebruiken 30 dagen per maand, 12 maanden per jaar en 60%, 70% of 90% bezetting (18, 21 of 27 nachten). Operationeel resultaat is geen volledig netto rendement; uitgesloten kosten en belasting staan bij de tabel. Aannames zijn niet onafhankelijk gevalideerd.
+- Casa Surya: https://www.investinbali.nl/projecten/casa-surya-villas/ — projectreferentie, geen actueel aanbod. Volgens https://casasuryavillas.com/cemagi-collection zijn beide villa's in september 2026 verkocht; bron gecontroleerd op 2 oktober 2026. Historische rendementsprognoses zijn verwijderd.
+
 ## Wat doet Invest in Bali
 
 Invest in Bali helpt Nederlandstalige kopers en investeerders bij het beoordelen van huizen, villa's, landposities en vastgoedprojecten op Bali. De site legt nadruk op realistische beoordeling: locatie, juridische structuur, zoning, vergunningen, kosten, rendement, risico's en due diligence.

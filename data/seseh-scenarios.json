@@ -1,0 +1,18 @@
+{
+  "currency": "IDR",
+  "investment": 5500000000,
+  "dailyRate": 3800000,
+  "daysPerMonth": 30,
+  "monthsPerYear": 12,
+  "platformRate": 0.155,
+  "managementRate": 0.20,
+  "fixedMonthlyCosts": 8000000,
+  "scenarios": [
+    { "name": "Conservatief", "occupancy": 0.60, "extraMonthlyRevenue": 7000000 },
+    { "name": "Basis", "occupancy": 0.70, "extraMonthlyRevenue": 7500000 },
+    { "name": "Optimistisch", "occupancy": 0.90, "extraMonthlyRevenue": 8000000 }
+  ],
+  "source": "https://seseh-villa.pages.dev",
+  "calculationReviewed": "2026-10-02",
+  "note": "Herberekening van eerder gepubliceerde projectaannames, geen onafhankelijke marktvalidatie. Exclusief verzekering, property tax, onderhoudsreserve, overige niet genoemde kosten en verhuurbelasting."
+}

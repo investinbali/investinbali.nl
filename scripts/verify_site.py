@@ -14,7 +14,7 @@ def public_html() -> list[Path]:
     result = []
     for path in ROOT.rglob("*.html"):
         parts = path.relative_to(ROOT).parts
-        if any(part in {".git", "assets", "node_modules", "seseh-construction-tracker"} for part in parts):
+        if any(part in {".git", ".vercel", "tmp", "dist", "assets", "node_modules", "seseh-construction-tracker"} for part in parts):
             continue
         result.append(path)
     return result

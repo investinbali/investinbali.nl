@@ -8,10 +8,12 @@ import re
 from pathlib import Path
 
 from PIL import Image
+from knowledge_catalogue import refresh_catalogue
 
 
 ROOT = Path(__file__).resolve().parents[1]
 LOGO = "/assets/logo-variations/villa-gate-variant-01-balanced-door.svg"
+ASSET_VERSION = "20261002-ux1"
 PLACEHOLDER_PROJECTS = {
     project["slug"]
     for project in json.loads((ROOT / "data" / "projects.json").read_text(encoding="utf-8"))
@@ -51,6 +53,8 @@ def clean_schema(value, main_text: str, placeholder: bool):
         return None
 
     cleaned = {key: clean_schema(item, main_text, placeholder) for key, item in value.items()}
+    if "Organization" in types and value.get("name") == "Invest in Bali":
+        cleaned["@id"] = "https://www.investinbali.nl/#organization"
     if "@graph" in cleaned:
         cleaned["@graph"] = [item for item in cleaned["@graph"] if item is not None]
     if "Organization" in types and value.get("@id", "").endswith("#organization"):
@@ -104,6 +108,8 @@ def add_image_dimensions(markup: str) -> str:
 def enhance_html(path: Path) -> None:
     markup = path.read_text(encoding="utf-8")
     relative = path.relative_to(ROOT).as_posix()
+    if relative == "kenniscentrum/index.html":
+        markup = refresh_catalogue(markup)
     project_match = re.fullmatch(r"projecten/([^/]+)/index\.html", relative)
     project_slug = project_match.group(1) if project_match else ""
     placeholder = project_slug in PLACEHOLDER_PROJECTS
@@ -179,6 +185,8 @@ def enhance_html(path: Path) -> None:
         '<p class="form-error" role="alert" aria-live="assertive"',
         markup,
     )
+    markup = re.sub(r'href="/styles\.css(?:\?[^"<>]*)?"', f'href="/styles.css?v={ASSET_VERSION}"', markup)
+    markup = re.sub(r'src="/script\.js(?:\?[^"<>]*)?"', f'src="/script.js?v={ASSET_VERSION}"', markup)
     markup = "\n".join(line.rstrip() for line in markup.splitlines()).rstrip() + "\n"
     path.write_text(markup, encoding="utf-8")
 
@@ -205,7 +213,7 @@ def update_sitemap() -> None:
 def enhance_site() -> None:
     for path in ROOT.rglob("*.html"):
         relative = path.relative_to(ROOT).parts
-        if any(part in {".git", "node_modules", "seseh-construction-tracker", "assets"} for part in relative):
+        if any(part in {".git", ".vercel", "tmp", "dist", "node_modules", "seseh-construction-tracker", "assets"} for part in relative):
             continue
         enhance_html(path)
     update_sitemap()

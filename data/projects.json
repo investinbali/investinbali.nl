@@ -237,15 +237,14 @@
     "zoningStatus": "Tourist pink zone volgens projectinformatie",
     "permitStatus": "Constructietekeningen gereed volgens projectinformatie; vergunningen te controleren",
     "dueDiligenceStatus": "Projectinformatie beschikbaar; juridische en financiële controle nog vereist",
-    "grossYieldLabel": "11-15% netto rendement indicatief volgens projectsimulatie",
-    "netYieldLabel": "Indicatief netto rendement 11,0-14,4% per jaar afhankelijk van bezetting",
+    "grossYieldLabel": "Zie operationele scenario’s; geen volledig netto rendement",
+    "netYieldLabel": "9,4–14,4% operationeel vóór uitgesloten kosten en belasting",
     "investmentGoal": "Short-stay verhuur / wellness positionering / waardegroei",
     "suitableFor": "Investeerders die een turnkey 2-bedroom wellness villa dicht bij Seseh Beach willen beoordelen",
     "highlights": [
       "Concept: 2-bedroom investment villa met private pool, rooftop wellness deck, sauna, ice bath en BBQ.",
       "Volgens de projectsite ligt het plot in tourist pink zone, op korte loopafstand van Seseh Beach.",
       "Volledig gemeubileerd en rental-ready gepositioneerd, met constructietekeningen gereed via PT. Next Stepping Stone.",
-      "De projectsite noemt een AirDNA rental-demand score boven 94 voor Seseh en een wellnesspositionering voor hogere ADR.",
       "Er is een externe projectsite en interactieve 3D-walkthrough beschikbaar voor eerste beoordeling."
     ],
     "risks": [
@@ -255,13 +254,22 @@
       "Netto resultaat kan afwijken door utilities, verzekering, property tax, onderhoudsreserve en Indonesische verhuurbelasting.",
       "Doorverkoopbaarheid hangt af van resterende lease, contractkwaliteit en marktliquiditeit."
     ],
-    "costNotes": ["OTA/platformkosten", "Management", "Schoonmaak en onderhoud", "Utilities", "Verzekering", "Property tax", "Onderhoudsreserve", "Indonesische verhuurbelasting"],
+    "costNotes": [
+      "OTA/platformkosten",
+      "Management",
+      "Schoonmaak en onderhoud",
+      "Utilities",
+      "Verzekering",
+      "Property tax",
+      "Onderhoudsreserve",
+      "Indonesische verhuurbelasting"
+    ],
     "scenario": {
       "averageDailyRate": "IDR 3,8 miljoen indicatief volgens projectsite",
       "occupancy": "Conservatief 60%, basis 70%, optimistisch 90%",
       "grossRevenue": "Afhankelijk van bezetting, ADR, seizoen en extra services",
       "costPercentage": "Projectsite rekent o.a. OTA 15,5% en management 20%, exclusief enkele overige kosten",
-      "netResult": "Indicatief IDR 606-794 miljoen netto per jaar per villa; payback circa 6,9-9,1 jaar"
+      "netResult": "IDR 517–794 miljoen operationeel per jaar vóór uitgesloten kosten en belasting; eenvoudige terugverdientijd 6,9–10,6 jaar vanaf exploitatie"
     }
   },
   {
@@ -269,9 +277,9 @@
     "featured": true,
     "title": "Casa Surya Villas - Cemagi Collection",
     "location": "Cemagi, Bali",
-    "status": "te-koop",
+    "status": "uitverkocht",
     "type": "project",
-    "shortDescription": "Twee nieuwe 3-bedroom villa's in Cemagi met private pool, rijstveld- en zonsondergangzicht en een verlengbare leasehold-structuur.",
+    "shortDescription": "Projectreferentie in Cemagi. Beide villa’s zijn volgens de ontwikkelaar verkocht in september 2026; bron gecontroleerd op 2 oktober 2026.",
     "thumbnail": "/assets/projects/casa-surya-villas/page-01-CN_fYdxn.jpg",
     "images": [
       "/assets/projects/casa-surya-villas/page-01-CN_fYdxn.jpg",
@@ -285,7 +293,7 @@
       "/assets/projects/casa-surya-villas/page-21-CuiJ8y4h.jpg",
       "/assets/projects/casa-surya-villas/page-23-BBcs6jqM.jpg"
     ],
-    "priceLabel": "$450.000 USD per villa",
+    "priceLabel": "Uitverkocht; geen actueel aanbod",
     "externalProjectUrl": "https://casasuryavillas.com/cemagi-collection",
     "bedrooms": 3,
     "bathrooms": 4,
@@ -297,8 +305,8 @@
     "zoningStatus": "Yellow zone boven beschermde green zone volgens projectinformatie",
     "permitStatus": "Ontwikkeling/architectuur underway; vergunningen en oplevering controleren",
     "dueDiligenceStatus": "Projectinformatie beschikbaar; juridische, financiële en bouwkundige controle vereist",
-    "grossYieldLabel": "12-18% geprojecteerd per jaar volgens projectsite",
-    "netYieldLabel": "Niet onafhankelijk geverifieerd; 7-15% waardegroei wordt afzonderlijk genoemd",
+    "grossYieldLabel": "Geen actuele rendementsaanbieding",
+    "netYieldLabel": "Historische projecties niet als actueel aanbod getoond",
     "investmentGoal": "Short-stay verhuur / waardegroei / eigen gebruik",
     "suitableFor": "Investeerders die een kleine, direct beheerde villa-collectie in Cemagi willen beoordelen",
     "highlights": [
@@ -309,20 +317,27 @@
       "Optioneel volledig beheer door een team dat volgens de projectsite zeven bestaande villa's beheert."
     ],
     "risks": [
-      "De genoemde 12-18% return is een projectie van de bron en geen onafhankelijk gevalideerd rendement.",
       "Yellow-zone classificatie, beschermde green zone, vergunningen en feitelijk verhuurgebruik moeten per perceel worden gecontroleerd.",
       "Leasehold, vaste verlengoptie en betalingsmomenten moeten contractueel en notarieel worden vastgelegd.",
-      "Bouwplanning, kwaliteit, oplevering en het genoemde handover-moment in april 2027 moeten worden geverifieerd.",
+      "Bouwplanning, kwaliteit, oplevering en het genoemde handover-moment in Q2 2027 moeten worden geverifieerd.",
       "Bezetting, dagprijs, beheer, OTA-kosten, onderhoud, belasting en verzekering bepalen het netto resultaat.",
       "Doorverkoopbaarheid blijft afhankelijk van resterende lease, documentkwaliteit en marktomstandigheden."
     ],
-    "costNotes": ["Aankoopprijs", "Juridische en notariële controle", "Beheer en guest services", "OTA/platformkosten", "Onderhoud en utilities", "Verzekering en lokale lasten", "Belastingen"],
+    "costNotes": [
+      "Aankoopprijs",
+      "Juridische en notariële controle",
+      "Beheer en guest services",
+      "OTA/platformkosten",
+      "Onderhoud en utilities",
+      "Verzekering en lokale lasten",
+      "Belastingen"
+    ],
     "scenario": {
       "averageDailyRate": "Niet gepubliceerd door projectsite",
       "occupancy": "Niet gepubliceerd door projectsite",
       "grossRevenue": "Te berekenen na onafhankelijke ADR- en bezettingsanalyse",
       "costPercentage": "Niet gepubliceerd; doorrekenen met beheer, OTA, onderhoud, utilities en belasting",
-      "netResult": "Niet verantwoord vast te stellen zonder financiële onderliggende stukken"
+      "netResult": "Niet van toepassing op actueel aanbod: uitverkocht"
     }
   },
   {

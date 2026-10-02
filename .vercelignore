@@ -14,3 +14,6 @@ scripts
 node_modules
 package-lock.json
 Sketchup design
+tmp
+tests
+seseh-construction-tracker

@@ -60,6 +60,21 @@ async function main() {
   assert.equal(valid.statusCode, 200);
   assert.equal(valid.payload.ok, true);
   assert.equal(valid.payload.crm, "google_sheets");
+  assert.equal(valid.payload.guide_email_status, "unconfirmed");
+  assert.match(valid.payload.guide_url, /^\/assets\/downloads\//);
+
+  const guideRequest = { lead_type: "gids_aanvraag", name: "Test", email: "test@example.com", interest: "orientatie", consent: "yes" };
+  global.fetch = async () => ({ ok: true, text: async () => JSON.stringify({ ok: true, delivery_status: "stored_with_warnings" }) });
+  const warning = await invoke(guideRequest);
+  assert.equal(warning.payload.ok, true);
+  assert.equal(warning.payload.guide_email_status, "unconfirmed");
+  global.fetch = async () => ({ ok: true, text: async () => JSON.stringify({ ok: true, delivery_status: "complete" }) });
+  const accepted = await invoke(guideRequest);
+  assert.equal(accepted.payload.guide_email_status, "accepted");
+  global.fetch = async () => ({ ok: true, text: async () => "" });
+  const emptyResponse = await invoke(guideRequest);
+  assert.equal(emptyResponse.statusCode, 502);
+  global.fetch = async () => ({ ok: true, text: async () => JSON.stringify({ ok: true }) });
 
   const invalidEmail = await invoke({
     lead_type: "gids_aanvraag",
@@ -129,6 +144,8 @@ async function main() {
   assert.equal(fallbackSuccess.statusCode, 200);
   assert.equal(fallbackSuccess.payload.ok, true);
   assert.equal(fallbackSuccess.payload.crm, "email_fallback");
+  assert.equal(fallbackSuccess.payload.guide_email_status, "unconfirmed");
+  assert.ok(fallbackSuccess.payload.guide_url);
   delete process.env.SMTP_USER;
   delete process.env.SMTP_PASS;
 

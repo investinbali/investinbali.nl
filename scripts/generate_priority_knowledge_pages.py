@@ -328,6 +328,10 @@ def update_knowledge_index() -> None:
               <a class="article-link-card" href="/kenniscentrum/nederlander-investeren-bali-belasting/"><h3>Nederlander investeren en belasting</h3><p>Welke fiscale vragen je vooraf wilt stellen bij Bali vastgoed.</p></a>
             </div>
           </article>"""
+    if 'class="knowledge-results"' in text:
+        from knowledge_catalogue import refresh_catalogue
+        path.write_text(refresh_catalogue(text, block), encoding="utf-8")
+        return
     if "Vragen die kopers echt stellen" not in text:
         text = text.replace("          <article class=\"content-card knowledge-wide-card\">\n            <h2>Verdiepende artikelen voor betere beslissingen</h2>", block + "\n\n          <article class=\"content-card knowledge-wide-card\">\n            <h2>Verdiepende artikelen voor betere beslissingen</h2>", 1)
     path.write_text(text, encoding="utf-8")

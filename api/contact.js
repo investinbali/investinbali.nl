@@ -115,8 +115,14 @@ function enrichPayload(req, data) {
 }
 
 function addFlowLinks(leadType, result = {}) {
+  const isGuide = ["gids_aanvraag", "member_gids_inschrijving"].includes(leadType);
   return {
     ...result,
+    ...(isGuide ? {
+      guide_url: "/assets/downloads/gratis-gids-investeren-in-bali-2026.pdf",
+      // Provider acceptance is not proof of inbox delivery. Older handlers report only aggregate status.
+      guide_email_status: result.delivery_status === "complete" ? "accepted" : "unconfirmed",
+    } : {}),
     calendar_url: leadType === "call_aanvraag" ? result.calendar_url || CALENDAR_URL : result.calendar_url || "",
   };
 }
@@ -173,9 +179,9 @@ module.exports = async function handler(req, res) {
       });
 
       const responseText = await googleResponse.text();
-      const result = responseText ? JSON.parse(responseText) : { ok: true };
+      const result = responseText ? JSON.parse(responseText) : {};
 
-      if (!googleResponse.ok || result.ok === false) {
+      if (!googleResponse.ok || result.ok !== true) {
         googleAppsScriptFailed = true;
         console.error("Google Apps Script rejected submission", {
           status: googleResponse.status,
