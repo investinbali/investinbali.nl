@@ -44,6 +44,21 @@ for path in pages:
         src = re.search(r'\bsrc=["\']([^"\']+)', image, re.I)
         if src and src.group(1).startswith("/assets/") and not ("width=" in image and "height=" in image):
             errors.append(f"{relative}: image lacks dimensions: {src.group(1)}")
+        srcset = re.search(r'\bsrcset="([^"]+)"', image)
+        if srcset:
+            widths = []
+            for candidate in srcset[1].split(','):
+                source, width = candidate.strip().rsplit(' ', 1)
+                if source.startswith('/assets/') and not (ROOT / source.lstrip('/')).is_file():
+                    errors.append(f"{relative}: missing responsive image: {source}")
+                widths.append(int(width.removesuffix('w')))
+            if widths != sorted(set(widths)):
+                errors.append(f"{relative}: responsive image widths are not unique and ordered")
+
+    for toc in re.findall(r'<nav class="article-toc\b.*?</nav>', markup, re.S):
+        for anchor in re.findall(r'href="#([^"]+)"', toc):
+            if len(re.findall(r'\bid="' + re.escape(anchor) + '"', markup)) != 1:
+                errors.append(f"{relative}: TOC anchor is missing or ambiguous: {anchor}")
 
     main = re.search(r"<main\b[^>]*>(.*?)</main>", markup, re.I | re.S)
     main_text = visible_text(main.group(1) if main else "")

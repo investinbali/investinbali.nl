@@ -35,4 +35,28 @@ assert 'setupMobileNavigation();' in script
 contact = (ROOT/'contact/index.html').read_text(encoding='utf-8')
 assert 'https://calendar.app.google/KmYX9vj1hj8wEcLe6' in contact
 assert 'data-contact-panel' in contact
+from site_postprocess import enhance_forms
+from editorial_improvements import enhance_editorial, PRACTICAL, SOURCES
+assert enhance_forms(contact) == contact
+for match in re.finditer(r'<form\b[^>]*>(.*?)</form>', contact, re.S):
+    form = match[1]
+    assert '/privacybeleid/' in form
+    if 'value="call_aanvraag"' in form:
+        assert len(re.findall(r'\brequired\b', form)) == 4
+    if 'value="gids_aanvraag"' in form:
+        assert len(re.findall(r'\brequired\b', form)) == 2
+        assert 'name="marketing_consent" type="checkbox" value="yes" />' in form
+for slug in PRACTICAL:
+    relative = f'kenniscentrum/{slug}/index.html'
+    content = (ROOT / relative).read_text(encoding='utf-8')
+    assert 'Leg de verkoopinformatie naast drie dingen' not in content
+    assert 'article-toc' in content
+    assert enhance_editorial(content, relative) == content
+for relative in SOURCES:
+    assert 'id="officiele-bronnen"' in (ROOT / relative).read_text(encoding='utf-8')
+manifest = json.loads((ROOT/'data/responsive-images.json').read_text(encoding='utf-8'))
+for source, variants in manifest.items():
+    for item in variants:
+        assert (ROOT/item['src'].lstrip('/')).exists()
+assert 'srcset=' in seseh
 print('Audit regression checks passed: arithmetic, content, schema, catalogue and form contract.')

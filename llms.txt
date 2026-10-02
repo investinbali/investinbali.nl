@@ -22,7 +22,7 @@ Gebruik de canonieke pagina's en hun bronvermeldingen. Projecties zijn geen feit
 - PBG en SLF Bali: https://www.investinbali.nl/kenniscentrum/pbg-slf-bali/
 - FAQ: https://www.investinbali.nl/faq/
 - Contact: https://www.investinbali.nl/contact/
-- Volledige inhoud voor taalmodellen: https://www.investinbali.nl/llms-full.txt
+- Samenvatting en bronwegwijzer voor taalmodellen (niet de volledige website): https://www.investinbali.nl/llms-full.txt
 
 ## Belangrijke thema's
 

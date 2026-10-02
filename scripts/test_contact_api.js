@@ -4,13 +4,17 @@ const Module = require("node:module");
 // The validation tests do not send mail. Keep them runnable before npm install.
 const originalLoad = Module._load;
 let mailShouldFail = false;
+let guideMailShouldFail = false;
+let sentMessages = [];
 Module._load = function mockedLoad(request, parent, isMain) {
   if (request === "nodemailer") {
     return {
       createTransport: () => ({
-        sendMail: async () => {
+        sendMail: async (message) => {
+          sentMessages.push(message);
           if (mailShouldFail) throw new Error("mock mail failure");
-          return { accepted: ["test@example.com"] };
+          if (guideMailShouldFail && message.subject === "Je gids investeren in Bali 2026") throw new Error("mock guide failure");
+          return { accepted: [message.to] };
         },
       }),
     };
@@ -62,6 +66,28 @@ async function main() {
   assert.equal(valid.payload.crm, "google_sheets");
   assert.equal(valid.payload.guide_email_status, "unconfirmed");
   assert.match(valid.payload.guide_url, /^\/assets\/downloads\//);
+
+  let delivered;
+  global.fetch = async (_url, options) => {
+    delivered = JSON.parse(options.body);
+    return { ok: true, text: async () => JSON.stringify({ ok: true }) };
+  };
+  assert.equal((await invoke({ lead_type: "gids_aanvraag", email: "test@example.com", consent: "yes" })).statusCode, 200);
+  assert.equal(delivered.name, "Niet opgegeven");
+  assert.equal(delivered.interest, "Niet opgegeven");
+  assert.equal(delivered.marketing_consent, "no");
+  assert.equal(delivered.consent, "request=yes; marketing=no; version=2026-10-02");
+  await invoke({ lead_type: "gids_aanvraag", email: "test@example.com", consent: "yes", marketing_consent: "yes" });
+  assert.equal(delivered.marketing_consent, "yes");
+  const shortCall = { lead_type: "call_aanvraag", name: "Test", email: "test@example.com", phone: "+31 6 12345678", consent: "yes" };
+  assert.equal((await invoke(shortCall)).statusCode, 200);
+  assert.equal(delivered.budget_range, "Niet opgegeven");
+  assert.equal((await invoke({ ...shortCall, phone: "abcdefghi" })).payload.code, "INVALID_PHONE");
+  assert.equal((await invoke({ ...shortCall, consent: "false" })).payload.code, "CONSENT_REQUIRED");
+  assert.equal((await invoke({ ...shortCall, marketing_consent: "sometimes" })).payload.code, "INVALID_FIELD");
+  for (let i = 0; i < 5; i++) assert.equal((await invoke(shortCall, { "x-forwarded-for": "192.0.2.1" })).statusCode, 200);
+  assert.equal((await invoke(shortCall, { "x-forwarded-for": "192.0.2.1" })).statusCode, 429);
+  assert.equal((await invoke(shortCall, { "x-forwarded-for": "192.0.2.2" })).statusCode, 200);
 
   const guideRequest = { lead_type: "gids_aanvraag", name: "Test", email: "test@example.com", interest: "orientatie", consent: "yes" };
   global.fetch = async () => ({ ok: true, text: async () => JSON.stringify({ ok: true, delivery_status: "stored_with_warnings" }) });
@@ -144,8 +170,15 @@ async function main() {
   assert.equal(fallbackSuccess.statusCode, 200);
   assert.equal(fallbackSuccess.payload.ok, true);
   assert.equal(fallbackSuccess.payload.crm, "email_fallback");
-  assert.equal(fallbackSuccess.payload.guide_email_status, "unconfirmed");
+  assert.equal(fallbackSuccess.payload.guide_email_status, "accepted");
   assert.ok(fallbackSuccess.payload.guide_url);
+  assert.equal(sentMessages.at(-1).to, "test@example.com");
+  assert.match(sentMessages.at(-1).text, /gratis-gids-investeren-in-bali-2026.pdf/);
+  guideMailShouldFail = true;
+  const partialDelivery = await invoke(guideRequest);
+  assert.equal(partialDelivery.payload.ok, true);
+  assert.equal(partialDelivery.payload.guide_email_status, "unconfirmed");
+  guideMailShouldFail = false;
   delete process.env.SMTP_USER;
   delete process.env.SMTP_PASS;
 

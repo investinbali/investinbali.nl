@@ -9,7 +9,7 @@ function formatCurrency(value) {
 const ANALYTICS_CONSENT_KEY = "investinbali_analytics_consent";
 const LANGUAGE_PREFERENCE_KEY = "investinbali_language";
 const CAMPAIGN_SESSION_KEY = "investinbali_campaign";
-const GUIDE_PATH = "/assets/downloads/gratis-gids-investeren-in-bali-2026.pdf";
+const GUIDE_PATH = "/assets/downloads/gratis-gids-investeren-in-bali-2026.pdf?v=20261002";
 
 function setupMobileNavigation() {
   const header = document.querySelector(".site-header");

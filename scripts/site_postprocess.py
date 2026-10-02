@@ -9,11 +9,12 @@ from pathlib import Path
 
 from PIL import Image
 from knowledge_catalogue import refresh_catalogue
+from editorial_improvements import enhance_editorial, PRACTICAL, SOURCES
 
 
 ROOT = Path(__file__).resolve().parents[1]
 LOGO = "/assets/logo-variations/villa-gate-variant-01-balanced-door.svg"
-ASSET_VERSION = "20261002-ux1"
+ASSET_VERSION = "20261002-ux2"
 PLACEHOLDER_PROJECTS = {
     project["slug"]
     for project in json.loads((ROOT / "data" / "projects.json").read_text(encoding="utf-8"))
@@ -81,6 +82,8 @@ def enhance_schema(markup: str, main_text: str, placeholder: bool) -> str:
 
 def add_image_dimensions(markup: str) -> str:
     pattern = re.compile(r"<img\b[^>]*>", re.I)
+    manifest_path = ROOT / 'data/responsive-images.json'
+    manifest = json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.exists() else {}
 
     def replace(match: re.Match[str]) -> str:
         tag = match.group(0)
@@ -89,6 +92,10 @@ def add_image_dimensions(markup: str) -> str:
             return tag
         asset = ROOT / src_match.group(1).lstrip("/")
         attrs = ""
+        variants = manifest.get(src_match.group(1), [])
+        if len(variants) > 1 and ' srcset=' not in tag:
+            candidates = ', '.join(f"{item['src']} {item['width']}w" for item in variants)
+            attrs += f' srcset="{candidates}" sizes="(max-width: 700px) 100vw, 1200px"'
         if " decoding=" not in tag:
             attrs += ' decoding="async"'
         if " width=" not in tag and " height=" not in tag and asset.exists():
@@ -103,6 +110,38 @@ def add_image_dimensions(markup: str) -> str:
         return tag[:-2] + attrs + " />" if tag.endswith("/>") else tag[:-1] + attrs + ">"
 
     return pattern.sub(replace, markup)
+
+
+def enhance_forms(markup: str) -> str:
+    def replace(match):
+        form = match.group(0)
+        guide = 'value="gids_aanvraag"' in form or 'value="member_gids_inschrijving"' in form
+        call = 'value="call_aanvraag"' in form
+        if call:
+            for field in ("investment_goal", "budget_range", "timeline", "experience_level", "preferred_area"):
+                form = re.sub(r'<label class="form-field">(?:(?!</label>).)*?name="' + field + r'".*?</label>', '', form, flags=re.S)
+            form = form.replace('name="message" rows="4" required', 'name="message" rows="4"')
+            form = form.replace('Waar wil je meer over weten?</span>', 'Waar wil je meer over weten? (optioneel)</span>')
+            form = form.replace('Telefoonnummer</span>', 'Telefoonnummer met landcode</span>')
+        if guide:
+            form = form.replace('Bedankt. We sturen de gids naar je e-mailadres. Controleer ook je spammap.', 'Bedankt. Je aanvraag is ontvangen. Je kunt de gids hieronder downloaden.')
+            form = re.sub(r'<label class="form-field">(?:(?!</label>).)*?name="interest".*?</label>', '', form, flags=re.S)
+            form = form.replace('name="name" type="text" autocomplete="name" required', 'name="name" type="text" autocomplete="given-name"')
+            form = form.replace('<span>Naam</span>', '<span>Voornaam (optioneel)</span>')
+            form = form.replace('de gids en relevante informatie te sturen.', 'de aangevraagde gids te sturen.')
+            form = re.sub(r'<p class="form-note">.*?</p>', '<p class="form-note">Je ontvangt de gids ook zonder toestemming voor updates. Na ontvangst van je aanvraag kun je de gids direct downloaden.</p>', form, flags=re.S)
+            if 'name="marketing_consent"' not in form:
+                optional = '<label class="form-consent"><input name="marketing_consent" type="checkbox" value="yes" /><span>Optioneel: ik ontvang graag updates over Bali-vastgoed. Afmelden kan via info@investinbali.nl.</span></label>'
+                form = re.sub(r'(<label class="form-consent">.*?</label>)', r'\1\n              ' + optional, form, count=1, flags=re.S)
+        # Place the notice beside service consent, not only in the footer.
+        def consent_label(label):
+            block = label.group(0)
+            if 'name="consent"' in block and '/privacybeleid/' not in block:
+                block = block.replace('</span>', ' Lees het <a href="/privacybeleid/">privacybeleid</a>.</span>')
+            return block
+        form = re.sub(r'\n[ \t]*\n(?:[ \t]*\n)+', '\n\n', form)
+        return re.sub(r'<label class="form-consent">.*?</label>', consent_label, form, flags=re.S)
+    return re.sub(r'<form\b[^>]*class="prepared-form"[^>]*>.*?</form>', replace, markup, flags=re.S)
 
 
 def enhance_html(path: Path) -> None:
@@ -141,10 +180,13 @@ def enhance_html(path: Path) -> None:
     if placeholder:
         markup = re.sub(r'<meta\s+name="robots"\s+content="[^"]*"\s*/?>', '<meta name="robots" content="noindex,follow" />', markup, count=1)
 
+    markup = enhance_editorial(markup, relative)
+
     main_match = re.search(r"<main\b[^>]*>(.*?)</main>", markup, flags=re.I | re.S)
     main_text = visible_text(main_match.group(1) if main_match else "")
     markup = enhance_schema(markup, main_text, placeholder)
     markup = add_image_dimensions(markup)
+    markup = enhance_forms(markup)
 
     if project_match and project_slug != "seseh-boutique-villas":
         markup = re.sub(r'\s*<p class="illustrative-image-note">.*?</p>', "", markup, flags=re.S)
@@ -187,6 +229,7 @@ def enhance_html(path: Path) -> None:
     )
     markup = re.sub(r'href="/styles\.css(?:\?[^"<>]*)?"', f'href="/styles.css?v={ASSET_VERSION}"', markup)
     markup = re.sub(r'src="/script\.js(?:\?[^"<>]*)?"', f'src="/script.js?v={ASSET_VERSION}"', markup)
+    markup = re.sub(r'href="(/assets/downloads/gratis-gids-investeren-in-bali-2026\.pdf)(?:\?[^"<>]*)?"', r'href="\1?v=20261002"', markup)
     markup = "\n".join(line.rstrip() for line in markup.splitlines()).rstrip() + "\n"
     path.write_text(markup, encoding="utf-8")
 
@@ -194,6 +237,19 @@ def enhance_html(path: Path) -> None:
 def update_sitemap() -> None:
     path = ROOT / "sitemap.xml"
     markup = path.read_text(encoding="utf-8")
+    changed = set(SOURCES) | {f"kenniscentrum/{slug}/index.html" for slug in PRACTICAL}
+    changed.update({"contact/index.html", "privacybeleid/index.html", "projecten/casa-surya-villas/index.html"})
+    for relative in changed:
+        loc = "https://www.investinbali.nl/" + relative.removesuffix("index.html")
+        pattern = r'(<url>\s*<loc>' + re.escape(loc) + r'</loc>)(.*?)(</url>)'
+        def update_entry(match):
+            rest = match[2]
+            if '<lastmod>' in rest:
+                rest = re.sub(r'<lastmod>.*?</lastmod>', '<lastmod>2026-10-02</lastmod>', rest)
+            else:
+                rest = '\n    <lastmod>2026-10-02</lastmod>' + rest
+            return match[1] + rest + match[3]
+        markup = re.sub(pattern, update_entry, markup, flags=re.S)
     for slug in PLACEHOLDER_PROJECTS:
         markup = re.sub(
             rf"\s*<url>\s*<loc>https://www\.investinbali\.nl/projecten/{re.escape(slug)}/</loc>.*?</url>",

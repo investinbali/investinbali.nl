@@ -2792,3 +2792,9 @@ h2 {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+[hidden] { display: none !important; }
+.article-toc { padding-top: 1rem; padding-bottom: 1rem; }
+.article-toc details { border: 1px solid rgba(184,138,61,.35); padding: 1rem 1.25rem; border-radius: 12px; }
+.article-toc summary { cursor: pointer; font-weight: 700; min-height: 28px; }
+.article-toc li { padding-block: .35rem; }
+.article-toc a { overflow-wrap: anywhere; }
