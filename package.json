@@ -8,7 +8,7 @@
     "generate:seo": "python scripts/generate_seo_landing_pages.py",
     "postprocess": "python scripts/site_postprocess.py",
     "test:contact-api": "node scripts/test_contact_api.js",
-    "test:audit": "node scripts/test_contact_api.js && node scripts/test_campaign_tracking.js && python scripts/test_audit_improvements.py && python scripts/verify_site.py",
+    "test:audit": "node scripts/test_contact_api.js && node scripts/test_campaign_tracking.js && python scripts/test_audit_improvements.py && python scripts/verify_site.py && python scripts/test_project_publication.py",
     "generate:seseh": "python scripts/render_seseh_returns.py"
   },
   "dependencies": {

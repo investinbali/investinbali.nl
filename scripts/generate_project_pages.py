@@ -3,11 +3,14 @@ from __future__ import annotations
 import html
 import json
 from pathlib import Path
+from project_publication import is_public, visible_projects
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.investinbali.nl"
 
 STATUS_LABELS = {
+    "concept": "Projectconcept · beschikbaarheid onbevestigd",
+    "ongepubliceerd": "Geen geverifieerd aanbod",
     "te-koop": "Te koop",
     "investering": "Investering",
     "binnenkort": "Binnenkort",
@@ -169,12 +172,11 @@ def fact_rows(project: dict) -> str:
 
 
 def overview(projects: list[dict]) -> str:
-    ordered_projects = sorted(projects, key=lambda project: not project.get("featured", False))
-    visible = ordered_projects
+    visible = visible_projects(projects)
     more_text = ""
     cards = "\n".join(card(project) for project in visible)
-    description = "Vergelijk projecten en investeringsobjecten op Bali op locatie, prijs, juridische structuur, risico's en verhuurpotentie."
-    indexable_projects = [project for project in ordered_projects if project.get("status") != "binnenkort"]
+    description = "Bekijk gedocumenteerde projectconcepten en uitverkochte projectreferenties op Bali, met bronstatus, risico's en controlepunten."
+    indexable_projects = visible
     collection_schema = {
         "@context": "https://schema.org",
         "@graph": [
@@ -219,12 +221,12 @@ def overview(projects: list[dict]) -> str:
       <section class="subpage-hero project-hero">
         <p class="eyebrow">VASTGOEDCATALOGUS</p>
         <h1>Projecten op Bali</h1>
-        <p>Vergelijk woningen en investeringsprojecten op locatie, prijs, juridische structuur, verhuurpotentie, risico’s en verwachte rendementen.</p>
+        <p>Bekijk projectconcepten en projectreferenties met een vermelde bron. Beschikbaarheid is niet bevestigd; een presentatie is geen aanbod of afgeronde due diligence.</p>
       </section>
       <section class="content-shell">
         <article class="content-card catalog-intro">
           <h2>Verder kijken dan alleen foto's</h2>
-          <p>Deze selectie is bedoeld voor kopers en investeerders die verder willen kijken dan alleen foto’s. Elk object wordt gepresenteerd met vaste informatie, zodat je sneller kunt beoordelen of het past bij jouw doel: aankoop, waardegroei, short-stay verhuur of een combinatie daarvan.</p>
+          <p>We tonen maximaal negen projecten met gedocumenteerde herkomst. Concepten en uitverkochte referenties hebben een eigen status. Profielen zonder verifieerbare objectbron worden niet als aanbod gepubliceerd.</p>
         </article>
         <div class="catalog-grid">
           {cards}
@@ -389,15 +391,45 @@ def detail(project: dict) -> str:
 """
 
 
+def unpublished_detail(project: dict) -> str:
+    title = project["title"]
+    description = f"{title}: geen geverifieerd vastgoedaanbod. Dit niet-gepubliceerde profiel heeft geen bevestigde objectbron of beschikbaarheid."
+    head = page_head(f"{title} | Geen geverifieerd aanbod", description, f"{BASE_URL}/projecten/{project['slug']}/", "/assets/hero/bali-villa-hero.webp", "Sfeerbeeld Bali")
+    head = head.replace('content="index,follow"', 'content="noindex,follow"')
+    return f'''<!DOCTYPE html>
+<html lang="nl">
+  {head}
+  <body class="subpage">
+    {header()}
+    <main>
+      <section class="subpage-hero">
+        <p class="eyebrow">GEEN GEVERIFIEERD AANBOD</p>
+        <h1>{esc(title)}: niet-gepubliceerd profiel</h1>
+        <p>Voor dit profiel ontbreekt een verifieerbare objectbron. Het is geen actueel vastgoedaanbod en de beschikbaarheid is niet bevestigd.</p>
+      </section>
+      <section class="content-shell">
+        <article class="content-card">
+          <h2>Bekijk de gedocumenteerde projecten</h2>
+          <p>Er worden voor dit profiel geen prijzen, kenmerken of rendementsprognoses als projectfeiten gepubliceerd.</p>
+          <a class="button button-gold" href="/projecten/">Terug naar projecten</a>
+        </article>
+      </section>
+    </main>
+    {footer()}
+  </body>
+</html>
+'''
+
+
 def main() -> None:
     projects = json.loads((ROOT / "data" / "projects.json").read_text(encoding="utf-8"))
     (ROOT / "projecten" / "index.html").write_text(overview(projects), encoding="utf-8")
     for project in projects:
-        if project["slug"] in {"casa-surya-villas", "seseh-boutique-villas"}:
+        if is_public(project) and project["slug"] in {"casa-surya-villas", "seseh-boutique-villas"}:
             continue
         target = ROOT / "projecten" / project["slug"]
         target.mkdir(parents=True, exist_ok=True)
-        (target / "index.html").write_text(detail(project), encoding="utf-8")
+        (target / "index.html").write_text(detail(project) if is_public(project) else unpublished_detail(project), encoding="utf-8")
 
 
 if __name__ == "__main__":

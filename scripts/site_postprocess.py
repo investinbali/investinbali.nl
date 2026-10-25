@@ -10,15 +10,20 @@ from pathlib import Path
 from PIL import Image
 from knowledge_catalogue import refresh_catalogue
 from editorial_improvements import enhance_editorial, PRACTICAL, SOURCES
+from project_publication import is_public
 
 
 ROOT = Path(__file__).resolve().parents[1]
 LOGO = "/assets/logo-variations/villa-gate-variant-01-balanced-door.svg"
-ASSET_VERSION = "20261002-ux2"
+ASSET_VERSION = "20261025-audit"
+SOURCE_URL_REPLACEMENTS = {
+    "https://ppid.bkpm.go.id/wp-content/uploads/2022/09/Indonesia_Investment_Guidebook.pdf": "https://www.bkpm.go.id/index.php/id/info/pengumuman/buku-panduan-investasi-indonesia-2022",
+    "https://iru.ojk.go.id/iru/news/detailnews/13800/strengthening-the-governance-of-insurance-companies-indonesia-financial-services-authority-launches-the-indonesian-insurance-agent-database-and-the-indonesian-insurance-policy-database": "https://ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/OJK-Luncurkan-Database-Agen-Asuransi-dan-Polis-Asuransi.aspx",
+}
 PLACEHOLDER_PROJECTS = {
     project["slug"]
     for project in json.loads((ROOT / "data" / "projects.json").read_text(encoding="utf-8"))
-    if project.get("status") == "binnenkort"
+    if not is_public(project)
 }
 
 
@@ -146,7 +151,23 @@ def enhance_forms(markup: str) -> str:
 
 def enhance_html(path: Path) -> None:
     markup = path.read_text(encoding="utf-8")
+    for old_url, new_url in SOURCE_URL_REPLACEMENTS.items():
+        markup = markup.replace(old_url, new_url)
     relative = path.relative_to(ROOT).as_posix()
+    if relative in {"cookiebeleid/index.html", "privacybeleid/index.html"} and 'property="og:title"' not in markup:
+        title = re.search(r"<title>(.*?)</title>", markup, re.S)[1]
+        description = re.search(r'<meta name="description" content="([^"]+)"', markup)[1]
+        url = "https://www.investinbali.nl/" + relative.removesuffix("index.html")
+        tags = f'''    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:site_name" content="Invest in Bali" />
+    <meta property="og:title" content="{title}" />
+    <meta property="og:description" content="{description}" />
+    <meta property="og:url" content="{url}" />
+    <meta property="og:image" content="https://www.investinbali.nl/assets/hero/bali-villa-hero.webp" />
+    <meta property="og:image:alt" content="Villa op Bali als sfeerbeeld" />
+'''
+        markup = markup.replace("</head>", tags + "  </head>", 1)
     if relative == "kenniscentrum/index.html":
         markup = refresh_catalogue(markup)
     project_match = re.fullmatch(r"projecten/([^/]+)/index\.html", relative)
@@ -208,6 +229,15 @@ def enhance_html(path: Path) -> None:
         markup = markup.replace("</footer>", legal + "\n    </footer>", 1)
 
     footer_match = re.search(r"<footer\b.*?</footer>", markup, flags=re.I | re.S)
+    if footer_match and 'class="footer-rental-link"' not in footer_match.group(0):
+        footer = footer_match.group(0)
+        footer = footer.replace(
+            '</a>',
+            '</a>\n        <a class="footer-rental-link" href="https://clarityhomesbali.com/" target="_blank" rel="noopener noreferrer">Lokale verhuur op Bali — Clarity Homes Bali</a>',
+            1,
+        )
+        markup = markup[: footer_match.start()] + footer + markup[footer_match.end() :]
+        footer_match = re.search(r"<footer\b.*?</footer>", markup, flags=re.I | re.S)
     if footer_match and "data-cookie-preferences" not in footer_match.group(0):
         footer = footer_match.group(0)
         footer = footer.replace(
@@ -262,6 +292,12 @@ def update_sitemap() -> None:
         if loc not in markup:
             entry = f"  <url>\n    <loc>{loc}</loc>\n    <changefreq>yearly</changefreq>\n    <priority>0.3</priority>\n  </url>\n"
             markup = markup.replace("</urlset>", entry + "</urlset>")
+    for route in ("over-ons/", "projecten/", "projecten/casa-surya-villas/", "projecten/seseh-boutique-villas/"):
+        pattern = r'(<url>\s*<loc>https://www\.investinbali\.nl/' + re.escape(route) + r'</loc>)(.*?)(</url>)'
+        def mark_updated(match):
+            rest = re.sub(r"\s*<lastmod>.*?</lastmod>", "", match[2])
+            return match[1] + "\n    <lastmod>2026-10-25</lastmod>" + rest + match[3]
+        markup = re.sub(pattern, mark_updated, markup, flags=re.S)
     markup = "\n".join(line.rstrip() for line in markup.splitlines()).rstrip() + "\n"
     path.write_text(markup, encoding="utf-8")
 

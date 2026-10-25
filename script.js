@@ -627,14 +627,6 @@ function setupContactRoutes() {
   const projects = {
     "seseh-boutique-villas": "Seseh Plot 12 Boutique Villas",
     "casa-surya-villas": "Casa Surya (uitverkocht) — interesse in andere projecten",
-    "canggu-ocean-villas": "Canggu Ocean Villas",
-    "seminyak-sunset-residence": "Seminyak Sunset Residence",
-    "uluwatu-cliffside-home": "Uluwatu Cliffside Home",
-    "berawa-family-villa": "Berawa Family Villa",
-    "nusa-dua-premium-villa": "Nusa Dua Premium Villa",
-    "pererenan-ricefield-home": "Pererenan Ricefield Home",
-    "sanur-leasehold-home": "Sanur Leasehold Home",
-    "tabanan-growth-land": "Tabanan Growth Land",
   };
   const slug = new URLSearchParams(window.location.search).get("project");
   if (!Object.prototype.hasOwnProperty.call(projects, slug)) return;
