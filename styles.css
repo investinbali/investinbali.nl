@@ -1863,6 +1863,11 @@ h2 {
   color: var(--dark-text);
 }
 
+.subpage .footer-column h4,
+.subpage .footer-email {
+  color: #785019;
+}
+
 .subpage .site-header {
   position: relative;
   inset: auto;

@@ -15,7 +15,7 @@ from project_publication import is_public
 
 ROOT = Path(__file__).resolve().parents[1]
 LOGO = "/assets/logo-variations/villa-gate-variant-01-balanced-door.svg"
-ASSET_VERSION = "20261025-audit"
+ASSET_VERSION = "20261025-audit2"
 SOURCE_URL_REPLACEMENTS = {
     "https://ppid.bkpm.go.id/wp-content/uploads/2022/09/Indonesia_Investment_Guidebook.pdf": "https://www.bkpm.go.id/index.php/id/info/pengumuman/buku-panduan-investasi-indonesia-2022",
     "https://iru.ojk.go.id/iru/news/detailnews/13800/strengthening-the-governance-of-insurance-companies-indonesia-financial-services-authority-launches-the-indonesian-insurance-agent-database-and-the-indonesian-insurance-policy-database": "https://ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/OJK-Luncurkan-Database-Agen-Asuransi-dan-Polis-Asuransi.aspx",
